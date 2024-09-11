@@ -18,5 +18,15 @@ Repositório em construção...🔧🔨
   <details>
     <summary> Entregas </summary>
     <br>
-    <p><strong>  </strong></p>
+    <details>
+      <summary> Status Report 1 </summary>
+      <br>
+      <p><strong>  </strong></p>
+    </details>
+    <details>
+      <summary> Status Report 2 </summary>
+      <br>
+      <p><strong>  </strong></p>
+    </details>
   </details>
+    
