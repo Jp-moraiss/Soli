@@ -1,0 +1,212 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #F9F9F9;
+    display: flex;
+    justify-content: center;
+    padding: 10px; /* Adiciona um padding geral */
+}
+
+.container {
+    width: 100%; /* Ajuste para ocupar 100% da largura disponível */
+    max-width: 1000px; /* Largura máxima para telas grandes */
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.SVG {
+    width: 24px;
+    height: 24px;
+    color: black;
+}
+
+.weather {
+    background-color: #EFEFEF;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.current-weather {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.current-weather span {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.hourly-forecast {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.hour {
+    font-size: 14px;
+    text-align: center;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-details .detail {
+    text-align: center;
+}
+
+.reminders {
+    margin-bottom: 20px;
+}
+
+.reminders h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.reminder {
+    background-color: #E0E0E0;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.reminder.done {
+    text-decoration: line-through;
+}
+
+.check {
+    font-size: 20px;
+    color: #4CAF50;
+}
+
+.add-reminder {
+    text-align: center;
+}
+
+.add-reminder button {
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+nav a img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) { /* Estilos para tablets */
+    .container {
+        padding: 15px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date {
+        font-size: 16px;
+    }
+
+    .current-weather span {
+        font-size: 28px;
+    }
+
+    .hourly-forecast {
+        flex-direction: row;
+        overflow-x: auto; /* Adiciona rolagem horizontal */
+    }
+
+    .hour {
+        flex: 0 0 auto; /* Evita que os itens sejam comprimidos */
+    }
+
+    .reminder {
+        font-size: 14px; /* Reduz a fonte para lembretes */
+    }
+
+    .add-reminder button {
+        font-size: 20px; /* Reduz a fonte do botão */
+    }
+}
+
+@media (max-width: 480px) { /* Estilos para smartphones */
+    .container {
+        padding: 8px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date {
+        font-size: 14px;
+    }
+
+    .current-weather {
+        font-size: 14px;
+    }
+
+    .current-weather span {
+        font-size: 24px;
+    }
+
+    .hourly-forecast {
+        flex-direction: column; /* Muda a direção para coluna */
+    }
+
+    .hour {
+        font-size: 12px; /* Reduz a fonte para horas */
+    }
+
+    .reminders h2 {
+        font-size: 16px; /* Reduz o tamanho do título de lembretes */
+    }
+
+    .reminder {
+        font-size: 14px; /* Reduz a fonte para lembretes */
+    }
+
+    .add-reminder button {
+        font-size: 18px; /* Reduz a fonte do botão */
+    }
+}
