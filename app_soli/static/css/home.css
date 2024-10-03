@@ -21,6 +21,10 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+#dps{
+    display: none;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -78,11 +82,41 @@ header {
 
 .reminders {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .reminders h2 {
+    display: flex;
     font-size: 18px;
     margin-bottom: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+ul{
+width: 100%;
+}
+
+.botao_adicionar{
+    width: fit-content;
+    height: fit-content;
+    border-style: solid;
+    border-color: black;
+    background-color: none;
+    border-radius: 100px;
+    padding: 5px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.botao_adicionar:hover{
+    background-color: #E0E0E0;
+    transition: 0.3s;
 }
 
 .reminder {
@@ -170,7 +204,7 @@ nav a img {
 
 @media (max-width: 480px) { /* Estilos para smartphones */
     .container {
-        padding: 8px;
+        padding: 10px;
     }
 
     header {

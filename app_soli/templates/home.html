@@ -19,7 +19,7 @@
         </header>
 
         <!-- Previsão do tempo -->
-        <section class="weather">
+        <section class="weather" id="dps">
             <div class="current-weather">
                 <p>Agora</p>
                 <span>29°</span>
@@ -51,21 +51,12 @@
         <!-- Lembretes -->
         <section class="reminders">
             <h2>Lembretes</h2>
-            <div class="reminder done">
-                <s>Colher do Alface H1L4</s>
-                <span class="check">&#10003;</span>
-            </div>
-            <div class="reminder">
-                Aguar Tomate R2L3
-                <span class="check">&#10003;</span>
-            </div>
-            <div class="reminder">
-                Ligar para Darci
-                <span class="check">&#10003;</span>
-            </div>
-            <div class="add-reminder">
-                <button>+</button>
-            </div>
+            <ul>
+                <li class="reminder">Colher do Alface H1L4 <input class="checkbox" type="checkbox"></li>
+                <li class="reminder">Aguar Tomate R2L3 <input class="checkbox" type="checkbox"></li>
+                <li class="reminder">Ligar para Darci <input class="checkbox" type="checkbox"></li> 
+            </ul>
+                <button class="botao_adicionar"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
         </section>
 
         <!-- Navegação -->
