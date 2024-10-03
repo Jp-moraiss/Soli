@@ -38,24 +38,47 @@
 </footer>
 
 <style>
-    footer {
+    
+    html, body {
+    height: 100%; /* Garante que o html e body ocupem a altura total da tela */
+    margin: 0; /* Remove margens padrão */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Define a direção dos filhos como coluna */
+    min-height: 100vh; /* Garante que o container ocupe pelo menos a altura da tela */
+}
+
+.content {
+    flex: 1; /* Permite que o conteúdo ocupe o espaço restante */
+    padding-bottom: 4rem; /* Adiciona espaço na parte inferior para evitar que o conteúdo fique atrás do footer */
+}
+
+footer {
     background-color: #f8f9fa;
     padding: 1rem;
     border-top: 1px solid #e0e0e0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: fixed; /* Faz o footer ficar fixo */
+    bottom: 0; /* Posiciona o footer na parte inferior */
+    left: 0; /* Garante que o footer comece no lado esquerdo */
+    width: 100%; /* Faz o footer ocupar toda a largura */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra opcional ao footer */
+    z-index: 10; /* Garante que o footer fique acima de outros elementos */
 }
 
 footer nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; /* Espalha os itens uniformemente */
     align-items: center;
+    flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se não houver espaço suficiente */
 }
 
 footer nav a {
     color: #333;
     text-decoration: none;
+    padding: 0.5rem; /* Adiciona um pouco de espaço ao redor dos links */
+    white-space: nowrap; /* Impede que o texto quebre em múltiplas linhas */
 }
 
 .SVG {
@@ -68,5 +91,6 @@ footer nav a {
     fill: #007bff;
     stroke: #007bff;
 }
+
 
 </style>

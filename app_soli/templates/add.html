@@ -15,65 +15,49 @@
     <div class="container">
         <!-- Inclui o cabeçalho -->
         {% include 'header.html' %}
-
-        <div class="container_cult">
-            <label for="">Cultura:</label>
-            <select name="" id="">
-                <option value="select">Selecione a cultura...</option>
-                <option value="tomate">Tomate</option>
-                <option value="brocolis">Brócolis</option>
-                <option value="alface">Alface</option>
-            </select>
-        </div>
-
-        <hr>
-
-        <div class="container_loc-desc">
-            <span class="span">
-                <label for="localizacao">Localização</label>
-                <input type="text" placeholder="Área/Linha">
-            </span>
-
-            <span class="span">
-                <label for="descricao">Descrição</label>
-                <input type="text" placeholder="Digite aqui...">
-            </span>
-        </div>
-
-        <hr>
-
-        <div class="container_data">
-            <span class="span">
-                <label for="data_plantio">Data de Plantio</label>
-                <input type="text" placeholder="dd/mm/yy">
-            </span>
-
-            <span class="span">
-                <label for="data_colheita">Data de Colheita</label>
-                <input type="text" placeholder="dd/mm/yy">
-            </span>
-        </div>
-
-        <div class="container_data2">
-            <label for="duracao">Duração:</label>
-            <div class="div_data_num">
-                <input type="number" placeholder="...">
+        
+        <div class="content">
+            <div class="container_cult">
+                <label for="">Cultura:</label>
                 <select name="" id="">
-                    <option value="dias">dias</option>
-                    <option value="meses">meses</option>
-                    <option value="anos">anos</option>
+                    <option value="select">Selecione a cultura...</option>
+                    <option value="tomate">Tomate</option>
+                    <option value="brocolis">Brócolis</option>
+                    <option value="alface">Alface</option>
                 </select>
             </div>
-        </div>
-
-        <hr>
-
-        <div class="atividades">
-            <label for="adicionar_atv">Adicionar atividades:</label>
-            <div class="hold_atv-p">
-                <p>Irrigação:</p>
-                <div class="atv">
-                    <p>A cada</p>
+    
+            <hr>
+    
+            <div class="container_loc-desc">
+                <span class="span">
+                    <label for="localizacao">Localização</label>
+                    <input type="text" placeholder="Área/Linha">
+                </span>
+    
+                <span class="span">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" placeholder="Digite aqui...">
+                </span>
+            </div>
+    
+            <hr>
+    
+            <div class="container_data">
+                <span class="span">
+                    <label for="data_plantio">Data de Plantio</label>
+                    <input type="text" placeholder="dd/mm/yy">
+                </span>
+    
+                <span class="span">
+                    <label for="data_colheita">Data de Colheita</label>
+                    <input type="text" placeholder="dd/mm/yy">
+                </span>
+            </div>
+    
+            <div class="container_data2">
+                <label for="duracao">Duração:</label>
+                <div class="div_data_num">
                     <input type="number" placeholder="...">
                     <select name="" id="">
                         <option value="dias">dias</option>
@@ -82,29 +66,47 @@
                     </select>
                 </div>
             </div>
-
-            <div class="hold_atv-p">
-                <p>Poda:</p>
-                <div class="atv">
-                    <p>A cada</p>
-                    <input type="number" placeholder="...">
-                    <select name="" id="">
-                        <option value="dias">dias</option>
-                        <option value="meses">meses</option>
-                        <option value="anos">anos</option>
-                    </select>
+    
+            <hr>
+    
+            <div class="atividades">
+                <label for="adicionar_atv">Adicionar atividades:</label>
+                <div class="hold_atv-p">
+                    <p>Irrigação:</p>
+                    <div class="atv">
+                        <p>A cada</p>
+                        <input type="number" placeholder="...">
+                        <select name="" id="">
+                            <option value="dias">dias</option>
+                            <option value="meses">meses</option>
+                            <option value="anos">anos</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="hold_atv-p">
+                    <p>Poda:</p>
+                    <div class="atv">
+                        <p>A cada</p>
+                        <input type="number" placeholder="...">
+                        <select name="" id="">
+                            <option value="dias">dias</option>
+                            <option value="meses">meses</option>
+                            <option value="anos">anos</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="button-holder">
-            <button class="botao_adicionar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5v14"/>
-                </svg>
-            </button>
-            <button class="registrar_cultura">Registrar Cultura</button>
+    
+            <div class="button-holder">
+                <button class="botao_adicionar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+                        <path d="M5 12h14"/>
+                        <path d="M12 5v14"/>
+                    </svg>
+                </button>
+                <button class="registrar_cultura">Registrar Cultura</button>
+            </div>
         </div>
 
         <!-- Inclui o rodapé -->
