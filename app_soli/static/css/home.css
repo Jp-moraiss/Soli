@@ -129,6 +129,11 @@ width: 100%;
     align-items: center;
     font-size: 16px;
 }
+.checkbox{
+    background-color: rgb(84, 83, 83);
+    border-color:#333 ;
+    border-radius: 50px;
+}
 
 .reminder.done {
     text-decoration: line-through;

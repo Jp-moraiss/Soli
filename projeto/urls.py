@@ -20,5 +20,6 @@ from app_soli import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name = 'home')
+    path('', views.home, name = 'home'),
+    path('add/', views.add, name='add'),
 ]
