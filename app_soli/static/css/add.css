@@ -11,10 +11,51 @@
     margin-bottom: 1rem;
 }
 
+.container_data2 {
+    background-color: #cecece;
+    border-radius: 4rem;
+    padding: 1rem;
+    color: #9a9899;
+    border-style: none;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.container_data2 p {
+    color: black;
+}
+
 .span {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+/* Novo estilo para duração */
+.duracao-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #cecece;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+}
+
+.duracao-container label {
+    flex: 1;
+    text-align: left;
+}
+
+.duracao-container input,
+.duracao-container select {
+    width: auto;
+    flex: none;
+    max-width: 4rem;
 }
 
 .atividades {
@@ -25,16 +66,41 @@
 .hold_atv-p {
     display: flex;
     flex-direction: row;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    background-color: #cecece;
+    border-style: none;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
 }
 
-.atv {
+.hold_atv-p .atv {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hold_atv-p label {
+    flex: 1;
+    text-align: left;
+}
+
+.hold_atv-p input, 
+.hold_atv-p select {
+    width: auto;
+    flex: none;
+    max-width: 4rem;
+}
+
+.select_atv {
+    padding: 1rem;
+    background-color: #e3e3e3;
+    border-style: none;
+    border-radius: 0.5rem;
 }
 
 .button-holder {
@@ -43,17 +109,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 1.875rem; 
+    gap: 1.875rem;
 }
 
 .registrar_cultura {
-    padding: 0.9375rem; 
-    padding-right: 1.5625rem; 
+    padding: 0.9375rem;
+    padding-right: 1.5625rem;
     padding-left: 1.5625rem;
-    font-size: 1rem; 
+    font-size: 1rem;
     font-weight: bold;
     border-style: solid;
-    border-radius: 3.125rem; 
+    border-radius: 3.125rem;
     cursor: pointer;
     transition: 0.5s;
     margin-bottom: 4rem;
@@ -62,6 +128,37 @@
 .registrar_cultura:hover {
     transition: 0.5s;
     background-color: #E0E0E0;
+}
+
+.input_cultura {
+    background-color: #cecece;
+    border-radius: 4rem;
+    padding: 1rem;
+    color: #9a9899;
+    border-style: none;
+}
+
+.input_number {
+    background-color: #e3e3e3;
+    width: 4rem;
+    border-radius: 2px;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 0.5rem;
+}
+
+input {
+    background-color: #cecece;
+    border-radius: 4rem;
+    padding: 1rem;
+    color: #9a9899;
+    border-style: none;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
 /* Estilos responsivos */
@@ -73,17 +170,26 @@
 
     .button-holder {
         flex-direction: column;
-        gap: 1.25rem; /* equivalente a 20px */
+        gap: 1.25rem;
     }
 
-    .atividades, .hold_atv-p {
-        flex-direction: column;
-        align-items: flex-start;
+    .atividades, .hold_atv-p, .duracao-container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .hold_atv-p label, .duracao-container label {
+        flex: 1;
+        text-align: left;
     }
 
     .atv {
-        flex-direction: column;
-        gap: 0.625rem; /* equivalente a 10px */
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .duracao-container {
+        justify-content: space-between;
     }
 }
 
@@ -100,18 +206,31 @@
 
     .button-holder {
         width: 100%;
-        gap: 0.9375rem; /* equivalente a 15px */
+        gap: 0.9375rem;
     }
 
     .registrar_cultura {
         width: 100%;
-        padding: 0.75rem; /* equivalente a 12px */
-        font-size: 0.875rem; /* equivalente a 14px */
+        padding: 0.75rem;
+        font-size: 0.875rem;
     }
 
-    .atividades, .hold_atv-p, .atv {
-        flex-direction: column;
+    .atividades, .hold_atv-p, .atv, .duracao-container {
+        flex-direction: row;
         width: 100%;
-        gap: 0.9375rem; /* equivalente a 15px */
+        justify-content: space-between;
+        gap: 0.9375rem;
+    }
+
+    /* Ajuste para inputs e selects em telas menores */
+    .container_data2 input, .hold_atv-p input, 
+    .container_data2 select, .hold_atv-p select, 
+    .duracao-container input, .duracao-container select {
+        max-width: 4rem;
+    }
+
+    .atv{
+        align-self: flex-end;
+        padding: none;
     }
 }
