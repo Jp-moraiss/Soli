@@ -22,12 +22,9 @@ coverage.xml
 
 # Environments
 venv/
-env/
-ENV/
 venv.bak/
 .vscode/
 .idea/
-*.env
 *.local
 
 # Static and media files
