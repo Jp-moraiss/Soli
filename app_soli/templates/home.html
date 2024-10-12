@@ -47,11 +47,24 @@
         <section class="reminders">
             <h2>Lembretes</h2>
             <ul>
-                <li class="reminder">Colher do Alface H1L4 <input class="checkbox" type="checkbox"></li>
-                <li class="reminder">Aguar Tomate R2L3 <input class="checkbox" type="checkbox"></li>
-                <li class="reminder">Ligar para Darci <input class="checkbox" type="checkbox"></li> 
-            </ul>
-                <button class="botao_adicionar"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+                       <!-- Exibe os lembretes -->
+        {% for reminder in reminders %}
+        <li class="reminder">{{ reminder.text }}
+            <input class="checkbox" type="checkbox" {% if reminder.completed %}checked{% endif %}>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Formulário para adicionar novo lembrete -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="text" placeholder="Novo lembrete..." required>
+    <button type="submit" class="botao_adicionar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+            <path d="M5 12h14"/><path d="M12 5v14"/>
+        </svg>
+    </button>
+</form>
         </section>
 
 
