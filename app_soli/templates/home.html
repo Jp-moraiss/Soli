@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previsão e Lembretes</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Adicionando Font Awesome -->
 </head>
 <body>
     <div class="container">
@@ -47,26 +48,30 @@
         <section class="reminders">
             <h2>Lembretes</h2>
             <ul>
-                       <!-- Exibe os lembretes -->
-        {% for reminder in reminders %}
-        <li class="reminder">{{ reminder.text }}
-            <input class="checkbox" type="checkbox" {% if reminder.completed %}checked{% endif %}>
-        </li>
-    {% endfor %}
-</ul>
+                <!-- Exibe os lembretes -->
+                {% for reminder in reminders %}
+                    <li class="reminder">{{ reminder.text }}
+                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
+                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>  <!-- Ícone de lixeira -->
+                            </button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
 
-<!-- Formulário para adicionar novo lembrete -->
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="text" placeholder="Novo lembrete..." required>
-    <button type="submit" class="botao_adicionar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
-            <path d="M5 12h14"/><path d="M12 5v14"/>
-        </svg>
-    </button>
-</form>
+            <!-- Formulário para adicionar novo lembrete -->
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="text" placeholder="Novo lembrete..." required>
+                <button type="submit" class="botao_adicionar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+                        <path d="M5 12h14"/><path d="M12 5v14"/>
+                    </svg>
+                </button>
+            </form>
         </section>
-
 
         {% include 'footer.html' %}
     </div>

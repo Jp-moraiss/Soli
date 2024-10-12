@@ -1,19 +1,22 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reminder
 
-# Create your views here.
-
 def home(request):
-    # Se for uma requisição POST (quando o usuário envia um lembrete novo)
     if request.method == 'POST':
-        text = request.POST.get('text')  # Pega o valor do campo de texto do formulário
-        if text:  # Verifica se o texto não está vazio
-            Reminder.objects.create(text=text)  # Cria o novo lembrete no banco de dados
-        return redirect('home')  # Redireciona para a página principal após salvar o lembrete
+        text = request.POST.get('text')
+        if text:
+            Reminder.objects.create(text=text)
+        return redirect('app_soli:home')
 
-    # Se for uma requisição GET (para exibir a página)
-    reminders = Reminder.objects.all()  # Pega todos os lembretes do banco de dados
+
+    reminders = Reminder.objects.all()
     return render(request, 'home.html', {'reminders': reminders})
 
 def add(request):
     return render(request, 'add.html')
+
+# Nova função para excluir lembretes
+def excluir_lembrete(request, lembrete_id):
+    lembrete = get_object_or_404(Reminder, id=lembrete_id)
+    lembrete.delete()
+    return redirect('app_soli:home')
