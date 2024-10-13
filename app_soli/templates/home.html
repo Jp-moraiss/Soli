@@ -14,34 +14,13 @@
         <!-- Cabeçalho com data e menu -->
         {% include 'header.html' %}
 
-
         <!-- Previsão do tempo -->
         <section class="weather" id="dps">
             <div class="current-weather">
-                <p>Agora</p>
-                <span>29°</span>
-            </div>
-            <div class="hourly-forecast">
-                <div class="hour">08:00<br>28°</div>
-                <div class="hour">09:00<br>26°</div>
-                <div class="hour">10:00<br>25°</div>
-                <div class="hour">11:00<br>27°</div>
-                <div class="hour">12:00<br>26°</div>
-                <div class="hour">13:00<br>28°</div>
-            </div>
-            <div class="weather-details">
-                <div class="detail">
-                    <span>UMIDADE</span>
-                    <p>70%</p>
-                </div>
-                <div class="detail">
-                    <span>PRECIPITAÇÃO</span>
-                    <p>2mm</p>
-                </div>
-                <div class="detail">
-                    <span>FASE DA LUA</span>
-                    <p>Minguante</p>
-                </div>
+                <p id="location">Localização: --</p>
+                <p id="temperature">Temperatura: --°C</p>
+                <p id="humidity">Umidade: --%</p>
+                <p id="precipitation">Condição: --</p>
             </div>
         </section>
 
@@ -86,6 +65,51 @@
     </div>
 
     <script>
+        // Função para obter a localização do usuário e obter o clima atual
+        function getWeather() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                console.error('Geolocalização não é suportada por este navegador.');
+                document.getElementById('location').textContent = 'Erro ao obter localização.';
+            }
+        }
+
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            fetchWeather(latitude, longitude);
+        }
+
+        function error() {
+            console.error('Erro ao obter localização.');
+            document.getElementById('location').textContent = 'Erro ao obter localização.';
+        }
+
+        function fetchWeather(latitude, longitude) {
+            const apiKey = 'ac658cc9736043449d253857241310'; // Sua chave aqui
+            const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const temperature = data.current.temp_c;
+                    const humidity = data.current.humidity;
+                    const condition = data.current.condition.text;
+                    const location = data.location.name;
+
+                    document.getElementById('location').textContent = `Localização: ${location}`;
+                    document.getElementById('temperature').textContent = `Temperatura: ${temperature}°C`;
+                    document.getElementById('humidity').textContent = `Umidade: ${humidity}%`;
+                    document.getElementById('precipitation').textContent = `Condição: ${condition}`;
+                })
+                .catch(error => {
+                    console.error('Erro ao obter dados do clima:', error);
+                    document.getElementById('location').textContent = 'Erro ao obter dados do clima';
+                });
+        }
+
+        // Função para gerenciar as mensagens
         document.addEventListener('DOMContentLoaded', function () {
             const messages = document.querySelector('.messages');
             if (messages) {
@@ -97,6 +121,9 @@
                     messages.classList.remove('show');
                 }, 2000);
             }
+
+            // Chamar a função para obter o clima
+            getWeather();
         });
     </script>
 </body>

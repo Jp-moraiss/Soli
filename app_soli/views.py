@@ -20,6 +20,8 @@ def home(request):
 def add(request):
     return render(request, 'add.html')
 
+def weather(request):
+    return render(request, 'weather.html')
 def excluir_lembrete(request, lembrete_id):
     lembrete = get_object_or_404(Reminder, id=lembrete_id)
     lembrete.delete()
