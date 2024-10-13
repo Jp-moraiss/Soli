@@ -7,14 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previsão e Lembretes</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Adicionando Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 </head>
 <body>
     <div class="container">
-        <!-- Cabeçalho com data e menu -->
         {% include 'header.html' %}
 
-        <!-- Previsão do tempo -->
         <section class="weather" id="dps">
             <div class="current-weather">
                 <p id="location">Localização: --</p>
@@ -24,11 +22,9 @@
             </div>
         </section>
 
-        <!-- Lembretes -->
         <section class="reminders">
             <h2>Lembretes</h2>
             <ul>
-                <!-- Exibe os lembretes -->
                 {% for reminder in reminders %}
                     <li class="reminder">{{ reminder.text }}
                         <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;">
@@ -41,7 +37,6 @@
                 {% endfor %}
             </ul>
 
-            <!-- Formulário para adicionar novo lembrete -->
             <form class="form_reminder" method="POST">
                 {% csrf_token %}
                 <input class="reminder" type="text" name="text" placeholder="Novo lembrete..." required>
@@ -63,68 +58,7 @@
 
         {% include 'footer.html' %}
     </div>
-
-    <script>
-        // Função para obter a localização do usuário e obter o clima atual
-        function getWeather() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
-            } else {
-                console.error('Geolocalização não é suportada por este navegador.');
-                document.getElementById('location').textContent = 'Erro ao obter localização.';
-            }
-        }
-
-        function success(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            fetchWeather(latitude, longitude);
-        }
-
-        function error() {
-            console.error('Erro ao obter localização.');
-            document.getElementById('location').textContent = 'Erro ao obter localização.';
-        }
-
-        function fetchWeather(latitude, longitude) {
-            const apiKey = 'ac658cc9736043449d253857241310'; // Sua chave aqui
-            const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const temperature = data.current.temp_c;
-                    const humidity = data.current.humidity;
-                    const condition = data.current.condition.text;
-                    const location = data.location.name;
-
-                    document.getElementById('location').textContent = `Localização: ${location}`;
-                    document.getElementById('temperature').textContent = `Temperatura: ${temperature}°C`;
-                    document.getElementById('humidity').textContent = `Umidade: ${humidity}%`;
-                    document.getElementById('precipitation').textContent = `Condição: ${condition}`;
-                })
-                .catch(error => {
-                    console.error('Erro ao obter dados do clima:', error);
-                    document.getElementById('location').textContent = 'Erro ao obter dados do clima';
-                });
-        }
-
-        // Função para gerenciar as mensagens
-        document.addEventListener('DOMContentLoaded', function () {
-            const messages = document.querySelector('.messages');
-            if (messages) {
-                setTimeout(() => {
-                    messages.classList.add('show');
-                }, 100); 
-
-                setTimeout(() => {
-                    messages.classList.remove('show');
-                }, 2000);
-            }
-
-            // Chamar a função para obter o clima
-            getWeather();
-        });
-    </script>
+    
+    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
