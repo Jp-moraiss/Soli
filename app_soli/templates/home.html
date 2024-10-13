@@ -14,6 +14,7 @@
         <!-- Cabeçalho com data e menu -->
         {% include 'header.html' %}
 
+
         <!-- Previsão do tempo -->
         <section class="weather" id="dps">
             <div class="current-weather">
@@ -62,18 +63,41 @@
             </ul>
 
             <!-- Formulário para adicionar novo lembrete -->
-            <form method="POST">
+            <form class="form_reminder" method="POST">
                 {% csrf_token %}
-                <input type="text" name="text" placeholder="Novo lembrete..." required>
+                <input class="reminder" type="text" name="text" placeholder="Novo lembrete..." required>
                 <button type="submit" class="botao_adicionar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="reminder-plus">
                         <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
                 </button>
             </form>
         </section>
 
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% include 'footer.html' %}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const messages = document.querySelector('.messages');
+            if (messages) {
+                setTimeout(() => {
+                    messages.classList.add('show');
+                }, 100); 
+
+                setTimeout(() => {
+                    messages.classList.remove('show');
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>
