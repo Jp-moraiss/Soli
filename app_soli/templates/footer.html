@@ -1,6 +1,6 @@
 <footer>
     <nav>
-        <a href="{% url 'home' %}">
+        <a href="{% url 'app_soli:home' %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
                 <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
                 <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -13,7 +13,7 @@
                 <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
             </svg>
         </a>
-        <a href="{% url 'add' %}">
+        <a href="{% url 'app_soli:add' %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus">
                 <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
             </svg>
@@ -58,14 +58,14 @@
 
 footer {
     background-color: #f8f9fa;
-    padding: 1rem;
+    padding: 0.5rem;
     border-top: 1px solid #e0e0e0;
     position: fixed; /* Faz o footer ficar fixo */
     bottom: 0; /* Posiciona o footer na parte inferior */
     left: 0; /* Garante que o footer comece no lado esquerdo */
     width: 100%; /* Faz o footer ocupar toda a largura */
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra opcional ao footer */
-    z-index: 10; /* Garante que o footer fique acima de outros elementos */
+    margin-top: 2rem;
 }
 
 footer nav {
