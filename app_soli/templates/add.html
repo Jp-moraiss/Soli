@@ -8,18 +8,19 @@
     <title>Adicionar</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
-    <script src="{% static 'js/scripts.js' %}"></script>  <!-- Referência ao seu arquivo JS -->
+    <script src="{% static 'js/scripts.js' %}"></script>
     <script>
         // Função para validar o formulário
         function validateForm(event) {
             const cultura = document.querySelector('.input_cultura');
-            const localizacao = document.querySelector('input[name="localizacao"]');
+            const area = document.querySelector('select[name="area"]');
+            const linha = document.querySelector('select[name="linha"]');
             const descricao = document.querySelector('input[name="descricao"]');
             const dataPlantio = document.getElementById('data_plantio');
             const dataColheita = document.getElementById('data_colheita');
             const duracao = document.getElementById('duracao');
 
-            if (cultura.value === 'select' || !localizacao.value || !descricao.value || !dataPlantio.value || !dataColheita.value || !duracao.value) {
+            if (cultura.value === 'select' || area.value === 'select' || linha.value === 'select' || !descricao.value || !dataPlantio.value || !dataColheita.value || !duracao.value) {
                 event.preventDefault(); // Impede o envio do formulário
                 alert('Por favor, preencha todos os campos obrigatórios.');
             }
@@ -49,7 +50,7 @@
                     <span class="span_localizacao">
                         <label for="localizacao">Localização</label>
                         <div class="div_localizacao">
-                            <select name="cultura" class="input_localizacao">
+                            <select name="area" class="input_localizacao" required>
                                 <option value="select">Área</option>
                                 <option value="AreaA">A</option>
                                 <option value="AreaB">B</option>
@@ -57,7 +58,7 @@
                                 <option value="AreaD">D</option>
                                 <option value="AreaE">E</option>
                             </select>
-                            <select name="cultura" class="input_localizacao">
+                            <select name="linha" class="input_localizacao" required>
                                 <option value="select">Linha</option>
                                 <option value="linha1">1</option>
                                 <option value="linha2">2</option>
@@ -69,7 +70,7 @@
                     
                     <span class="span">
                         <label for="descricao">Descrição</label>
-                        <input type="text" name="descricao" placeholder="Digite aqui...">
+                        <input type="text" name="descricao" placeholder="Digite aqui..." required>
                     </span>
                 </div>
                 

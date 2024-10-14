@@ -4,12 +4,13 @@ class Reminder(models.Model):
     text = models.CharField(max_length=255)
     completed = models.BooleanField(default=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.text
 
 class Cultura(models.Model):
     nome = models.CharField(max_length=100)
-    localizacao = models.CharField(max_length=100)
+    area = models.CharField(max_length=100)  # Campo para Área
+    linha = models.CharField(max_length=100, null=True)  # Permitir nulo temporariamente
     descricao = models.TextField()
     data_plantio = models.DateField()
     data_colheita = models.DateField()
@@ -20,5 +21,5 @@ class Cultura(models.Model):
     poda_frequencia = models.IntegerField()
     poda_unidade = models.CharField(max_length=10)
 
-    def __str__(self):
+    def _str_(self):
         return self.nome

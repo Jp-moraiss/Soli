@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.culturas-card {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.culturas-card h2 {
+    margin: 0 0 10px;
+}
+
+.progress-bar {
+    background-color: #ccc;
+    border-radius: 5px;
+    position: relative;
+    height: 10px;
+    margin: 10px 0;
+}
+
+.progress-bar-fill {
+    background-color: #4caf50;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.SVG {
+    width: 24px;
+    height: 24px;
+    transition: 0.3s ease;
+}
+
+.SVG:hover {
+    fill: #ffffff;
+    stroke: #f4cc49;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+    border-top: 1px solid #e0e0e0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem;
+}
