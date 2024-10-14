@@ -19,7 +19,8 @@ def home(request):
 def add(request):
     if request.method == 'POST':
         nome = request.POST.get('cultura')
-        localizacao = request.POST.get('localizacao')
+        area = request.POST.get('area')  # Campo para Área
+        linha = request.POST.get('linha')  # Campo para Linha
         descricao = request.POST.get('descricao')
         data_plantio = request.POST.get('data_plantio')
         data_colheita = request.POST.get('data_colheita')
@@ -30,10 +31,16 @@ def add(request):
         poda_frequencia = request.POST.get('poda_frequencia')
         poda_unidade = request.POST.get('poda_unidade')
 
+        # Verificação se todos os campos obrigatórios foram preenchidos
+        if not all([nome, area, linha, descricao, data_plantio, data_colheita, duracao, unidade_duracao]):
+            messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
+            return redirect('app_soli:add')
+
         # Salvar a nova cultura
         Cultura.objects.create(
             nome=nome,
-            localizacao=localizacao,
+            area=area,  # Armazenando a área
+            linha=linha,  # Armazenando a linha
             descricao=descricao,
             data_plantio=data_plantio,
             data_colheita=data_colheita,

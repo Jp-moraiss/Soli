@@ -9,7 +9,8 @@ class Reminder(models.Model):
 
 class Cultura(models.Model):
     nome = models.CharField(max_length=100)
-    localizacao = models.CharField(max_length=100)
+    area = models.CharField(max_length=100)  # Campo para Área
+    linha = models.CharField(max_length=100, null=True)  # Permitir nulo temporariamente
     descricao = models.TextField()
     data_plantio = models.DateField()
     data_colheita = models.DateField()
