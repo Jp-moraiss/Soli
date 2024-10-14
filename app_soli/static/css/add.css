@@ -157,6 +157,26 @@ input {
     text-align: center;
 }
 
+.span_localizacao {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.div_localizacao {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.input_localizacao {
+    background-color: rgb(206, 206, 206);
+    color: rgb(85, 85, 85);
+    border-radius: 4rem;
+    padding: 1rem 3rem;
+    border-style: none;
+}
+
 label {
     font-weight: bold;
     margin-bottom: 1rem;
