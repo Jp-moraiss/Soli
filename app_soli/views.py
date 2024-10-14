@@ -20,6 +20,9 @@ def home(request):
 def add(request):
     return render(request, 'add.html')
 
+def verculturas(request):
+    return render(request, 'verculturas.html')
+
 def weather(request):
     return render(request, 'weather.html')
 def excluir_lembrete(request, lembrete_id):
