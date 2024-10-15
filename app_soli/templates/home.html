@@ -14,21 +14,21 @@
         {% include 'header.html' %}
 
         <section class="weather" id="dps">
-            <div class="current-weather">
-                <img src="{% static 'SVGs/cloud.svg' %}" alt="">
-                <div class="dados_weather">
-                    <p id="location">Localização: --</p>
-                    <p id="temperature">Temperatura: --°C</p>
-                    <p id="humidity">Umidade: --%</p>
-                    <p id="precipitation">Condição: --</p>
-                </div>
-            </div>
-            
             <div>
                 <div class="hourly-forecast" id="hourly-forecast">
                     <!-- Previsões horárias serão adicionadas aqui pelo JavaScript -->
                 </div>
             </div>
+
+            <div class="current-weather">
+                <div class="dados_weather"> <ul>
+                    <li> <img src="{% static 'SVGs/localpin.svg' %}" alt="pino de localização"><p id="location">Localização: --</p></li>
+                    <li> <img src="{% static 'SVGs/droplet.svg' %}" alt="gota d'água"> <p id="humidity">Umidade: --%</p> </li>
+                    <li> <img src="{% static 'SVGs/umbrella.svg' %}" alt="guarda-chuva"> <p id="precipitation">Condição: --</p></li>
+                </ul>
+                </div>
+            </div>
+            
             </section>
 
         <section class="reminders">
