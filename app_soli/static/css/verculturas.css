@@ -1,17 +1,44 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #F9F9F9;
+    display: flex;
+    justify-content: center;
+    padding: 10px; 
+}
+
+.container {
+    width: 100%; 
+    max-width: 1000px; 
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .culturas-card {
     background-color: #f1f1f1;
     border-radius: 10px;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .culturas-card h2 {
     margin: 0 0 10px;
+}
+
+.culturas-list h1{
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .progress-bar {

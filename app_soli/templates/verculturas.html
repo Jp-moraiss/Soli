@@ -1,72 +1,48 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Culturas</title>
     <link rel="stylesheet" href="{% static 'css/verculturas.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 </head>
 <body>
     <div class="container">
-        <div class="content">
+        {% include 'header.html' %}
+
+        <section class="culturas-list">
             <h1>Culturas</h1>
 
             <!-- Itera sobre as culturas vindas do banco de dados -->
             {% for cultura in culturas %}
-            <div class="culturas-card">
-                <h2>{{ cultura.nome }} - {{ cultura.data_plantio }}</h2>
-                <p>Área: {{ cultura.area }}</p>
-                <p>Linhas: {{ cultura.linha }}</p>
-                <p>Data de Colheita: {{ cultura.data_colheita }}</p>
-                <p>Tempo restante: {{ cultura.duracao }}</p>
-                <p>Progresso:</p>
-                <div class="progress-bar">
-                    <div class="progress-bar-fill" style="width: {{ cultura.duracao }}%;"></div>
+                <div class="culturas-card">
+                    <h2>{{ cultura.nome }} - {{ cultura.data_plantio }}</h2>
+                    <p>Área: {{ cultura.area }}</p>
+                    <p>Linhas: {{ cultura.linha }}</p>
+                    <p>Data de Colheita: {{ cultura.data_colheita }}</p>
+                    <p>Tempo restante: {{ cultura.duracao }}</p>
+                    <p>Progresso:</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: {{ cultura.duracao }}%;"></div>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
+        </section>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
+        {% endif %}
 
-        <!-- Footer Navigation -->
-        <footer>
-            <nav>
-                <a href="{% url 'app_soli:home' %}">
-                    <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
-                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
-                        <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    </svg>
-                </a>
-                <a href="">
-                    <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen">
-                        <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/>
-                        <path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/>
-                        <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-                    </svg>
-                </a>
-                <a href="{% url 'app_soli:add' %}">
-                    <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus">
-                        <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
-                    </svg>
-                </a>
-                <a href="{% url 'app_soli:verculturas' %}">
-                    <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sprout">
-                        <path d="M7 20h10"/>
-                        <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
-                        <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
-                        <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
-                    </svg>
-                </a>
-                <a href="">
-                    <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days">
-                        <path d="M8 2v4"/><path d="M16 2v4"/>
-                        <rect width="18" height="18" x="3" y="4" rx="2"/>
-                        <path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/>
-                        <path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/>
-                    </svg>
-                </a>
-            </nav>
-        </footer>
+        {% include 'footer.html' %}
     </div>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
