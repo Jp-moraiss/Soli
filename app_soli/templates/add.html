@@ -10,21 +10,48 @@
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
     <script src="{% static 'js/scripts.js' %}"></script>
     <script>
-        // Função para validar o formulário
-        function validateForm(event) {
-            const cultura = document.querySelector('.input_cultura');
-            const area = document.querySelector('select[name="area"]');
-            const linha = document.querySelector('select[name="linha"]');
-            const descricao = document.querySelector('input[name="descricao"]');
+        // Função para formatar datas
+        function formatarDataParaBrasileiro(dataISO) {
+            const [ano, mes, dia] = dataISO.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        function formatarDataParaISO(dataBR) {
+            const [dia, mes, ano] = dataBR.split('/');
+            return `${ano}-${mes}-${dia}`;
+        }
+
+        // Função para carregar datas no formato brasileiro ao carregar a página
+        function carregarDataEmFormatoBrasileiro() {
             const dataPlantio = document.getElementById('data_plantio');
             const dataColheita = document.getElementById('data_colheita');
-            const duracao = document.getElementById('duracao');
-
-            if (cultura.value === 'select' || area.value === 'select' || linha.value === 'select' || !descricao.value || !dataPlantio.value || !dataColheita.value || !duracao.value) {
-                event.preventDefault(); // Impede o envio do formulário
-                alert('Por favor, preencha todos os campos obrigatórios.');
+            
+            if (dataPlantio.value) {
+                const dataFormatada = formatarDataParaBrasileiro(dataPlantio.value);
+                dataPlantio.valueAsDate = new Date(dataPlantio.value);
+                dataPlantio.setAttribute('data-formatted', dataFormatada);
+            }
+            if (dataColheita.value) {
+                const dataFormatada = formatarDataParaBrasileiro(dataColheita.value);
+                dataColheita.valueAsDate = new Date(dataColheita.value);
+                dataColheita.setAttribute('data-formatted', dataFormatada);
             }
         }
+
+        // Validar e formatar a data para o formato ISO ao submeter o formulário
+        function validateForm(event) {
+            const dataPlantio = document.getElementById('data_plantio');
+            const dataColheita = document.getElementById('data_colheita');
+
+            if (dataPlantio.value) {
+                dataPlantio.value = dataPlantio.valueAsDate.toISOString().split('T')[0];
+            }
+            if (dataColheita.value) {
+                dataColheita.value = dataColheita.valueAsDate.toISOString().split('T')[0];
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarDataEmFormatoBrasileiro);
     </script>
 </head>
 <body>
@@ -79,12 +106,12 @@
                 <div class="container_data">
                     <span class="span">
                         <label for="data_plantio">Data de Plantio</label>
-                        <input type="date" id="data_plantio" name="data_plantio" placeholder="dd/mm/yy" onchange="calcularDuracao()" required>
+                        <input type="date" id="data_plantio" name="data_plantio" required>
                     </span>
                     
                     <span class="span">
                         <label for="data_colheita">Data de Colheita</label>
-                        <input type="date" id="data_colheita" name="data_colheita" placeholder="dd/mm/yy" onchange="calcularDuracao()" required>
+                        <input type="date" id="data_colheita" name="data_colheita" required>
                     </span>
                 </div>
                 
