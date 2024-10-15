@@ -20,8 +20,8 @@ function error() {
 }
 
 function fetchWeather(latitude, longitude) {
-    const apiKey = 'ac658cc9736043449d253857241310'; // Substitua pela sua chave da WeatherAPI
-    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt`;
+    const apiKey = 'ac658cc9736043449d253857241310'; // Sua chave da WeatherAPI
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&hours=5`;
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -35,7 +35,7 @@ function fetchWeather(latitude, longitude) {
             document.getElementById('humidity').textContent = `Umidade: ${current.humidity}%`;
             document.getElementById('precipitation').textContent = `Condição: ${current.condition.text}`;
 
-            // Atualiza as previsões das próximas 24 horas
+            // Atualiza as previsões das próximas 5 horas
             const forecastContainer = document.getElementById('hourly-forecast');
             forecastContainer.innerHTML = ''; // Limpa previsões anteriores
 
@@ -44,13 +44,14 @@ function fetchWeather(latitude, longitude) {
 
             forecast.forEach(hourData => {
                 const forecastTime = new Date(hourData.time);
-                if (forecastTime > now && hourCount < 24) {
+                if (forecastTime > now && hourCount < 5) {
                     const hourElement = document.createElement('div');
                     hourElement.className = 'hour';
-                    hourElement.innerHTML = `
-                        ${forecastTime.getHours()}:00<br>
-                        ${hourData.temp_c}°C
-                    `;
+                    hourElement.innerHTML = ` <ul class="ul_hour">
+                        <li class="li_hour"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${forecastTime.getHours()}:00 </li><br>
+                        <li class="li_hour"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-thermometer"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg> ${hourData.temp_c}°C </li><br>
+                        <li class="li_hour"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-droplet"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg> ${hourData.precip_mm} mm </li>
+                    </ul>`;
                     forecastContainer.appendChild(hourElement);
                     hourCount++;
                 }
@@ -61,6 +62,12 @@ function fetchWeather(latitude, longitude) {
             document.getElementById('location').textContent = 'Erro ao obter dados do clima';
         });
 }
+
+// Inicia a função de busca de clima quando o conteúdo da página estiver carregado
+document.addEventListener('DOMContentLoaded', function () {
+    getWeather();
+});
+
 
 // Funções para calcular a data de colheita e a duração
 function calcularDataColheita() {
