@@ -1,4 +1,4 @@
-# Semeia
+# SOLI
 Repositório em construção...🔧🔨
   <details>
     <summary> Equipe e contatos </summary>
