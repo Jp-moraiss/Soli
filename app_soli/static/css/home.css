@@ -20,6 +20,8 @@ body {
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
+    overflow-y: scroll;
 }
 
 
@@ -60,6 +62,7 @@ header {
     padding: 3rem;
     width: fit-content;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .current-weather img{
@@ -74,7 +77,7 @@ header {
 
 .dados_weather{
     width: fit-content;
-    background-color: #ffffff;
+    background-color: #EFEFEF;
     padding: 2rem;
     border-radius: 2rem;
 }
@@ -83,6 +86,7 @@ header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    gap: 0.5rem;
     
 }
 
@@ -295,8 +299,15 @@ nav a img {
         font-size: 14px;
     }
 
+
     .current-weather {
         font-size: 14px;
+        padding: 1rem;
+    }
+
+    .current-weather img{
+        width: 3rem;
+        height: 3rem;
     }
 
     .current-weather span {
@@ -304,11 +315,15 @@ nav a img {
     }
 
     .hourly-forecast {
-        flex-direction: column; /* Muda a direção para coluna */
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        overflow-x: scroll;
     }
 
     .hour {
-        font-size: 12px; /* Reduz a fonte para horas */
+        font-size: 12px; 
+
     }
 
     .reminders h2 {
