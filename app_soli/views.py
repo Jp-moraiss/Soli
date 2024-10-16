@@ -62,6 +62,9 @@ def add(request):
 
 def verculturas(request):
     culturas = Cultura.objects.all()
+    context = {
+        'culturas': culturas
+    }
     return render(request, 'verculturas.html', {'culturas': culturas})
 
 def weather(request):
@@ -73,6 +76,7 @@ def login(request):
 def excluir_lembrete(request, lembrete_id):
     lembrete = get_object_or_404(Reminder, id=lembrete_id)
     lembrete.delete()
+
     return redirect('app_soli:home')
 
 def login_view(request):
@@ -107,3 +111,6 @@ def cadastro_view(request):
         return redirect('app_soli:login')
 
     return render(request, 'login.html')  # Retorna para o mesmo template de login para o cadastro
+
+    return redirect('app_soli:home')
+

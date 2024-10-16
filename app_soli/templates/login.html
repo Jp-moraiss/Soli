@@ -63,9 +63,37 @@
             <button type="submit">Entrar</button>
         </form>
 
+        <!-- Formulário de Cadastro -->
+        <form id="register-form" action="{% url 'app_soli:cadastro' %}" method="post" style="display: none;">
+            {% csrf_token %}
+            <h2>Cadastro</h2>
+            <input type="text" placeholder="Username" name="username" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="password" placeholder="Senha" name="senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+
         <div class="toggle">
-            <span>Ainda não tem uma conta? <a href="{% url 'app_soli:cadastro' %}">Cadastre-se</a></span>
+            <span id="toggle-link" style="cursor: pointer;">Não tem uma conta? Cadastre-se</span>
         </div>
     </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const toggleLink = document.getElementById('toggle-link');
+
+        toggleLink.addEventListener('click', () => {
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                toggleLink.textContent = 'Não tem uma conta? Cadastre-se';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                toggleLink.textContent = 'Já tem uma conta? Faça login';
+            }
+        });
+    </script>
 </body>
 </html>
