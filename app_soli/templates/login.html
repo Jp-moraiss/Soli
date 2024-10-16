@@ -63,15 +63,15 @@
             <button type="submit">Entrar</button>
         </form>
 
-        <!-- Formulário de Cadastro -->
         <form id="register-form" action="{% url 'app_soli:cadastro' %}" method="post" style="display: none;">
             {% csrf_token %}
             <h2>Cadastro</h2>
             <input type="text" placeholder="Username" name="username" required>
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Senha" name="senha" required>
+            <input type="password" placeholder="Confirmar Senha" name="confirm_senha" required>
             <button type="submit">Cadastrar</button>
-        </form>
+        </form>        
 
         <div class="toggle">
             <span id="toggle-link" style="cursor: pointer;">Não tem uma conta? Cadastre-se</span>

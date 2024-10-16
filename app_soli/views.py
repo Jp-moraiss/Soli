@@ -101,16 +101,18 @@ def cadastro_view(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
+        confirm_senha = request.POST.get('confirm_senha')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Usuário já existe')
+            return redirect('app_soli:cadastro')
+
+        if senha != confirm_senha:
+            messages.error(request, 'As senhas não coincidem')
             return redirect('app_soli:cadastro')
 
         User.objects.create_user(username=username, email=email, password=senha)
         messages.success(request, 'Usuário criado com sucesso')
         return redirect('app_soli:login')
 
-    return render(request, 'login.html')  # Retorna para o mesmo template de login para o cadastro
-
-    return redirect('app_soli:home')
-
+    return render(request, 'login.html')
