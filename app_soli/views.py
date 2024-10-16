@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reminder, Cultura
 from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     if request.method == 'POST':
@@ -71,3 +74,36 @@ def excluir_lembrete(request, lembrete_id):
     lembrete = get_object_or_404(Reminder, id=lembrete_id)
     lembrete.delete()
     return redirect('app_soli:home')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        senha = request.POST['senha']
+
+        user = authenticate(request, username=username, password=senha)
+
+        if user is not None:
+            auth_login(request, user)
+            return redirect('app_soli:home')  # Redireciona para a página inicial após o login
+        else:
+            messages.error(request, 'Usuário ou senha inválidos')
+            return redirect('app_soli:login')
+
+    return render(request, 'login.html')
+
+
+def cadastro_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Usuário já existe')
+            return redirect('app_soli:cadastro')
+
+        User.objects.create_user(username=username, email=email, password=senha)
+        messages.success(request, 'Usuário criado com sucesso')
+        return redirect('app_soli:login')
+
+    return render(request, 'login.html')  # Retorna para o mesmo template de login para o cadastro

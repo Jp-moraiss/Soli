@@ -1,59 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login e Cadastro</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            margin: 0 0 20px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .toggle {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <div class="form-toggle">
-                <button id="login-btn">Login</button>
-                <button id="register-btn">Cadastro</button>
-            </div>
+        <!-- Formulário de Login -->
+        <form id="login-form" action="{% url 'app_soli:login' %}" method="post">
+            {% csrf_token %}
+            <h2>Login</h2>
+            <input type="text" placeholder="Username" name="username" required>
+            <input type="password" placeholder="Senha" name="senha" required>
+            <button type="submit">Entrar</button>
+        </form>
 
-            <!-- Formulário de Login -->
-            <form id="login-form">
-                <h2>Login</h2>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Senha" required>
-                <button type="submit">Entrar</button>
-            </form>
-
-            <!-- Formulário de Cadastro -->
-            <form id="register-form" style="display: none;">
-                <h2>Cadastro</h2>
-                <input type="text" placeholder="Nome" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Senha" required>
-                <input type="password" placeholder="Confirme a Senha" required>
-                <button type="submit">Cadastrar</button>
-            </form>
+        <div class="toggle">
+            <span>Ainda não tem uma conta? <a href="{% url 'app_soli:cadastro' %}">Cadastre-se</a></span>
         </div>
     </div>
-
-    <script>
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-
-        loginBtn.addEventListener('click', () => {
-            loginForm.style.display = 'block';
-            registerForm.style.display = 'none';
-            loginBtn.classList.add('active');
-            registerBtn.classList.remove('active');
-        });
-
-        registerBtn.addEventListener('click', () => {
-            registerForm.style.display = 'block';
-            loginForm.style.display = 'none';
-            registerBtn.classList.add('active');
-            loginBtn.classList.remove('active');
-        });
-    </script>
 </body>
 </html>
