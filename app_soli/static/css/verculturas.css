@@ -63,6 +63,35 @@ body {
     text-align: center; /* Centraliza o texto */
 }
 
+.search-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buscar_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 25rem;
+    margin-bottom: 1rem;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    background-color: #D9D9D9;
+}
+
+.search-input{
+    width: 20rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    background-color: #D9D9D9;
+}
+
 .SVG {
     width: 24px;
     height: 24px;

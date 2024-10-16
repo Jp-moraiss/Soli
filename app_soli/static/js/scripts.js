@@ -193,3 +193,25 @@ function calcularDuracao() {
         duracaoField.value = diffDays;
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".culturas-card");
+
+    // Função para filtrar os cartões
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        cards.forEach(function (card) {
+            const nameElement = card.querySelector("h2");
+            const nameText = nameElement ? nameElement.textContent.toLowerCase() : "";
+
+            if (nameText.includes(searchText)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+
