@@ -78,7 +78,6 @@ header {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #EFEFEF;
     border-radius: 2rem;
     gap: 1rem;
 }
