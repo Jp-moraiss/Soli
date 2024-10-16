@@ -59,9 +59,6 @@ def add(request):
 
 def verculturas(request):
     culturas = Cultura.objects.all()
-    context = {
-        'culturas': culturas
-    }
     return render(request, 'verculturas.html', {'culturas': culturas})
 
 def weather(request):

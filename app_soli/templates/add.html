@@ -10,48 +10,21 @@
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
     <script src="{% static 'js/scripts.js' %}"></script>
     <script>
-        // Função para formatar datas
-        function formatarDataParaBrasileiro(dataISO) {
-            const [ano, mes, dia] = dataISO.split('-');
-            return `${dia}/${mes}/${ano}`;
-        }
-
-        function formatarDataParaISO(dataBR) {
-            const [dia, mes, ano] = dataBR.split('/');
-            return `${ano}-${mes}-${dia}`;
-        }
-
-        // Função para carregar datas no formato brasileiro ao carregar a página
-        function carregarDataEmFormatoBrasileiro() {
-            const dataPlantio = document.getElementById('data_plantio');
-            const dataColheita = document.getElementById('data_colheita');
-            
-            if (dataPlantio.value) {
-                const dataFormatada = formatarDataParaBrasileiro(dataPlantio.value);
-                dataPlantio.valueAsDate = new Date(dataPlantio.value);
-                dataPlantio.setAttribute('data-formatted', dataFormatada);
-            }
-            if (dataColheita.value) {
-                const dataFormatada = formatarDataParaBrasileiro(dataColheita.value);
-                dataColheita.valueAsDate = new Date(dataColheita.value);
-                dataColheita.setAttribute('data-formatted', dataFormatada);
-            }
-        }
-
-        // Validar e formatar a data para o formato ISO ao submeter o formulário
+        // Função para validar o formulário
         function validateForm(event) {
+            const cultura = document.querySelector('.input_cultura');
+            const area = document.querySelector('select[name="area"]');
+            const linha = document.querySelector('select[name="linha"]');
+            const descricao = document.querySelector('input[name="descricao"]');
             const dataPlantio = document.getElementById('data_plantio');
             const dataColheita = document.getElementById('data_colheita');
+            const duracao = document.getElementById('duracao');
 
-            if (dataPlantio.value) {
-                dataPlantio.value = dataPlantio.valueAsDate.toISOString().split('T')[0];
-            }
-            if (dataColheita.value) {
-                dataColheita.value = dataColheita.valueAsDate.toISOString().split('T')[0];
+            if (cultura.value === 'select' || area.value === 'select' || linha.value === 'select' || !descricao.value || !dataPlantio.value || !dataColheita.value || !duracao.value) {
+                event.preventDefault(); // Impede o envio do formulário
+                alert('Por favor, preencha todos os campos obrigatórios.');
             }
         }
-
-        document.addEventListener('DOMContentLoaded', carregarDataEmFormatoBrasileiro);
     </script>
 </head>
 <body>
@@ -106,19 +79,19 @@
                 <div class="container_data">
                     <span class="span">
                         <label for="data_plantio">Data de Plantio</label>
-                        <input type="date" id="data_plantio" name="data_plantio" required>
+                        <input type="date" id="data_plantio" name="data_plantio" placeholder="dd/mm/yy" onchange="calcularDuracao()" required>
                     </span>
                     
                     <span class="span">
                         <label for="data_colheita">Data de Colheita</label>
-                        <input type="date" id="data_colheita" name="data_colheita" required>
+                        <input type="date" id="data_colheita" name="data_colheita" placeholder="dd/mm/yy" onchange="calcularDuracao()" required>
                     </span>
                 </div>
                 
                 <div class="container_data2">
                     <p>Duração:</p>
                     <div class="div_data_num">
-                        <input type="number" id="duracao" name="duracao" placeholder="..." class="input_number" onchange="calcularDataColheita()" min="1" required>
+                        <input type="number" id="duracao" name="duracao" placeholder="..." class="input_number" onchange="calcularDataColheita()" required>
                         <select name="unidade_duracao" id="unidade_duracao" class="select_atv" onchange="calcularDataColheita()">
                             <option value="dias">dias</option>
                             <option value="semanas">semanas</option>
@@ -137,7 +110,7 @@
                         <p>Irrigação:</p>
                         <div class="atv">
                             <p>A cada</p>
-                            <input type="number" name="irrigacao_frequencia" placeholder="..." class="input_number" min="1">
+                            <input type="number" name="irrigacao_frequencia" placeholder="..." class="input_number">
                             <select name="irrigacao_unidade" class="select_atv">
                                 <option value="dias">dias</option>
                                 <option value="semanas">semanas</option>
@@ -151,7 +124,7 @@
                         <p>Poda:</p>
                         <div class="atv">
                             <p>A cada</p>
-                            <input type="number" name="poda_frequencia" placeholder="..." class="input_number" min="1">
+                            <input type="number" name="poda_frequencia" placeholder="..." class="input_number">
                             <select name="poda_unidade" class="select_atv">
                                 <option value="dias">dias</option>
                                 <option value="semanas">semanas</option>
