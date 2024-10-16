@@ -22,12 +22,13 @@
                     <p>Área: {{ cultura.area }}</p>
                     <p>Linhas: {{ cultura.linha }}</p>
                     <p>Data de Colheita: {{ cultura.data_colheita }}</p>
-                    <p>Tempo restante: {{ cultura.duracao }}</p>
+                    <p>Tempo restante: {{ cultura.tempo_restante }}</p>
                     <p>Progresso:</p>
                     <div class="progress-bar">
                         <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
                     </div>
                     <p class="progress-percentage">{{ cultura.progresso }}%</p>
+                    <a href="{% url 'app_soli:excluir_cultura' cultura.id %}" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta cultura?');">Excluir</a> <!-- Botão de exclusão -->
                 </div>
             {% endfor %}
         </section>

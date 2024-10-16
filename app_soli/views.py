@@ -80,16 +80,16 @@ def calcular_progresso(data_plantio, data_colheita):
             # Calcula quantos dias faltam para a colheita
             dias_restantes = (data_colheita - data_atual).days
 
-            if dias_restantes <= 0:
+            if dias_restantes < 0:
                 return 100  # A barra deve estar cheia no dia da colheita
+
+            # Se for o dia antes da colheita, retorna 99.9%
+            if dias_restantes == 1:
+                return 99.9
 
             # Calcula o progresso em relação aos dias restantes
             progresso = ((duracao_total - dias_restantes) / duracao_total) * 100
-            
-            # Se faltar 1 dia, adiciona um valor próximo a 100
-            if dias_restantes == 1:
-                progresso = 99.9  # Valor próximo a 100, mas não igual
-            
+
             return round(max(0, progresso), 2)
 
     return 0  # Se as datas não forem válidas
@@ -123,6 +123,12 @@ def verculturas(request):
         'culturas': culturas
     }
     return render(request, 'verculturas.html', context)
+
+def excluir_cultura(request, cultura_id):
+    cultura = get_object_or_404(Cultura, id=cultura_id)
+    cultura.delete()
+    messages.success(request, 'Cultura excluída com sucesso.')
+    return redirect('app_soli:verculturas')
 
 def weather(request):
     return render(request, 'weather.html')

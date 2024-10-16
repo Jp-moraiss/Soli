@@ -63,22 +63,11 @@ body {
     text-align: center; /* Centraliza o texto */
 }
 
-.SVG {
-    width: 24px;
-    height: 24px;
-    transition: 0.3s ease;
-}
-
-.SVG:hover {
-    fill: #ffffff;
-    stroke: #f4cc49;
-}
-
 footer {
     background-color: #f8f9fa;
     padding: 0.5rem;
     border-top: 1px solid #e0e0e0;
-    position: fixed;
+    position: relative; /* Alterado para relative */
     bottom: 0;
     left: 0;
     width: 100%;
@@ -95,4 +84,20 @@ footer nav a {
     color: #333;
     text-decoration: none;
     padding: 0.5rem;
+}
+
+.delete-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #e57373;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #ef5350;
 }
