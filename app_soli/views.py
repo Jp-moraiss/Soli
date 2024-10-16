@@ -67,6 +67,9 @@ def verculturas(request):
 def weather(request):
     return render(request, 'weather.html')
 
+def login(request):
+    return render(request, 'login.html')
+
 def excluir_lembrete(request, lembrete_id):
     lembrete = get_object_or_404(Reminder, id=lembrete_id)
     lembrete.delete()

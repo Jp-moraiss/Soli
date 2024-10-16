@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-toggle">
+                <button id="login-btn">Login</button>
+                <button id="register-btn">Cadastro</button>
+            </div>
+
+            <!-- Formulário de Login -->
+            <form id="login-form">
+                <h2>Login</h2>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+
+            <!-- Formulário de Cadastro -->
+            <form id="register-form" style="display: none;">
+                <h2>Cadastro</h2>
+                <input type="text" placeholder="Nome" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Senha" required>
+                <input type="password" placeholder="Confirme a Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+
+        loginBtn.addEventListener('click', () => {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            loginBtn.classList.add('active');
+            registerBtn.classList.remove('active');
+        });
+
+        registerBtn.addEventListener('click', () => {
+            registerForm.style.display = 'block';
+            loginForm.style.display = 'none';
+            registerBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
