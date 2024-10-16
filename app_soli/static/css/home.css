@@ -111,6 +111,7 @@ header {
     background-color: #e6e6e6;
     margin-left: 1rem;
     margin-right: 1rem;
+    overflow-x: scroll;
 }
 
 .hour {
