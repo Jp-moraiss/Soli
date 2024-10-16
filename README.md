@@ -1,5 +1,25 @@
 # SOLI
-Repositório em construção...🔧🔨
+
+## Descrição
+
+  Aplicação web destinada ao auxílio de pequenos agricultores nas tarefas de planejamento de plantio e de colheita.
+  Este é um trabalho da disciplina de Projetos 2 do Grupo 14 (2024.2).
+
+## Tecnologias
+<div style="display: flex; align-items: center; text-decoration: none;">
+  
+</div>
+🔧🔨
+
+## Ferramentas
+<div style="display: flex; align-items: center; text-decoration: none;">
+  
+</div>
+🔧🔨
+
+
+## Funcionalidades da aplicação
+  
   <details>
     <summary> Equipe e contatos </summary>
     <br>
@@ -18,12 +38,14 @@ Repositório em construção...🔧🔨
   <details>
     <summary> Entregas </summary>
     <br>
-    <details>
-      <summary> Status Report 1 </summary>
-      <br>
-      <p><strong>  </strong></p>
-    </details>
-    <details>
+
+  ## SR1
+  🔧🔨
+
+  ## SR2
+  🔧🔨
+   
+  </details>
       <summary> Status Report 2 </summary>
       <br>
       <p><strong>  </strong></p>
