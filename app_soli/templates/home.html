@@ -21,25 +21,27 @@
             </div>
 
             <div class="current-weather">
-                <div class="dados_weather"> <ul>
-                    <li> <img src="{% static 'SVGs/localpin.svg' %}" alt="pino de localização"><p id="location">Localização: --</p></li>
-                    <li> <img src="{% static 'SVGs/droplet.svg' %}" alt="gota d'água"> <p id="humidity">Umidade: --%</p> </li>
-                    <li> <img src="{% static 'SVGs/umbrella.svg' %}" alt="guarda-chuva"> <p id="precipitation">Condição: --</p></li>
-                </ul>
+                <div class="dados_weather"> 
+                    <ul>
+                        <li> <img src="{% static 'SVGs/localpin.svg' %}" alt="pino de localização"><p id="location">Localização: --</p></li>
+                        <li> <img src="{% static 'SVGs/droplet.svg' %}" alt="gota d'água"> <p id="humidity">Umidade: --%</p> </li>
+                        <li> <img src="{% static 'SVGs/umbrella.svg' %}" alt="guarda-chuva"> <p id="precipitation">Condição: --</p></li>
+                    </ul>
                 </div>
             </div>
-            
-            </section>
+        </section>
 
         <section class="reminders">
             <h2>Lembretes</h2>
             <ul>
                 {% for reminder in reminders %}
-                    <li class="reminder">{{ reminder.text }}
+                    <li class="reminder">
+                        <input type="checkbox" id="reminder{{ reminder.id }}" class="reminder-checkbox" onchange="toggleStrike(this)">
+                        <label for="reminder{{ reminder.id }}">{{ reminder.text }}</label>
                         <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
-                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>  <!-- Ícone de lixeira -->
+                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>
                             </button>
                         </form>
                     </li>
@@ -64,9 +66,8 @@
             {% endfor %}
         </div>
         {% endif %}
-
     </div>
-    
+
     <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 {% include 'footer.html' %}

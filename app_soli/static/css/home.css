@@ -24,7 +24,6 @@ body {
     overflow-y: scroll;
 }
 
-
 header {
     display: flex;
     justify-content: space-between;
@@ -45,7 +44,6 @@ header {
 
 .weather {
     border-radius: 10px;
-
 }
 
 .current-weather {
@@ -64,7 +62,7 @@ header {
     width: 100%;
 }
 
-.current-weather img{
+.current-weather img {
     width: 6rem;
     height: 6rem;
 }
@@ -74,7 +72,7 @@ header {
     font-weight: bold;
 }
 
-.dados_weather{
+.dados_weather {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -82,13 +80,13 @@ header {
     gap: 1rem;
 }
 
-.dados_weather ul{
+.dados_weather ul {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 1rem;
 }
-.dados_weather li{
+.dados_weather li {
     display: flex;
     flex-direction: row;
     background-color: #cecece;
@@ -98,7 +96,7 @@ header {
     align-items: center;
 }
 
-.dados_weather li img{
+.dados_weather li img {
     width: 1.5rem;
     height: 1.5rem;
 }
@@ -113,36 +111,35 @@ header {
     background-color: #e6e6e6;
     margin-left: 1rem;
     margin-right: 1rem;
-    
 }
 
 .hour {
     margin-top: 1rem;
     font-size: 14px;
     text-align: center;
-    padding:1rem;
+    padding: 1rem;
     border-radius: 2rem;
     width: 8rem;
 }
 
-.hour ul{
+.hour ul {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.lucide-cloud-sun{
+.lucide-cloud-sun {
     width: 3rem;
     height: 3rem;
 }
 
-.ul_hour{
+.ul_hour {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.li_hour{
+.li_hour {
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -176,17 +173,17 @@ header {
     justify-content: center;
 }
 
-.reminder-plus{
+.reminder-plus {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-ul{
-width: 100%;
+ul {
+    width: 100%;
 }
 
-.form_reminder{
+.form_reminder {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -197,7 +194,7 @@ width: 100%;
     flex-direction: column;
 }
 
-.botao_adicionar{
+.botao_adicionar {
     width: fit-content;
     height: fit-content;
     border-style: solid;
@@ -211,7 +208,7 @@ width: 100%;
     text-align: center;
 }
 
-.botao_adicionar:hover{
+.botao_adicionar:hover {
     background-color: #E0E0E0;
     transition: 0.3s;
 }
@@ -226,6 +223,7 @@ width: 100%;
     align-items: center;
     font-size: 16px;
 }
+
 .messages {
     display: flex;
     justify-content: center;
@@ -254,123 +252,11 @@ width: 100%;
     color: #155724;
 }
 
+.message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
 .show {
     opacity: 1;
-}
-
-.add-reminder {
-    text-align: center;
-}
-
-.add-reminder button {
-    font-size: 24px;
-    background-color: transparent;
-    border: none;
-    color: #333;
-    cursor: pointer;
-}
-
-footer {
-    margin-top: 20px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-around;
-}
-
-nav a img {
-    width: 24px;
-    height: 24px;
-}
-
-/* Responsividade */
-@media (max-width: 768px) { /* Estilos para tablets */
-    .container {
-        padding: 15px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .date {
-        font-size: 16px;
-    }
-
-    .current-weather span {
-        font-size: 28px;
-    }
-
-    .hourly-forecast {
-        flex-direction: row;
-        overflow-x: auto; /* Adiciona rolagem horizontal */
-    }
-
-    .hour {
-        flex: 0 0 auto; /* Evita que os itens sejam comprimidos */
-    }
-
-    .reminder {
-        font-size: 14px; /* Reduz a fonte para lembretes */
-    }
-
-    .add-reminder button {
-        font-size: 20px; /* Reduz a fonte do botão */
-    }
-}
-
-@media (max-width: 480px) { /* Estilos para smartphones */
-    .container {
-        padding: 10px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .date {
-        font-size: 14px;
-    }
-
-
-    .current-weather {
-        font-size: 14px;
-        padding: 1rem;
-    }
-
-    .current-weather img{
-        width: 3rem;
-        height: 3rem;
-    }
-
-    .current-weather span {
-        font-size: 24px;
-    }
-
-    .hourly-forecast {
-        flex-direction: row;
-        align-items: center;
-        justify-content: left;
-        overflow-x: scroll;
-    }
-
-    .hour {
-        font-size: 12px; 
-
-    }
-
-    .reminders h2 {
-        font-size: 16px; /* Reduz o tamanho do título de lembretes */
-    }
-
-    .reminder {
-        font-size: 14px; /* Reduz a fonte para lembretes */
-    }
-
-    .add-reminder button {
-        font-size: 18px; /* Reduz a fonte do botão */
-    }
 }

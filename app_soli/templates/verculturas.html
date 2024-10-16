@@ -16,7 +16,6 @@
         <section class="culturas-list">
             <h1>Culturas</h1>
 
-            <!-- Itera sobre as culturas vindas do banco de dados -->
             {% for cultura in culturas %}
                 <div class="culturas-card">
                     <h2>{{ cultura.nome }} - {{ cultura.data_plantio }}</h2>
@@ -26,8 +25,9 @@
                     <p>Tempo restante: {{ cultura.duracao }}</p>
                     <p>Progresso:</p>
                     <div class="progress-bar">
-                        <div class="progress-bar-fill" style="width: {{ cultura.duracao }}%;"></div>
+                        <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
                     </div>
+                    <p class="progress-percentage">{{ cultura.progresso }}%</p>
                 </div>
             {% endfor %}
         </section>

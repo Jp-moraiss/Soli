@@ -4,10 +4,11 @@ from . import views
 app_name = 'app_soli'
 
 urlpatterns = [
-   path('', views.login_view, name='login'),  # Página de login
+    path('', views.login_view, name='login'),  # Página de login
     path('cadastro/', views.cadastro_view, name='cadastro'),  # Página de cadastro
-    path('home/', views.home, name='home'),
-    path('add/', views.add, name='add'),
-    path('verculturas/', views.verculturas, name='verculturas'),
-    path('excluir/<int:lembrete_id>/', views.excluir_lembrete, name='excluir_lembrete'),
+    path('home/', views.home, name='home'),  # Página principal com lembretes
+    path('add/', views.add, name='add'),  # Página para adicionar novas culturas
+    path('verculturas/', views.verculturas, name='verculturas'),  # Página para visualizar culturas
+    path('excluir/<int:lembrete_id>/', views.excluir_lembrete, name='excluir_lembrete'),  # Excluir lembrete
+    path('weather/', views.weather, name='weather'),  # Página para o clima
 ]
