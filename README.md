@@ -19,7 +19,21 @@
 
 
 ## Funcionalidades da aplicação
-  
+🔧🔨
+
+# Documentação 
+  <details>
+    <summary> Entregas </summary>
+    <br>
+
+  ## SR1
+  🔧🔨
+
+  ## SR2
+  🔧🔨
+   
+  </details>
+
   <details>
     <summary> Equipe e contatos </summary>
     <br>
@@ -33,22 +47,5 @@
     <p><strong> Malu de Aguiar Germani - mag@cesar.school </strong></p>
     <p><strong> Maria Eduarda Rêgo Barros - merb@cesar.school </strong></p>
     <p><strong> Marina Hoffmann Guimaraes - mhg@cesar.school </strong></p>    
-  </details>
-
-  <details>
-    <summary> Entregas </summary>
-    <br>
-
-  ## SR1
-  🔧🔨
-
-  ## SR2
-  🔧🔨
-   
-  </details>
-      <summary> Status Report 2 </summary>
-      <br>
-      <p><strong>  </strong></p>
-    </details>
   </details>
     
