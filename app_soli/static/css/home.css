@@ -10,6 +10,7 @@ body {
     display: flex;
     justify-content: center;
     padding: 10px; 
+    margin-bottom: 10rem;
 }
 
 .container {
@@ -19,6 +20,8 @@ body {
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
+    overflow-y: scroll;
 }
 
 
@@ -41,15 +44,29 @@ header {
 }
 
 .weather {
-    background-color: #EFEFEF;
-    padding: 15px;
     border-radius: 10px;
-    margin-bottom: 20px;
+
 }
 
 .current-weather {
     font-size: 16px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: none;
+    border-radius: 2rem;
+    padding: 3rem;
+    width: fit-content;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.current-weather img{
+    width: 6rem;
+    height: 6rem;
 }
 
 .current-weather span {
@@ -57,15 +74,82 @@ header {
     font-weight: bold;
 }
 
+.dados_weather{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #EFEFEF;
+    border-radius: 2rem;
+    gap: 1rem;
+}
+
+.dados_weather ul{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+.dados_weather li{
+    display: flex;
+    flex-direction: row;
+    background-color: #cecece;
+    padding: 0.8rem;
+    gap: 0.8rem;
+    border-radius: 4rem;
+    align-items: center;
+}
+
+.dados_weather li img{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .hourly-forecast {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    gap: 0.5rem;
+    background-color: none;
+    border-radius: 2rem;
+    background-color: #e6e6e6;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    
 }
 
 .hour {
+    margin-top: 1rem;
     font-size: 14px;
     text-align: center;
+    padding:1rem;
+    border-radius: 2rem;
+    width: 8rem;
+}
+
+.hour ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lucide-cloud-sun{
+    width: 3rem;
+    height: 3rem;
+}
+
+.ul_hour{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.li_hour{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 0.7rem;
+    width: fit-content;
 }
 
 .weather-details {
@@ -252,8 +336,15 @@ nav a img {
         font-size: 14px;
     }
 
+
     .current-weather {
         font-size: 14px;
+        padding: 1rem;
+    }
+
+    .current-weather img{
+        width: 3rem;
+        height: 3rem;
     }
 
     .current-weather span {
@@ -261,11 +352,15 @@ nav a img {
     }
 
     .hourly-forecast {
-        flex-direction: column; /* Muda a direção para coluna */
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        overflow-x: scroll;
     }
 
     .hour {
-        font-size: 12px; /* Reduz a fonte para horas */
+        font-size: 12px; 
+
     }
 
     .reminders h2 {

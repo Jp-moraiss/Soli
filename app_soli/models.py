@@ -4,7 +4,7 @@ class Reminder(models.Model):
     text = models.CharField(max_length=255)
     completed = models.BooleanField(default=False)
 
-    def __str__(self):
+    def _str_(self):
         return self.text
 
 class Cultura(models.Model):
@@ -21,5 +21,5 @@ class Cultura(models.Model):
     poda_frequencia = models.IntegerField()
     poda_unidade = models.CharField(max_length=10)
 
-    def __str__(self):
+    def _str_(self):
         return self.nome
