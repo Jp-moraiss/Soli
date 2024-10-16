@@ -40,10 +40,13 @@
   ## SR1
   <ul>
   <li>
+    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
+  </li>
+  <li>
     <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
   </li>
   <li>
-    <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Azure </a>
+    <a href=> Projeto no Azure </a>
   </li>
     <li>
     <a> Protótipo de Baixa Fidelidade </a>
