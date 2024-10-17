@@ -69,6 +69,17 @@ body {
     align-items: center;
 }
 
+#no-results{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: larger;
+}
+
 .buscar_box{
     display: flex;
     justify-content: center;

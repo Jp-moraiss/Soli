@@ -194,10 +194,12 @@ function calcularDuracao() {
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("searchInput");
     const cards = document.querySelectorAll(".culturas-card");
+    const noResultsMessage = document.getElementById("no-results");
 
     // Função para filtrar os cartões
     searchInput.addEventListener("input", function () {
         const searchText = searchInput.value.toLowerCase();
+        let visibleCount = 0;
 
         cards.forEach(function (card) {
             const nameElement = card.querySelector("h2");
@@ -205,9 +207,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (nameText.includes(searchText)) {
                 card.style.display = "";
+                visibleCount++;
             } else {
                 card.style.display = "none";
             }
         });
+
+        // Exibe ou oculta a mensagem de "Nenhuma cultura foi encontrada"
+        noResultsMessage.style.display = visibleCount > 0 ? "none" : "block";
     });
 });
