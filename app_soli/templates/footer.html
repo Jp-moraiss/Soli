@@ -1,24 +1,24 @@
 <footer>
     <nav>
-        <a href="{% url 'app_soli:home' %}">
+        <a href="{% url 'app_soli:home' %}" class="{% if request.path == '/home/' %}active{% endif %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
                 <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
                 <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
             </svg>
         </a>
-        <a href="">
+        <a href="" class="{% if request.path == '/' %}active{% endif %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen">
                 <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/>
                 <path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/>
                 <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
             </svg>
         </a>
-        <a href="{% url 'app_soli:add' %}">
+        <a href="{% url 'app_soli:add' %}" class="{% if request.path == '/add/' %}active{% endif %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus">
                 <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
             </svg>
         </a>
-        <a href="{% url 'app_soli:verculturas' %}">
+        <a href="{% url 'app_soli:verculturas' %}" class="{% if request.path == '/verculturas/' %}active{% endif %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sprout">
                 <path d="M7 20h10"/>
                 <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
@@ -26,7 +26,7 @@
                 <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
             </svg>
         </a>
-        <a href="">
+        <a href="" class="{% if request.path == '/calendar/' %}active{% endif %}">
             <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days">
                 <path d="M8 2v4"/><path d="M16 2v4"/>
                 <rect width="18" height="18" x="3" y="4" rx="2"/>
@@ -38,59 +38,66 @@
 </footer>
 
 <style>
-    
     html, body {
-    height: 100%; /* Garante que o html e body ocupem a altura total da tela */
-    margin: 0; /* Remove margens padrão */
-}
+        height: 100%; /* Garante que o html e body ocupem a altura total da tela */
+        margin: 0; /* Remove margens padrão */
+    }
 
-.container {
-    display: flex;
-    flex-direction: column; /* Define a direção dos filhos como coluna */
-    height: fit-content;
-}
+    .container {
+        display: flex;
+        flex-direction: column; /* Define a direção dos filhos como coluna */
+        height: fit-content;
+    }
 
-.content {
-    flex: 1; /* Permite que o conteúdo ocupe o espaço restante */
-    padding-bottom: 4rem; /* Adiciona espaço na parte inferior para evitar que o conteúdo fique atrás do footer */
-}
+    .content {
+        flex: 1; /* Permite que o conteúdo ocupe o espaço restante */
+        padding-bottom: 4rem; /* Adiciona espaço na parte inferior para evitar que o conteúdo fique atrás do footer */
+    }
 
-footer {
-    background-color: #f8f9fa;
-    padding: 0.5rem;
-    border-top: 1px solid #e0e0e0;
-    position: fixed; /* Faz o footer ficar fixo */
-    bottom: 0; /* Posiciona o footer na parte inferior */
-    left: 0; /* Garante que o footer comece no lado esquerdo */
-    width: 100%; /* Faz o footer ocupar toda a largura */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra opcional ao footer */
-    margin-top: 2rem;
-}
+    footer {
+        background-color: #f8f9fa;
+        padding: 0.5rem;
+        border-top: 1px solid #e0e0e0;
+        position: fixed; /* Faz o footer ficar fixo */
+        bottom: 0; /* Posiciona o footer na parte inferior */
+        left: 0; /* Garante que o footer comece no lado esquerdo */
+        width: 100%; /* Faz o footer ocupar toda a largura */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra opcional ao footer */
+        margin-top: 2rem;
+    }
 
-footer nav {
-    display: flex;
-    justify-content: space-around; /* Espalha os itens uniformemente */
-    align-items: center;
-    flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se não houver espaço suficiente */
-}
+    footer nav {
+        display: flex;
+        justify-content: space-around; /* Espalha os itens uniformemente */
+        align-items: center;
+        flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se não houver espaço suficiente */
+    }
 
-footer nav a {
-    color: #333;
-    text-decoration: none;
-    padding: 0.5rem; /* Adiciona um pouco de espaço ao redor dos links */
-    white-space: nowrap; /* Impede que o texto quebre em múltiplas linhas */
-}
+    footer nav a {
+        color: #333;
+        text-decoration: none;
+        padding: 0.5rem; /* Adiciona um pouco de espaço ao redor dos links */
+        white-space: nowrap; /* Impede que o texto quebre em múltiplas linhas */
+    }
 
-.SVG {
-    width: 24px;
-    height: 24px;
-    transition: 0.3s ease;
-}
+    footer nav a.active .SVG {
+        fill: #ffffff; /* Cor de preenchimento quando o link está ativo */
+        stroke: #f4cc49; /* Cor da borda quando o link está ativo */
+    }
 
-.SVG:hover {
-    fill: #ffffff;
-    stroke: #f4cc49;
-}
+    footer nav a.active .SVG:hover {
+        fill: #ffffff; /* Manter a cor de preenchimento ao passar o mouse */
+        stroke: #f4cc49; /* Manter a cor da borda ao passar o mouse */
+    }
 
+    .SVG {
+        width: 24px;
+        height: 24px;
+        transition: 0.3s ease;
+    }
 
+    .SVG:hover {
+        fill: #ffffff;
+        stroke: #f4cc49;
+    }
 </style>
