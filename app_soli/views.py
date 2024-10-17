@@ -99,7 +99,7 @@ def calcular_progresso(data_plantio, data_colheita):
                 return 99.9
 
             # Calcula o progresso em relação aos dias restantes
-            progresso = ((duracao_total - dias_restantes) / duracao_total) * 100
+            progresso = ((duracao_total - dias_restantes - 1) / duracao_total) * 100
 
             return round(max(0, progresso), 2)
 
