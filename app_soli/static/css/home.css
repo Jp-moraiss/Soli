@@ -111,7 +111,6 @@ header {
     background-color: #e6e6e6;
     margin-left: 1rem;
     margin-right: 1rem;
-    overflow-x: scroll;
 }
 
 .hour {
@@ -260,4 +259,122 @@ ul {
 
 .show {
     opacity: 1;
+}
+
+.add-reminder {
+    text-align: center;
+}
+
+.add-reminder button {
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+nav a img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) { /* Estilos para tablets */
+    .container {
+        padding: 15px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date {
+        font-size: 16px;
+    }
+
+    .current-weather span {
+        font-size: 28px;
+    }
+    .hourly-forecast {
+        flex-direction: row;
+        overflow-x: auto; /* Adiciona rolagem horizontal */
+    }
+
+    .hour {
+        flex: 0 0 auto; /* Evita que os itens sejam comprimidos */
+    }
+
+    .reminder {
+        font-size: 14px; /* Reduz a fonte para lembretes */
+    }
+
+    .add-reminder button {
+        font-size: 20px; /* Reduz a fonte do botão */
+    }
+}
+
+@media (max-width: 480px) { /* Estilos para smartphones */
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date {
+        font-size: 14px;
+    }
+
+
+    .current-weather {
+        font-size: 14px;
+        padding: 1rem;
+    }
+    .current-weather img{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .current-weather span {
+        font-size: 24px;
+    }
+
+    .hourly-forecast {
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+        overflow-x: scroll;
+    }
+
+    .hour {
+        font-size: 12px; 
+
+    }
+
+    .reminders h2 {
+        font-size: 16px; /* Reduz o tamanho do título de lembretes */
+    }
+
+    .reminder {
+        font-size: 14px; /* Reduz a fonte para lembretes */
+    }
+
+    .add-reminder button {
+        font-size: 18px; /* Reduz a fonte do botão */
+    }
+.show {
+    opacity: 1;
+}
 }
