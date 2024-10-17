@@ -18,12 +18,12 @@
         <section class="culturas-list">
 
             <div class="header-container">
-                <h1 class="header-title">Culturas</h1>
-                <a href="{% url 'app_soli:procurarlinha' %}" class="btn btn-primary" style="margin-left: 15px;">
-                    Procurar por Linhas
+                <h1 class="header-title">Linhas</h1>
+                <a href="{% url 'app_soli:verculturas' %}" class="btn btn-primary header-button">
+                    Procurar por culturas
                 </a>
             </div>
-            
+
             <div class="search-box">
                 <div class="buscar_box">
                     <input type="search" id="searchInput" placeholder="Busque aqui..." class="search-input">
@@ -32,7 +32,7 @@
             </div>
 
             <div id="culturas-results">
-                {% for cultura in culturas %}
+                {% for linha in culturas %}
                 <div class="culturas-card">
                     <h2>{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
                     <p>Área: {{ cultura.area }}</p>

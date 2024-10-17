@@ -11,6 +11,21 @@ body {
     justify-content: center;
     padding: 10px; 
 }
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.header-title, .header-button {
+    flex: 1; 
+    text-align: center; 
+}
+
+.header-button {
+    margin-left: 15px; 
+}
+
 
 .container {
     width: 100%; 
