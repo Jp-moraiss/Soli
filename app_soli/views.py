@@ -111,9 +111,8 @@ def calcular_tempo_restante(data_colheita):
             data_colheita = datetime.combine(data_colheita, datetime.min.time())
 
         data_atual = datetime.now()
-        data_atual = datetime.combine(data_atual.date(), datetime.min.time())  # Considera apenas a data atual
+        data_atual = datetime.combine(data_atual.date(), datetime.min.time())
 
-        # Calcula a diferença em dias
         dias_restantes = (data_colheita - data_atual).days
 
         if dias_restantes > 0:
@@ -161,12 +160,17 @@ def login_view(request):
 
         if user is not None:
             auth_login(request, user)
+            messages.success(request, 'Login realizado com sucesso.') 
             return redirect('app_soli:home')
         else:
             messages.error(request, 'Usuário ou senha inválidos')
+            print(f"Falha de login: username={username}, senha={senha}")
             return redirect('app_soli:login')
 
     return render(request, 'login.html')
+
+
+
 
 def cadastro_view(request):
     if request.method == 'POST':
