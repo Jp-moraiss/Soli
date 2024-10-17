@@ -38,6 +38,14 @@
                         <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
                     </div>
                     <p class="progress-percentage">{{ cultura.progresso }}%</p>
+
+                    <!-- Botão para excluir cultura -->
+                    <form action="{% url 'app_soli:excluir_cultura' cultura.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
+                            <i class="fas fa-trash" style="color: red; width: 20px;"></i>
+                        </button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
