@@ -149,6 +149,7 @@ def login(request):
 def excluir_lembrete(request, lembrete_id):
     lembrete = get_object_or_404(Reminder, id=lembrete_id)
     lembrete.delete()
+    messages.success(request, 'Lembrete excluído com sucesso.')
     return redirect('app_soli:home')
 
 def login_view(request):
@@ -168,9 +169,6 @@ def login_view(request):
             return redirect('app_soli:login')
 
     return render(request, 'login.html')
-
-
-
 
 def cadastro_view(request):
     if request.method == 'POST':
