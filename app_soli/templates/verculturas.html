@@ -28,11 +28,11 @@
             <div id="culturas-results">
                 {% for cultura in culturas %}
                 <div class="culturas-card">
-                    <h2>{{ cultura.nome }} - {{ cultura.data_plantio }}</h2>
+                    <h2>{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
                     <p>Área: {{ cultura.area }}</p>
                     <p>Linhas: {{ cultura.linha }}</p>
-                    <p>Data de Colheita: {{ cultura.data_colheita }}</p>
-                    <p>Tempo restante: {{ cultura.duracao }}</p>
+                    <p>Data de Colheita: {{ cultura.data_colheita|date:"d/m/Y" }}</p>
+                    <p>Tempo restante: {{ cultura.tempo_restante }}</p>
                     <p>Progresso:</p>
                     <div class="progress-bar">
                         <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>

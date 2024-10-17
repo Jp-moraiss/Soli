@@ -177,41 +177,16 @@ function calcularDataColheita() {
 }
 
 function calcularDuracao() {
-    const dataPlantio = document.getElementById('data_plantio').value;
     const dataColheita = document.getElementById('data_colheita').value;
+    const dataPlantio = document.getElementById('data_plantio').value;
     const duracaoField = document.getElementById('duracao');
 
-    if (dataPlantio && dataColheita) {
+    if (dataColheita && dataPlantio) {
         const plantioDate = new Date(dataPlantio);
         const colheitaDate = new Date(dataColheita);
-
-        // Calcula a diferença em dias
         const diffTime = Math.abs(colheitaDate - plantioDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
-        // Atualiza o campo de duração
         duracaoField.value = diffDays;
     }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".culturas-card");
-
-    // Função para filtrar os cartões
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.toLowerCase();
-
-        cards.forEach(function (card) {
-            const nameElement = card.querySelector("h2");
-            const nameText = nameElement ? nameElement.textContent.toLowerCase() : "";
-
-            if (nameText.includes(searchText)) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    });
-});
-

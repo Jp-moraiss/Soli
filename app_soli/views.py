@@ -40,6 +40,13 @@ def add(request):
             return redirect('app_soli:add')
 
         # Verifica se a data de plantio é anterior à data de colheita
+        try:
+            data_plantio = datetime.strptime(data_plantio, '%Y-%m-%d')
+            data_colheita = datetime.strptime(data_colheita, '%Y-%m-%d')
+        except ValueError:
+            messages.error(request, 'Formato de data inválido. Use AAAA-MM-DD.')
+            return redirect('app_soli:add')
+
         if data_plantio >= data_colheita:
             messages.error(request, 'A data de plantio deve ser anterior à data de colheita.')
             return redirect('app_soli:add')
@@ -81,7 +88,11 @@ def calcular_progresso(data_plantio, data_colheita):
             dias_restantes = (data_colheita - data_atual).days
 
             if dias_restantes < 0:
-                return 100  # A barra deve estar cheia no dia da colheita
+                return 100  # A barra deve estar cheia após o dia da colheita
+
+            # Se for o dia da colheita
+            if dias_restantes == 0:
+                return 100
 
             # Se for o dia antes da colheita, retorna 99.9%
             if dias_restantes == 1:
