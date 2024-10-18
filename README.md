@@ -30,8 +30,13 @@
 </div>
 
 ## Funcionalidades da aplicação
-🔧🔨
-
+- Organização de plantio por subáreas pré-definidas (linhas e ruas de plantio)
+- Planejamento por meio de estimativa de colheitas: datas possíveis e quantidades colhidas
+- Calendário para previsão de colheitas
+- Inventário de mudas e sementes
+- Verificador de compatibilidade de culturas
+- Agenda e lembretes
+  
 ## Documentação 
   <details>
     <summary> Entregas </summary>
@@ -40,19 +45,19 @@
   ## SR1
   <ul>
   <li>
-    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
-  </li>
-  <li>
     <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
   </li>
   <li>
     <a href=> Projeto no Azure </a>
   </li>
     <li>
-    <a> Protótipo de Baixa Fidelidade </a>
+    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
+  </li>
+    <li>
+    <a href= https://www.figma.com/design/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=203-5106&node-type=canvas&t=cBu9eLt6sPMpZXCm-0> Protótipo de Baixa Fidelidade </a>
   </li>
   <li>
-    <a href=https://www.canva.com/design/DAGR5xQ9w7E/_GkGlgfhM4aPaMRp7L5tnQ/view?utm_content=DAGR5xQ9w7E&utm_campaign=designshare&utm_medium=link&utm_source=editor#1> Protótipo de Média Fidelidade & Fluxo de Telas </a>
+    <a href=https://www.canva.com/design/DAGR5xQ9w7E/_GkGlgfhM4aPaMRp7L5tnQ/view?utm_content=DAGR5xQ9w7E&utm_campaign=designshare&utm_medium=link&utm_source=editor#1> Protótipo de Média Fidelidade </a>
   </li>
    <li>
     <a>Screencast - Protótipo</a>
