@@ -1,4 +1,5 @@
 # SOLI
+<img width="960" alt="soli" src="https://github.com/user-attachments/assets/042b3195-8845-4e89-bdf9-a105b7110a77">
 
 ## Descrição
 
@@ -7,24 +8,24 @@
 
 ## Tecnologias & Ferramentas
 <div style="display: flex; align-items: center; text-decoration: green;">
-  <img src="https://img.shields.io/badge/Python-F46036?style=for-the-badge&logo=python&logoColor=white&color=blue"/>
-  <img src="https://img.shields.io/badge/Django-3C3744?style=for-the-badge&logo=django&logoColor=white&color=purple"/>
-  <img src="https://img.shields.io/badge/javascript-3C3744?style=for-the-badge&logo=javascript&logoColor=white&color=blue"/>
-  <img src="https://img.shields.io/badge/html5-F46036?style=for-the-badge&logo=html5&logoColor=white&color=purple"/>
-  <img src="https://img.shields.io/badge/css3-3C3744?style=for-the-badge&logo=css3&logoColor=white&color=blue"/>
-  <img src="https://img.shields.io/badge/Microsoft_Azure-F46036?style=for-the-badge&logo=microsoft-azure&logoColor=white&color=purple"/>  
-  <img src="https://img.shields.io/badge/sqlite-F46036?style=for-the-badge&logo=sqlite&logoColor=white&color=blue"/>
+  <img src="https://img.shields.io/badge/Python-F46036?style=for-the-badge&logo=python&logoColor=white&color=darkred"/>
+  <img src="https://img.shields.io/badge/Django-3C3744?style=for-the-badge&logo=django&logoColor=white&color=green"/>
+  <img src="https://img.shields.io/badge/javascript-3C3744?style=for-the-badge&logo=javascript&logoColor=white&color=darkorange"/>
+  <img src="https://img.shields.io/badge/html5-F46036?style=for-the-badge&logo=html5&logoColor=white&color=darkred"/>
+  <img src="https://img.shields.io/badge/css3-3C3744?style=for-the-badge&logo=css3&logoColor=white&color=green"/>
+  <img src="https://img.shields.io/badge/Microsoft_Azure-F46036?style=for-the-badge&logo=microsoft-azure&logoColor=white&color=darkorange"/>  
+  <img src="https://img.shields.io/badge/sqlite-F46036?style=for-the-badge&logo=sqlite&logoColor=white&color=darkred"/>
 </div>
 
 <br>
 
 <div style="display: flex; align-items: center; text-decoration: none;">
-  <a href="">
-  <img src="https://img.shields.io/badge/Jira-F46036?style=for-the-badge&logo=Jira&logoColor=white&color=blue"/>
+  <a href="https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2/backlog?atlOrigin=eyJpIjoiNzNiMGM0MWQzMDJjNDM3NmFlMDQwNDgxM2MyZDA2OTIiLCJwIjoiaiJ9">
+  <img src="https://img.shields.io/badge/Jira-F46036?style=for-the-badge&logo=Jira&logoColor=white&color=darkred"/>
   </a>
-    <img src="https://img.shields.io/badge/figma-3C3744?style=for-the-badge&logo=figma&logoColor=white&color=purple"/>
-  <a href="">
-    <img src="https://img.shields.io/badge/YOUTUBE-F46036?style=for-the-badge&logo=youtube&logoColor=white&color=blue"/>
+    <img src="https://img.shields.io/badge/figma-3C3744?style=for-the-badge&logo=figma&logoColor=white&color=green"/>
+  <a href="https://drive.google.com/drive/folders/0AKc0fMeb1Ho1Uk9PVA">
+    <img src="https://img.shields.io/badge/google_drive-white?style=for-the-badge&logo=google%20drive&logoColor=white&color=darkorange"/>
   </a>
 
 </div>
@@ -48,7 +49,7 @@
     <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
   </li>
   <li>
-    <a href=> Projeto no Azure </a>
+    <a href=https://solii.azurewebsites.net/> Projeto no Azure </a>
   </li>
     <li>
     <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
@@ -60,10 +61,16 @@
     <a href=https://www.canva.com/design/DAGR5xQ9w7E/_GkGlgfhM4aPaMRp7L5tnQ/view?utm_content=DAGR5xQ9w7E&utm_campaign=designshare&utm_medium=link&utm_source=editor#1> Protótipo de Média Fidelidade </a>
   </li>
    <li>
-    <a>Screencast - Protótipo</a>
+    <a href=https://drive.google.com/file/d/1Q3HtKww-fAeXLw0FFdEnYBAXwOex5T_3/view?usp=drive_link>Screencast - Protótipo</a>
   </li>
   <li>
-    <a>Screencast - Azure</a>
+    <a href=https://drive.google.com/file/d/1J1CEi5omruilJOVKzwjWywF9sk7C5hcp/view?usp=drive_link>Screencast - Azure</a>
+  </li>
+  <li>
+    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a>
+  </li>
+  <li>
+    <a href=https://www.canva.com/design/DAGT2JFl8lI/2zvHTO7VBRy-iiGYfFIi3A/edit>Apresentação SR1</a>
   </li>
 </ul>
 
