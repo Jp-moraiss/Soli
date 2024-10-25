@@ -52,6 +52,31 @@
         }
 
         document.addEventListener('DOMContentLoaded', carregarDataEmFormatoBrasileiro);
+
+        // Função para adicionar um novo campo de atividade
+        function adicionarCampoAtividade() {
+            const atividadesContainer = document.querySelector('.atividades');
+
+            // Cria um novo div para a nova atividade
+            const novaAtividade = document.createElement('div');
+            novaAtividade.classList.add('atv');
+
+            novaAtividade.innerHTML = `
+                <p>Nova Atividade:</p>
+                <input type="text" name="nova_atividade_nome[]" placeholder="Nome da atividade" required>
+                <p>A cada</p>
+                <input type="number" name="nova_atividade_frequencia[]" placeholder="..." min="0" required>
+                <select name="nova_atividade_unidade[]">
+                    <option value="dias">dias</option>
+                    <option value="semanas">semanas</option>
+                    <option value="meses">meses</option>
+                    <option value="anos">anos</option>
+                </select>
+            `;
+
+            // Adiciona o novo campo de atividade ao container
+            atividadesContainer.appendChild(novaAtividade);
+        }
     </script>
 </head>
 <body>
@@ -97,9 +122,8 @@
                     
                     <span class="span">
                         <label for="descricao">Descrição</label>
-                        <input type="text" name="descricao" placeholder="Digite aqui...">
+                        <input type="text" name="descricao" placeholder="Digite aqui..." >
                     </span>
-                    
                 </div>
                 
                 <hr>
@@ -164,7 +188,7 @@
                 </div>
     
                 <div class="button-holder">
-                    <button type="button" class="botao_adicionar">
+                    <button type="button" class="botao_adicionar" onclick="adicionarCampoAtividade()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
                             <path d="M5 12h14"/>
                             <path d="M12 5v14"/>
