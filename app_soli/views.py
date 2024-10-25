@@ -25,7 +25,7 @@ def add(request):
         nome = request.POST.get('cultura')
         area = request.POST.get('area')
         linha = request.POST.get('linha')
-        descricao = request.POST.get('descricao')
+        descricao = request.POST.get('descricao', '')
         data_plantio = request.POST.get('data_plantio')
         data_colheita = request.POST.get('data_colheita')
         duracao = request.POST.get('duracao')
@@ -35,11 +35,12 @@ def add(request):
         poda_frequencia = request.POST.get('poda_frequencia')
         poda_unidade = request.POST.get('poda_unidade')
 
-        if not all([nome, area, linha, descricao, data_plantio, data_colheita, duracao, unidade_duracao]):
+        
+        if not all([nome, area, linha, data_plantio, data_colheita, duracao, unidade_duracao]):
             messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
             return redirect('app_soli:add')
 
-        # Verifica se a data de plantio é anterior à data de colheita
+        
         try:
             data_plantio = datetime.strptime(data_plantio, '%Y-%m-%d')
             data_colheita = datetime.strptime(data_colheita, '%Y-%m-%d')
@@ -55,7 +56,7 @@ def add(request):
             nome=nome,
             area=area,
             linha=linha,
-            descricao=descricao,
+            descricao=descricao or None,
             data_plantio=data_plantio,
             data_colheita=data_colheita,
             duracao=duracao,

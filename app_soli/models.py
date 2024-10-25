@@ -11,7 +11,7 @@ class Cultura(models.Model):
     nome = models.CharField(max_length=100)
     area = models.CharField(max_length=100)  # Campo para Área
     linha = models.CharField(max_length=100, null=True)  # Permitir nulo temporariamente
-    descricao = models.TextField()
+    descricao = models.TextField(blank=True, null=True)
     data_plantio = models.DateField()
     data_colheita = models.DateField()
     duracao = models.IntegerField()  # Duração em dias
