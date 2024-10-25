@@ -190,3 +190,17 @@ def cadastro_view(request):
         return redirect('app_soli:login')
 
     return render(request, 'login.html')
+
+def procurar_linhas_view(request):
+    linha_procurada = request.GET.get('linha')
+    culturas = Cultura.objects.filter(linha=linha_procurada)
+
+    for cultura in culturas:
+        cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
+        cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
+
+        context = {
+            'culturas': culturas,
+            'linha': linha_procurada
+        }
+        return render(request, 'procurarlinha.html')
