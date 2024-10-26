@@ -13,6 +13,6 @@ urlpatterns = [
     path('excluir/<int:lembrete_id>/', views.excluir_lembrete, name='excluir_lembrete'),  # Excluir lembrete
     path('excluir_cultura/<int:cultura_id>/', views.excluir_cultura, name='excluir_cultura'),  # Excluir cultura
     path('weather/', views.weather, name='weather'),  # Página para o clima
-    path('procurarlinha/', views.procurar_linhas_view, name='procurarlinha'),  # Página para procurar cultira por linha
+    path('procurarlinha/', views.procurar_linhas_view, name='procurarlinha'),  # Página para procurar cultura por linha
     path('cultura/editar/<int:id>/', editar_cultura, name='editar_cultura'),
 ]

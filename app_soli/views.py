@@ -196,18 +196,18 @@ def cadastro_view(request):
     return render(request, 'login.html')
 
 def procurar_linhas_view(request):
-    linha_procurada = request.GET.get('linha')
-    culturas = Cultura.objects.filter(linha=linha_procurada)
+    linha_procurada = request.GET.get('linha', '')  # Recebe o valor da linha do campo de busca
+    culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else []
 
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
         cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
 
-        context = {
-            'culturas': culturas,
-            'linha': linha_procurada
-        }
-        return render(request, 'procurarlinha.html')
+    context = {
+        'culturas': culturas,
+        'linha': linha_procurada
+    }
+    return render(request, 'procurarlinha.html', context)
     
 @csrf_exempt
 def editar_cultura(request, id):
@@ -239,3 +239,5 @@ def editar_cultura(request, id):
 
     return JsonResponse({'success': False, 'error': 'Método não permitido.'})
 
+def procurarlinha(request):
+    return render(request, 'procurarlinha.html')
