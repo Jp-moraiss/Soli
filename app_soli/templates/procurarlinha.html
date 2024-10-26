@@ -7,15 +7,52 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/procurarlinha.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <style>
+        .botao {
+            display: flex;
+            width: 200px; /* ajuste conforme necessário */
+            height: 40px; /* ajuste conforme necessário */
+            background-color: #ccc; /* cor padrão */
+            border-radius: 20px; /* arredondado */
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin: 20px 0; /* espaço acima e abaixo do botão */
+        }
+
+        .parte-esquerda, .parte-direita {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ativo .parte-esquerda {
+            background-color: #666; /* cor para a parte ativa "Culturas" */
+        }
+
+        .ativo .parte-direita {
+            background-color: transparent; /* transparente para a parte não ativa */
+        }
+
+        .botao:hover {
+            background-color: #bbb; /* cor ao passar o mouse */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         {% include 'header.html' %}
-        <a href="{% url 'app_soli:verculturas' %}">Procurar por culturas</a>
-
+        
         <section class="culturas-list">
             <div class="header-container">
                 <h1 class="header-title">Procurar por Linhas</h1>
+                
+                <!-- Botão estilizado -->
+                <a href="{% url 'app_soli:verculturas' %}" class="botao {% if request.path == '/procurarlinha/' %}ativo{% endif %}">
+                    <span class="parte-esquerda">Culturas</span>
+                    <span class="parte-direita">Linhas</span>
+                </a>
             </div>
 
             <div class="search-box">
@@ -26,6 +63,10 @@
             </div>
 
             <div id="culturas-results">
+                {% if query and not culturas %}
+                    <p>Nenhuma cultura encontrada para esta linha.</p>
+                {% endif %}
+
                 {% if culturas %}
                     {% for cultura in culturas %}
                     <div class="culturas-card">
@@ -41,8 +82,6 @@
                         <p class="progress-percentage">{{ cultura.progresso }}%</p>
                     </div>
                     {% endfor %}
-                {% else %}
-                    <p>Nenhuma cultura encontrada para esta linha.</p>
                 {% endif %}
             </div>
         </section>

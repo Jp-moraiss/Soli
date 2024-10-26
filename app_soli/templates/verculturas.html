@@ -15,6 +15,36 @@
             padding: 5px;
             background-color: #f0f8ff;
         }
+        .botao {
+            display: flex;
+            width: 200px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 20px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .parte-esquerda, .parte-direita {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ativo .parte-esquerda {
+            background-color: #666;
+        }
+        .ativo .parte-direita {
+            background-color: transparent;
+        }
+        .botao:hover {
+            background-color: #bbb;
+        }
+        #no-results {
+            display: none;
+            color: red;
+        }
     </style>
     <script>
         function editarCultura(id) {
@@ -32,8 +62,8 @@
                 nomeElement.contentEditable = false;
                 areaElement.contentEditable = false;
                 linhaElement.contentEditable = false;
-                dataPlantioElement.disabled = true;  // Desabilitar o input de data
-                dataColheitaElement.disabled = true;  // Desabilitar o input de data
+                dataPlantioElement.disabled = true;
+                dataColheitaElement.disabled = true;
 
                 // Remover a classe de edição
                 nomeElement.classList.remove('editing');
@@ -44,7 +74,7 @@
 
                 // Coletar os dados
                 const dados = {
-                    nome: nomeElement.innerText,
+                    nome: nomeElement.innerText.split(' - ')[0],
                     area: areaElement.innerText.split(': ')[1],
                     linha: linhaElement.innerText.split(': ')[1],
                     data_plantio: dataPlantioElement.value,
@@ -64,7 +94,15 @@
                 .then(data => {
                     if (data.success) {
                         alert('Cultura atualizada com sucesso!');
-                        const tempoRestante = calcularTempoRestante(new Date(dataColheitaElement.value));
+
+                        // Atualizar os elementos no DOM com as novas informações
+                        nomeElement.innerText = `${dados.nome} - ${dados.data_plantio.split('-').reverse().join('/')}`;
+                        areaElement.innerText = `Área: ${dados.area}`;
+                        linhaElement.innerText = `Linhas: ${dados.linha}`;
+                        dataPlantioElement.value = dados.data_plantio;
+                        dataColheitaElement.value = dados.data_colheita;
+
+                        const tempoRestante = calcularTempoRestante(new Date(dados.data_colheita));
                         culturaCard.querySelector('.tempo-restante').innerText = `Tempo restante: ${tempoRestante}`;
                     } else {
                         alert('Falha ao atualizar a cultura.');
@@ -74,14 +112,13 @@
                 // Esconder o botão de confirmação e mostrar o de editar
                 confirmButton.style.display = 'none';
                 editButton.style.display = 'inline';
-
             } else {
                 // Ativar a edição
                 nomeElement.contentEditable = true;
                 areaElement.contentEditable = true;
                 linhaElement.contentEditable = true;
-                dataPlantioElement.disabled = false;  // Habilitar o input de data
-                dataColheitaElement.disabled = false;  // Habilitar o input de data
+                dataPlantioElement.disabled = false;
+                dataColheitaElement.disabled = false;
 
                 // Adicionar a classe de edição
                 nomeElement.classList.add('editing');
@@ -102,16 +139,13 @@
             const diffTime = dataColheita - agora;
             const diasRestantes = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            if (diasRestantes > 0) {
+            if (diasRestantes >= 0) {
                 return `${diasRestantes} dia(s)`;
-            } else if (diasRestantes === 0) {
-                return "Hoje";
             } else {
                 return "Colheita concluída";
             }
         }
 
-        // Atualiza o tempo restante ao mudar a data de colheita
         function atualizarTempoRestante(culturaCard) {
             const dataColheitaElement = culturaCard.querySelector('.data-colheita');
             dataColheitaElement.addEventListener('change', function () {
@@ -120,11 +154,35 @@
             });
         }
 
+        // Função para filtrar as culturas
+        function filtrarCulturas() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.culturas-card');
+            let hasResults = false;
+
+            cards.forEach(card => {
+                const nome = card.querySelector('.cultura-nome').innerText.toLowerCase();
+                if (nome.includes(filter)) {
+                    card.style.display = ''; // Mostra a cultura
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none'; // Esconde a cultura
+                }
+            });
+
+            // Exibe mensagem se não houver resultados
+            document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.culturas-card');
             cards.forEach(card => {
                 atualizarTempoRestante(card);
             });
+
+            // Adiciona o listener para a barra de pesquisa
+            document.getElementById('searchInput').addEventListener('input', filtrarCulturas);
         });
     </script>
 </head>
@@ -134,9 +192,12 @@
         {% include 'header.html' %}
 
         <section class="culturas-list">
-            <h1>Culturas</h1>
-            <a href="{% url 'app_soli:procurarlinha' %}">Procurar por Linhas</a>
-            
+            <h1>Procurar por Culturas</h1>
+            <a href="{% url 'app_soli:procurarlinha' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
+                <span class="parte-esquerda">Culturas</span>
+                <span class="parte-direita">Linhas</span>
+            </a>
+
             <div class="search-box">
                 <div class="buscar_box">
                     <input type="search" id="searchInput" placeholder="Busque aqui..." class="search-input">
@@ -144,7 +205,7 @@
                 </div>
             </div>
 
-            <p id="no-results" style="display: none;">Nenhuma cultura foi encontrada.</p>
+            <p id="no-results">Nenhuma cultura foi encontrada.</p>
 
             <div id="culturas-results">
                 {% for cultura in culturas %}
@@ -153,10 +214,10 @@
                     <p class="cultura-area">Área: {{ cultura.area }}</p>
                     <p class="cultura-linha">Linhas: {{ cultura.linha }}</p>
                     <p class="cultura-data-plantio">
-                        Data de Plantio: <input type="date" class="data-plantio" value="{{ cultura.data_plantio|date:'Y-m-d' }}">
+                        Data de Plantio: <input type="date" class="data-plantio" value="{{ cultura.data_plantio|date:'Y-m-d' }}" disabled>
                     </p>
                     <p class="cultura-data-colheita">
-                        Data de Colheita: <input type="date" class="data-colheita" value="{{ cultura.data_colheita|date:'Y-m-d' }}">
+                        Data de Colheita: <input type="date" class="data-colheita" value="{{ cultura.data_colheita|date:'Y-m-d' }}" disabled>
                     </p>
                     <p class="tempo-restante">Tempo restante: {{ cultura.tempo_restante }}</p>
                     <p>Progresso:</p>

@@ -205,9 +205,11 @@ def procurar_linhas_view(request):
 
     context = {
         'culturas': culturas,
-        'linha': linha_procurada
+        'linha': linha_procurada,  # Aqui você já está passando a linha procurada
+        'query': linha_procurada  # Adicionando a variável query
     }
     return render(request, 'procurarlinha.html', context)
+
     
 @csrf_exempt
 def editar_cultura(request, id):

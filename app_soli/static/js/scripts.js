@@ -104,8 +104,8 @@ function loadCheckboxState() {
 // Função para calcular o progresso
 function calcularProgresso(dataPlantio, dataColheita) {
     const agora = new Date();
-    const plantioDate = new Date(dataPlantio);
-    const colheitaDate = new Date(dataColheita);
+    const plantioDate = new Date(dataPlantio + 'T00:00:00'); // Ajuste aqui
+    const colheitaDate = new Date(dataColheita + 'T00:00:00'); // Ajuste aqui
 
     // Calcula a diferença total em dias
     const totalDias = Math.ceil((colheitaDate - plantioDate) / (1000 * 60 * 60 * 24));
@@ -184,36 +184,11 @@ function calcularDuracao() {
     if (dataColheita && dataPlantio) {
         const plantioDate = new Date(dataPlantio);
         const colheitaDate = new Date(dataColheita);
+        
+        // Calcula a diferença em dias
         const diffTime = Math.abs(colheitaDate - plantioDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         duracaoField.value = diffDays;
     }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".culturas-card");
-    const noResultsMessage = document.getElementById("no-results");
-
-    // Função para filtrar os cartões
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.toLowerCase();
-        let visibleCount = 0;
-
-        cards.forEach(function (card) {
-            const nameElement = card.querySelector("h2");
-            const nameText = nameElement ? nameElement.textContent.toLowerCase() : "";
-
-            if (nameText.includes(searchText)) {
-                card.style.display = "";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        // Exibe ou oculta a mensagem de "Nenhuma cultura foi encontrada"
-        noResultsMessage.style.display = visibleCount > 0 ? "none" : "block";
-    });
-});
