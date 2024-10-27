@@ -197,16 +197,19 @@ def cadastro_view(request):
 
 def procurar_linhas_view(request):
     linha_procurada = request.GET.get('linha', '')  # Recebe o valor da linha do campo de busca
-    culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else []
+    
+    # Se `linha_procurada` estiver vazio, carregue todas as culturas. Caso contrário, filtre pela linha procurada.
+    culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else Cultura.objects.all()
 
+    # Calcula o progresso e o tempo restante para cada cultura
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
         cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
 
     context = {
         'culturas': culturas,
-        'linha': linha_procurada,  # Aqui você já está passando a linha procurada
-        'query': linha_procurada  # Adicionando a variável query
+        'linha': linha_procurada,
+        'query': linha_procurada
     }
     return render(request, 'procurarlinha.html', context)
 
