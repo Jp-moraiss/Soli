@@ -1,0 +1,187 @@
+/* Estilo para o conteúdo principal da app (sobrescreve o global) */
+/* Estiliza o formulário e o campo de data */
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+h1 {
+    color: #333;
+    flex-basis: 100%; /* Faz o título ocupar toda a largura em telas menores */
+    text-align: center; /* Centraliza o título */
+}
+
+#datepicker {
+    display: block;
+    width: 80%; /* Ajusta para 80% da largura disponível */
+    max-width: 350px; /* Limita a largura máxima */
+    margin: 0 auto; /* Centraliza o calendário */
+}
+
+.flatpickr-calendar {
+    max-width: 350px; /* Limita a largura */
+    margin: 20px auto; /* Centraliza com margens */
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 100%; /* Faz o formulário ocupar toda a largura */
+    max-width: 400px; /* Limita a largura máxima do formulário */
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%; /* Ajusta para ocupar 100% da largura do formulário */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Faz o botão ocupar 100% da largura do formulário */
+}
+
+input[type="submit"]:hover {
+    background-color: black;
+}
+
+/* Estiliza o calendário do Flatpickr */
+.flatpickr-calendar {
+    font-size: 18px;
+    width: 100%; /* Faz o calendário ocupar 100% da largura */
+    height: auto;
+}
+
+/* Estiliza os dias da semana e o cabeçalho do calendário */
+.flatpickr-weekday {
+    font-weight: bold;
+}
+
+.flatpickr-current-month {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.flatpickr-prev,
+.flatpickr-next {
+    width: 20px; /* Ajuste o tamanho */
+    height: auto;
+    color: #333; /* Opcional: ajuste a cor */
+}
+
+.calendar-container {
+    width: 100%;
+    max-width: 500px; /* Ajuste este valor conforme o layout desejado */
+    margin: auto;
+}
+
+.calendar-navigation-arrow {
+    width: 30px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+}
+
+.flatpickr-innerContainer {
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo da bolinha verde no calendário */
+.event-marker {
+    width: 8px;
+    height: 8px;
+    background-color: green; /* Cor da bolinha indicando compromisso */
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.flatpickr-day {
+    position: relative; /* Necessário para a posição da bolinha */
+}
+
+/* Estilo para a seção de compromissos */
+.commitment-info {
+    max-height: 400px; /* Altura máxima ajustável */
+    overflow-y: auto; /* Habilitar rolagem vertical */
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    display: block; /* Evita conflitos com flexbox */
+    width: 90%; /* Ajuste para 90% da largura disponível */
+    margin-top: 28px;
+    box-sizing: border-box;
+    margin-bottom: 4rem;
+}
+
+@media (min-width: 600px) {
+    .container {
+        flex-direction: row; /* Mantém o layout em linha em telas maiores */
+    }
+
+    #datepicker {
+        width: 350px; /* Define a largura fixa em telas maiores */
+    }
+
+    .commitment-info {
+        width: 390px; /* Ajuste para largura fixa em telas maiores */
+    }
+
+    form {
+        width: 400px; /* Ajusta a largura do formulário */
+    }
+}
+
+/* Estilo para cada compromisso */
+.commitment-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word; /* Quebra de linha para textos longos */
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.commitment-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilo para os botões */
+.delete-button,
+.edit-button {
+    display: block;
+    margin: 5px auto 0 auto;
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover,
+.edit-button:hover {
+    background-color: #000000;
+}

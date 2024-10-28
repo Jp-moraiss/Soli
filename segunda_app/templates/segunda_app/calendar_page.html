@@ -1,0 +1,39 @@
+{% include 'header.html' %}
+{% load static %}
+{% block title %}Agenda de Processos{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'segunda_app/css/calendar_page_styles.css' %}">
+{% endblock %}
+
+{% block sections %}
+<div class="container">
+    <section>
+        <h1>Selecione uma Data</h1>
+        <form method="GET" action="{% url 'adicionar_compromisso' %}">
+            {% csrf_token %}
+            <label for="datepicker">Data:</label>
+            <input type="text" id="datepicker" name="date" required>
+            <input type="submit" value="Adicionar Compromisso">
+        </form>
+    </section>
+    <section class="commitment-info" id="commitments">
+        <h1>Nenhum Compromisso</h1>
+    </section>
+</div>
+    {% endblock %}
+    
+    {% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script>
+        // Passa a lista de datas com compromissos do Django para o JS.
+        var datasComCompromissos = JSON.parse('{{ datas_com_compromissos|escapejs }}');
+        </script>
+    <script src="{% static 'segunda_app/js/calendar_script.js' %}"></script>
+    {% endblock %}
+
+    {% include 'footer.html' %}
+    

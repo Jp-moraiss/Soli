@@ -71,6 +71,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "whitenoise.runserver_nostatic",
     "app_soli",
+    'segunda_app.apps.SegundaAppConfig',    # Adiciona a app
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
