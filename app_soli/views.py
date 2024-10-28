@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, date
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def home(request):
     if request.method == 'POST':
@@ -193,15 +196,53 @@ def cadastro_view(request):
     return render(request, 'login.html')
 
 def procurar_linhas_view(request):
-    linha_procurada = request.GET.get('linha')
-    culturas = Cultura.objects.filter(linha=linha_procurada)
+    linha_procurada = request.GET.get('linha', '')  # Recebe o valor da linha do campo de busca
+    
+    # Se `linha_procurada` estiver vazio, carregue todas as culturas. Caso contrário, filtre pela linha procurada.
+    culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else Cultura.objects.all()
 
+    # Calcula o progresso e o tempo restante para cada cultura
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
         cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
 
-        context = {
-            'culturas': culturas,
-            'linha': linha_procurada
-        }
-        return render(request, 'procurarlinha.html')
+    context = {
+        'culturas': culturas,
+        'linha': linha_procurada,
+        'query': linha_procurada
+    }
+    return render(request, 'procurarlinha.html', context)
+
+    
+@csrf_exempt
+def editar_cultura(request, id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        try:
+            # Tenta obter a cultura pelo ID
+            cultura = Cultura.objects.get(id=id)
+
+            # Atualiza os campos da cultura com os novos dados
+            cultura.nome = data['nome']
+            cultura.area = data['area']
+            cultura.linha = data['linha']
+            cultura.data_plantio = data['data_plantio']
+            cultura.data_colheita = data['data_colheita']
+
+            # Calcula o progresso e o tempo restante
+            cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
+            cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
+
+            # Salva as alterações no banco de dados
+            cultura.save()
+
+            return JsonResponse({'success': True, 'progresso': cultura.progresso})
+
+        except Cultura.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Cultura não encontrada.'})
+
+    return JsonResponse({'success': False, 'error': 'Método não permitido.'})
+
+def procurarlinha(request):
+    return render(request, 'procurarlinha.html')

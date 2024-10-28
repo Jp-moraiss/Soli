@@ -9,60 +9,18 @@ body {
     background-color: #F9F9F9;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 10px; 
 }
 
 .container {
-    width: 100%;
-    max-width: 1000px;
+    width: 100%; 
+    max-width: 1000px; 
     background-color: white;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para o título principal */
-.culturas-list h1 {
-    margin: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-/* Estilo das abas de navegação entre CULTURAS e LINHAS */
-.tab-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.tab-button {
-    padding: 10px 20px;
-    border-radius: 25px; /* Bordas arredondadas */
-    border: none;
-    background-color: #D9D9D9; /* Cor de fundo da aba inativa */
-    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    flex: 1;
-    text-align: center;
-    margin: 0 5px;
-}
-
-.tab-button.active {
-    background-color: #A9A9A9; /* Cor da aba ativa */
-    color: white; /* Cor do texto da aba ativa */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar a aba ativa */
-}
-
-.tab-button:hover {
-    background-color: #B0B0B0;
-}
-
-/* Card das culturas */
 .culturas-card {
     background-color: #f1f1f1;
     border-radius: 10px;
@@ -75,7 +33,14 @@ body {
     margin: 0 0 10px;
 }
 
-/* Barra de progresso */
+.culturas-list h1 {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .progress-bar {
     background-color: #ccc;
     border-radius: 5px;
@@ -98,32 +63,11 @@ body {
     text-align: center;
 }
 
-/* Campo de busca */
 .search-box {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-}
-
-.buscar_box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25rem;
-    border-radius: 5px;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    background-color: #D9D9D9;
-    padding: 10px;
-}
-
-.search-input {
-    width: 100%;
-    height: 3rem;
-    border: none;
-    background-color: #D9D9D9;
-    padding: 0 1rem;
-    outline: none;
 }
 
 #no-results {
@@ -137,7 +81,26 @@ body {
     color: #e57373; /* Cor de destaque para mensagens de "Nenhuma cultura foi encontrada" */
 }
 
-/* Ícones SVG */
+.buscar_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    border-radius: 5px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    background-color: #D9D9D9;
+    padding: 10px; /* Espessura ajustada para o campo de busca */
+}
+
+.search-input {
+    width: 100%;
+    height: 3rem;
+    border: none;
+    background-color: #D9D9D9;
+    padding: 0 1rem;
+    outline: none;
+}
+
 .SVG {
     width: 24px;
     height: 24px;
@@ -149,7 +112,6 @@ body {
     stroke: #f4cc49;
 }
 
-/* Estilo do footer */
 footer {
     background-color: #f8f9fa;
     padding: 0.5rem;
@@ -173,7 +135,6 @@ footer nav a {
     padding: 0.5rem;
 }
 
-/* Botão de exclusão */
 .delete-button {
     display: inline-block;
     margin-top: 10px;
@@ -188,4 +149,20 @@ footer nav a {
 
 .delete-button:hover {
     background-color: #ef5350;
+}
+
+/* Adições específicas para procurar linha */
+.search-box .btn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.search-box .btn:hover {
+    background-color: #43a047;
 }

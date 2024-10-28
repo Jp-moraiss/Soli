@@ -1,59 +1,214 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Culturas</title>
+    <title>Procurar Linhas</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/verculturas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/procurarlinha.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .editing {
+            border: 2px solid blue;
+            padding: 5px;
+            background-color: #f0f8ff;
+        }
+        .botao {
+            display: flex;
+            width: 200px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 20px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .parte-esquerda, .parte-direita {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ativo .parte-esquerda {
+            background-color: #666;
+        }
+        .ativo .parte-direita {
+            background-color: transparent;
+        }
+        .botao:hover {
+            background-color: #bbb;
+        }
+        #no-results {
+            display: none;
+            color: red;
+        }
+    </style>
+    <script>
+        function editarCultura(id) {
+            const culturaCard = document.querySelector(`#cultura-${id}`);
+            const nomeElement = culturaCard.querySelector('.cultura-nome');
+            const areaElement = culturaCard.querySelector('.cultura-area');
+            const linhaElement = culturaCard.querySelector('.cultura-linha');
+            const dataPlantioElement = culturaCard.querySelector('.data-plantio');
+            const dataColheitaElement = culturaCard.querySelector('.data-colheita');
+            const confirmButton = culturaCard.querySelector('.confirmar-edicao');
+            const editButton = culturaCard.querySelector('.editar-btn');
+    
+            if (nomeElement.isContentEditable) {
+                // Salvar as alterações
+                nomeElement.contentEditable = false;
+                areaElement.contentEditable = false;
+                linhaElement.contentEditable = false;
+                dataPlantioElement.disabled = true;
+                dataColheitaElement.disabled = true;
+    
+                // Remover a classe de edição
+                nomeElement.classList.remove('editing');
+                areaElement.classList.remove('editing');
+                linhaElement.classList.remove('editing');
+                dataPlantioElement.classList.remove('editing');
+                dataColheitaElement.classList.remove('editing');
+    
+                // Coletar os dados
+                const dados = {
+                    nome: nomeElement.innerText.split(' - ')[0],
+                    area: areaElement.innerText.split(': ')[1],
+                    linha: linhaElement.innerText.split(': ')[1],
+                    data_plantio: dataPlantioElement.value,
+                    data_colheita: dataColheitaElement.value
+                };
+    
+                // Enviar os dados via AJAX
+                fetch(`/cultura/editar/${id}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify(dados)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cultura atualizada com sucesso!');
+    
+                        // Atualizar os elementos no DOM com as novas informações
+                        nomeElement.innerText = `${dados.nome} - ${dados.data_plantio.split('-').reverse().join('/')}`;
+                        areaElement.innerText = `Área: ${dados.area}`;
+                        linhaElement.innerText = `Linhas: ${dados.linha}`;
+                        dataPlantioElement.value = dados.data_plantio;
+                        dataColheitaElement.value = dados.data_colheita;
+    
+                        const tempoRestante = calcularTempoRestante(new Date(dados.data_colheita));
+                        culturaCard.querySelector('.tempo-restante').innerText = `Tempo restante: ${tempoRestante}`;
+                    } else {
+                        alert('Falha ao atualizar a cultura.');
+                    }
+                });
+    
+                // Esconder o botão de confirmação e mostrar o de editar
+                confirmButton.style.display = 'none';
+                editButton.style.display = 'inline';
+            } else {
+                // Ativar a edição
+                nomeElement.contentEditable = true;
+                areaElement.contentEditable = true;
+                linhaElement.contentEditable = true;
+                dataPlantioElement.disabled = false;
+                dataColheitaElement.disabled = false;
+    
+                // Adicionar a classe de edição
+                nomeElement.classList.add('editing');
+                areaElement.classList.add('editing');
+                linhaElement.classList.add('editing');
+                dataPlantioElement.classList.add('editing');
+                dataColheitaElement.classList.add('editing');
+    
+                // Mostrar o botão de confirmação e esconder o de editar
+                confirmButton.style.display = 'inline';
+                editButton.style.display = 'none';
+                nomeElement.focus();
+            }
+        }
+    
+        function calcularTempoRestante(dataColheita) {
+            const agora = new Date();
+            const diffTime = dataColheita - agora;
+            const diasRestantes = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+            if (diasRestantes >= 0) {
+                return `${diasRestantes} dia(s)`;
+            } else {
+                return "Colheita concluída";
+            }
+        }
+    </script>
+    
 </head>
-
 <body>
     <div class="container">
         {% include 'header.html' %}
 
         <section class="culturas-list">
-
-            <div class="header-container">
-                <h1 class="header-title">Linhas</h1>
-                <a href="{% url 'app_soli:verculturas' %}" class="btn btn-primary header-button">
-                    Procurar por culturas
-                </a>
-            </div>
+            <h1>Procurar por Linhas</h1>
+            <a href="{% url 'app_soli:verculturas' %}" class="botao {% if request.path == '/procurarlinha/' %}ativo{% endif %}">
+                <span class="parte-esquerda">Culturas</span>
+                <span class="parte-direita">Linhas</span>
+            </a>
 
             <div class="search-box">
-                <div class="buscar_box">
-                    <input type="search" id="searchInput" placeholder="Busque aqui..." class="search-input">
-                    <i class="bi bi-search"></i>  
-                </div>
+                <form method="get" action="{% url 'app_soli:procurarlinha' %}">
+                    <input type="search" name= "linha" id="searchInput" placeholder="Busque aqui..." class="search-input">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
             </div>
 
-            <div id="culturas-results">
-                {% for linha in culturas %}
-                <div class="culturas-card">
-                    <h2>{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
-                    <p>Área: {{ cultura.area }}</p>
-                    <p>Linhas: {{ cultura.linha }}</p>
-                    <p>Data de Colheita: {{ cultura.data_colheita|date:"d/m/Y" }}</p>
-                    <p>Tempo restante: {{ cultura.tempo_restante }}</p>
-                    <p>Progresso:</p>
-                    <div class="progress-bar">
-                        <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
-                    </div>
-                    <p class="progress-percentage">{{ cultura.progresso }}%</p>
+            <p id="no-results" style="display: none; color: red;">Nenhuma linha foi encontrada.</p>
 
-                    <!-- Botão para excluir cultura -->
-                    <form action="{% url 'app_soli:excluir_cultura' cultura.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
-                            <i class="fas fa-trash" style="color: red; width: 20px;"></i>
+            <div id="culturas-results">
+                {% if culturas %}
+                    {% for cultura in culturas %}
+                    <div class="culturas-card" id="cultura-{{ cultura.id }}">
+                        <h2 class="cultura-nome">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
+                        <p class="cultura-area">Área: {{ cultura.area }}</p>
+                        <p class="cultura-linha">Linhas: {{ cultura.linha }}</p>
+                        <p class="cultura-data-plantio">
+                            Data de Plantio: <input type="date" class="data-plantio" value="{{ cultura.data_plantio|date:'Y-m-d' }}" disabled>
+                        </p>
+                        <p class="cultura-data-colheita">
+                            Data de Colheita: <input type="date" class="data-colheita" value="{{ cultura.data_colheita|date:'Y-m-d' }}" disabled>
+                        </p>
+                        <p class="tempo-restante">Tempo restante: {{ cultura.tempo_restante }}</p>
+                        <p>Progresso:</p>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
+                        </div>
+                        <p class="progress-percentage">{{ cultura.progresso }}%</p>
+    
+                        <!-- Botão para editar cultura -->
+                        <button class="editar-btn" onclick="editarCultura({{ cultura.id }});" title="Editar" style="border:none; background:none; cursor:pointer; float:right;">
+                            <i class="fas fa-pencil-alt" style="color: blue; width: 20px;"></i>
                         </button>
-                    </form>
-                </div>
-                {% endfor %}
+    
+                        <!-- Botão para confirmar mudanças -->
+                        <button class="confirmar-edicao" onclick="editarCultura({{ cultura.id }});" style="display:none; border:none; background:none; cursor:pointer; float:right;">
+                            <i class="fas fa-check" style="color: green; width: 20px;" title="Confirmar"></i>
+                        </button>
+    
+                        <!-- Botão para excluir cultura -->
+                        <form action="{% url 'app_soli:excluir_cultura' cultura.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
+                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhuma linha encontrada.</p>
+                {% endif %}
             </div>
         </section>
 
@@ -62,5 +217,4 @@
 
     <script src="{% static 'js/scripts.js' %}"></script>
 </body>
-
 </html>
