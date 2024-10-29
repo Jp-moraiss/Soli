@@ -1,11 +1,10 @@
 from django.db import models
+from django.utils import timezone
 
 class Commitment(models.Model):
-    time_start = models.DateTimeField()
-    time_end = models.DateTimeField(null=True, blank=True)  # Hora de fim é opcional
-    processes = models.CharField(max_length=200, default="My default process")
-    location = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)  # Descrição é opcional
+    description = models.TextField(default="Descrição padrão")  # Define um valor padrão
+    date = models.DateField(default=timezone.now)
+
 
     def __str__(self):
-        return self.processes
+        return self.description or "Compromisso sem descrição"

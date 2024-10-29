@@ -1,41 +1,56 @@
 document.addEventListener("DOMContentLoaded", function() {
     const commitmentsDiv = document.querySelector("#commitments");
-    let selectedDateISO = null; // Variável global para armazenar a data selecionada
+    let selectedDateISO = null;
 
-    // Função para carregar compromissos de um dia específico
     function loadCommitments(dateStr) {
         fetch(`/agenda/get_commitments/?date=${dateStr}`)
             .then(response => response.json())
             .then(data => {
-                commitmentsDiv.innerHTML = '';  // Limpa a div de compromissos
+                commitmentsDiv.innerHTML = '';
                 if (data.compromissos && data.compromissos.length > 0) {
                     renderCommitments(data.compromissos);
                 } else {
-                    commitmentsDiv.innerHTML = '<p>Nenhum evento para esse dia.</p>';
+                    commitmentsDiv.innerHTML = '<p>Nenhuma anotação para esse dia.</p>';
                 }
             })
             .catch(error => {
                 console.error('Erro ao carregar compromissos:', error);
-                commitmentsDiv.innerHTML = '<p>Ocorreu um erro ao carregar os compromissos.</p>';
+                commitmentsDiv.innerHTML = '<p>Ocorreu um erro ao carregar as anotações.</p>';
             });
     }
 
-    // Função para renderizar compromissos na interface
     function renderCommitments(compromissos) {
         compromissos.forEach(comp => {
             const commitmentItem = document.createElement("div");
-            commitmentItem.className = 'commitment-item';  // Classe para estilizar
-            commitmentItem.innerHTML = `
-                <strong>${comp.processo}</strong><br>
-                <span>Local: ${comp.local}</span><br>
-                <span>Início: ${comp.hora_inicio}</span><br>
-                <span>Fim: ${comp.hora_fim}</span><br>
-                <p>${comp.observacoes}</p>
-                <button class="edit-button" data-id="${comp.id}">Editar</button>
-                <button class="delete-button" data-id="${comp.id}">Excluir</button>
-            `;
+            commitmentItem.className = 'commitment-item';
+            commitmentItem.innerHTML = `<strong>${comp.description}</strong><br>`;
             commitmentsDiv.appendChild(commitmentItem);
         });
+
+        commitmentsDiv.style.overflowY = 'auto';
+    }
+
+    const calendar = flatpickr("#datepicker", {
+        locale: "pt",
+        dateFormat: "d/m/Y",
+        inline: true,
+        defaultDate: "today",
+        firstDayOfWeek: 1,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const dateStr = dayElem.dateObj.toISOString().split('T')[0];
+            if (datasComCompromissos.includes(dateStr)) {
+                const eventMarker = document.createElement('div');
+                eventMarker.className = 'event-marker';
+                dayElem.appendChild(eventMarker);
+            }
+
+            dayElem.addEventListener("click", function() {
+                selectedDateISO = dateStr;
+                loadCommitments(dateStr);
+            });
+        }
+    });
+});
 
         // Garante a rolagem vertical
         commitmentsDiv.style.overflowY = 'auto';
@@ -56,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.href = `/agenda/editar_compromisso/${compId}/`;
             });
         });
-    }
 
     // Função para excluir um compromisso
     function deleteCommitment(compId) {
@@ -140,4 +154,4 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     });
-});
+

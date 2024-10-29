@@ -8,11 +8,11 @@ import pytz
 from django.urls import reverse
 
 def render_calendar(request):
-    # Obtenha todas as datas dos compromissos
-    compromissos = Commitment.objects.values_list('time_start', flat=True)
+    # Obtenha todas as datas dos compromissos usando o campo 'date'
+    compromissos = Commitment.objects.values_list('date', flat=True)
     
-    # Converta para uma lista de strings no formato "YYYY-MM-DD", considerando o fuso horário local
-    datas_com_compromissos = [timezone.localtime(comp).date().isoformat() for comp in compromissos]
+    # Converta para uma lista de strings no formato "YYYY-MM-DD"
+    datas_com_compromissos = [comp.isoformat() for comp in compromissos]
     
     context = {
         'datas_com_compromissos': json.dumps(datas_com_compromissos)  # Passa como JSON
@@ -23,33 +23,20 @@ def add_commitment(request):
     if request.method == 'POST':
         date_str = request.POST.get('date')
         try:
-            date_obj = datetime.strptime(date_str, '%d/%m/%Y')
-            start_time = datetime.combine(date_obj, datetime.strptime(request.POST['hora_inicio'], '%H:%M').time())
-            end_time = datetime.combine(date_obj, datetime.strptime(request.POST['hora_fim'], '%H:%M').time())
-            
-            tz = pytz.timezone('America/Sao_Paulo')
-            start_time = tz.localize(start_time)
-            end_time = tz.localize(end_time)
+            date_obj = datetime.strptime(date_str, '%d/%m/%Y').date()
+            description = request.POST.get('description')
 
             Commitment.objects.create(
-                time_start=start_time,
-                time_end=end_time,
-                processes=request.POST['processo'],
-                location=request.POST['local'],
-                description=request.POST['observacoes']
+                date=date_obj,
+                description=description
             )
             return redirect('agenda')
         except ValueError:
             return render(request, "segunda_app/add_commitment_page.html", {
                 'selected_date': date_str,
-                'error': 'Formato de data ou hora inválido. Tente novamente.',
+                'error': 'Formato de data inválido. Tente novamente.',
+                'description': request.POST.get('description'),
                 'form_action': reverse('adicionar_compromisso'),
-                # Preenche os campos com os dados submetidos
-                'hora_inicio': request.POST.get('hora_inicio'),
-                'hora_fim': request.POST.get('hora_fim'),
-                'processo': request.POST.get('processo'),
-                'local': request.POST.get('local'),
-                'observacoes': request.POST.get('observacoes')
             })
     else:
         date_str = request.GET.get('date')
@@ -115,7 +102,6 @@ def edit_commitment(request, comp_id):
 
 def get_commitments_by_date(request):
     date_str = request.GET.get('date')
-
     if not date_str:
         return JsonResponse({'error': 'Data não fornecida'}, status=400)
     
@@ -124,20 +110,17 @@ def get_commitments_by_date(request):
     except ValueError:
         return JsonResponse({'error': 'Formato de data inválido'}, status=400)
     
-    compromissos = Commitment.objects.filter(time_start__date=date_obj).order_by('time_start')
+    compromissos = Commitment.objects.filter(date=date_obj).order_by('date')
 
     compromissos_data = [
         {
-            'processo': comp.processes,
-            'local': comp.location,
-            'observacoes': comp.description,
-            'hora_inicio': comp.time_start.astimezone(pytz.timezone('America/Sao_Paulo')).strftime('%H:%M'),
-            'hora_fim': comp.time_end.astimezone(pytz.timezone('America/Sao_Paulo')).strftime('%H:%M'),
-            'id': comp.id  # Adiciona o ID do compromisso
+            'description': comp.description,
+            'id': comp.id
         } for comp in compromissos
     ]
     
     return JsonResponse({'compromissos': compromissos_data})
+
 
 def delete_commitment(request, comp_id):
     if request.method == 'DELETE':

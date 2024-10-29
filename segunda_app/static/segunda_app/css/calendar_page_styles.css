@@ -1,17 +1,46 @@
 /* Estilo para o conteúdo principal da app (sobrescreve o global) */
 /* Estiliza o formulário e o campo de data */
 .container {
+    width: 100%; 
+    max-width: 1000px; 
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+    margin-bottom: 4rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #F9F9F9;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+    padding: 10px; 
+    margin-bottom: 10rem;
 }
 
 h1 {
     color: #333;
     flex-basis: 100%; /* Faz o título ocupar toda a largura em telas menores */
     text-align: center; /* Centraliza o título */
+}
+
+.container2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section1{
+    padding-top: 3rem;
 }
 
 #datepicker {
