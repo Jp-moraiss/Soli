@@ -103,9 +103,9 @@ header {
 
 .hourly-forecast {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 15px;
-    gap: 0.5rem;
+    gap: 1rem;
     background-color: none;
     border-radius: 2rem;
     background-color: #e6e6e6;

@@ -3,8 +3,9 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'segunda_app/css/add_commitment_page_styles.css' %}">
 {% endblock %}
-
+{% include 'header.html' %}
 {% block sections %}
+<div class="container">
 <section>
     <h1>Anotações - {{ selected_date }}</h1>
     <form action="{{ form_action }}" method="post">
@@ -17,5 +18,7 @@
         <button type="submit">Salvar</button>
     </form>
 </section>
+</div>
+{% include 'footer.html' %}
 {% endblock %}
 
