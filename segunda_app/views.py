@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from django.utils import timezone
 from .models import Commitment
@@ -46,55 +46,34 @@ def add_commitment(request):
         })
 
 def edit_commitment(request, comp_id):
-    try:
-        commitment = Commitment.objects.get(id=comp_id)
-    except Commitment.DoesNotExist:
-        return render(request, 'segunda_app/add_commitment_page.html', {
-            'error': 'Compromisso não encontrado.'
-        })
+    # Tenta obter o compromisso; caso contrário, mostra uma mensagem de erro.
+    commitment = get_object_or_404(Commitment, id=comp_id)
 
     if request.method == 'POST':
         date_str = request.POST.get('date')
         try:
-            date_obj = datetime.strptime(date_str, '%d/%m/%Y')
-            start_time = datetime.combine(date_obj, datetime.strptime(request.POST['hora_inicio'], '%H:%M').time())
-            end_time = datetime.combine(date_obj, datetime.strptime(request.POST['hora_fim'], '%H:%M').time())
+            # Converte a data para o formato adequado
+            date_obj = timezone.datetime.strptime(date_str, '%d/%m/%Y').date()
 
-            tz = pytz.timezone('America/Sao_Paulo')
-            start_time = tz.localize(start_time)
-            end_time = tz.localize(end_time)
-
-            # Atualiza os campos do compromisso
-            commitment.time_start = start_time
-            commitment.time_end = end_time
-            commitment.processes = request.POST['processo']
-            commitment.location = request.POST['local']
-            commitment.description = request.POST['observacoes']
+            # Atualiza o compromisso com os novos valores
+            commitment.date = date_obj
+            commitment.description = request.POST['description']
             commitment.save()
             return redirect('agenda')
         except ValueError:
+            # Retorna ao formulário em caso de erro com os valores submetidos
             return render(request, "segunda_app/add_commitment_page.html", {
                 'selected_date': date_str,
                 'commitment': commitment,
-                'error': 'Formato de data ou hora inválido. Tente novamente.',
+                'error': 'Formato de data inválido. Tente novamente.',
                 'form_action': reverse('editar_compromisso', args=[comp_id]),
-                # Preenche os campos com os dados submetidos
-                'hora_inicio': request.POST.get('hora_inicio'),
-                'hora_fim': request.POST.get('hora_fim'),
-                'processo': request.POST.get('processo'),
-                'local': request.POST.get('local'),
-                'observacoes': request.POST.get('observacoes')
+                'description': request.POST.get('description')
             })
     else:
         # Preenche o formulário com os dados existentes
-        selected_date = commitment.time_start.astimezone(pytz.timezone('America/Sao_Paulo')).strftime('%d/%m/%Y')
         context = {
-            'selected_date': selected_date,
-            'hora_inicio': commitment.time_start.astimezone(pytz.timezone('America/Sao_Paulo')).strftime('%H:%M'),
-            'hora_fim': commitment.time_end.astimezone(pytz.timezone('America/Sao_Paulo')).strftime('%H:%M'),
-            'processo': commitment.processes,
-            'local': commitment.location,
-            'observacoes': commitment.description,
+            'selected_date': commitment.date.strftime('%d/%m/%Y'),
+            'description': commitment.description,
             'form_action': reverse('editar_compromisso', args=[comp_id]),
             'commitment': commitment
         }

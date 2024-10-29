@@ -55,6 +55,18 @@ h1 {
     margin: 20px auto; /* Centraliza com margens */
 }
 
+.div_botoes{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.descricao{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 form {
     background-color: #fff;
     padding: 20px;

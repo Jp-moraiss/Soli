@@ -23,38 +23,17 @@ document.addEventListener("DOMContentLoaded", function() {
         compromissos.forEach(comp => {
             const commitmentItem = document.createElement("div");
             commitmentItem.className = 'commitment-item';
-            commitmentItem.innerHTML = `<strong>${comp.description}</strong><br>`;
+            commitmentItem.innerHTML = `
+            <strong class='descricao'>${comp.description}</strong><br>
+            <div class = 'div_botoes'>
+            <button class="edit-button" data-id="${comp.id}">Editar</button>
+            <button class="delete-button" data-id="${comp.id}">Excluir</button>
+            </div>
+            `;
             commitmentsDiv.appendChild(commitmentItem);
         });
 
         commitmentsDiv.style.overflowY = 'auto';
-    }
-
-    const calendar = flatpickr("#datepicker", {
-        locale: "pt",
-        dateFormat: "d/m/Y",
-        inline: true,
-        defaultDate: "today",
-        firstDayOfWeek: 1,
-        onDayCreate: function(dObj, dStr, fp, dayElem) {
-            const dateStr = dayElem.dateObj.toISOString().split('T')[0];
-            if (datasComCompromissos.includes(dateStr)) {
-                const eventMarker = document.createElement('div');
-                eventMarker.className = 'event-marker';
-                dayElem.appendChild(eventMarker);
-            }
-
-            dayElem.addEventListener("click", function() {
-                selectedDateISO = dateStr;
-                loadCommitments(dateStr);
-            });
-        }
-    });
-});
-
-        // Garante a rolagem vertical
-        commitmentsDiv.style.overflowY = 'auto';
-
         // Adiciona evento de clique para cada botão de excluir
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -62,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 deleteCommitment(compId); // Chama a função para deletar o compromisso
             });
         });
-
+    
         // Adiciona evento de clique para cada botão de editar
         document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -71,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.href = `/agenda/editar_compromisso/${compId}/`;
             });
         });
+    }
+
 
     // Função para excluir um compromisso
     function deleteCommitment(compId) {
@@ -154,4 +135,4 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     });
-
+})
