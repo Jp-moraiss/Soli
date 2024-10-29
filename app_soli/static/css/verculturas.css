@@ -189,3 +189,39 @@ footer nav a {
 .delete-button:hover {
     background-color: #ef5350;
 }
+
+.editing {
+    border: 2px solid blue;
+    padding: 5px;
+    background-color: #f0f8ff;
+}
+.botao {
+    display: flex;
+    width: 200px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.parte-esquerda, .parte-direita {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ativo .parte-esquerda {
+    background-color: #666;
+}
+.ativo .parte-direita {
+    background-color: transparent;
+}
+.botao:hover {
+    background-color: #bbb;
+}
+#no-results {
+    display: none;
+    color: red;
+}

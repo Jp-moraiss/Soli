@@ -192,3 +192,146 @@ function calcularDuracao() {
         duracaoField.value = diffDays;
     }
 }
+
+function editarCultura(id) {
+    const culturaCard = document.querySelector(`#cultura-${id}`);
+    const nomeElement = culturaCard.querySelector('.cultura-nome');
+    const areaElement = culturaCard.querySelector('.cultura-area');
+    const linhaElement = culturaCard.querySelector('.cultura-linha');
+    const dataPlantioElement = culturaCard.querySelector('.data-plantio');
+    const dataColheitaElement = culturaCard.querySelector('.data-colheita');
+    const confirmButton = culturaCard.querySelector('.confirmar-edicao');
+    const editButton = culturaCard.querySelector('.editar-btn');
+
+    if (nomeElement.isContentEditable) {
+        // Salvar as alterações
+        nomeElement.contentEditable = false;
+        areaElement.contentEditable = false;
+        linhaElement.contentEditable = false;
+        dataPlantioElement.disabled = true;
+        dataColheitaElement.disabled = true;
+
+        // Remover a classe de edição
+        nomeElement.classList.remove('editing');
+        areaElement.classList.remove('editing');
+        linhaElement.classList.remove('editing');
+        dataPlantioElement.classList.remove('editing');
+        dataColheitaElement.classList.remove('editing');
+
+        // Coletar os dados
+        const dados = {
+            nome: nomeElement.innerText.split(' - ')[0],
+            area: areaElement.innerText.split(': ')[1],
+            linha: linhaElement.innerText.split(': ')[1],
+            data_plantio: dataPlantioElement.value,
+            data_colheita: dataColheitaElement.value
+        };
+
+        // Enviar os dados via AJAX
+        fetch(`/cultura/editar/${id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(dados)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Cultura atualizada com sucesso!');
+
+                // Atualizar os elementos no DOM com as novas informações
+                nomeElement.innerText = `${dados.nome} - ${dados.data_plantio.split('-').reverse().join('/')}`;
+                areaElement.innerText = `Área: ${dados.area}`;
+                linhaElement.innerText = `Linhas: ${dados.linha}`;
+                dataPlantioElement.value = dados.data_plantio;
+                dataColheitaElement.value = dados.data_colheita;
+
+                const tempoRestante = calcularTempoRestante(new Date(dados.data_colheita));
+                culturaCard.querySelector('.tempo-restante').innerText = `Tempo restante: ${tempoRestante}`;
+            } else {
+                alert('Falha ao atualizar a cultura.');
+            }
+        });
+
+        // Esconder o botão de confirmação e mostrar o de editar
+        confirmButton.style.display = 'none';
+        editButton.style.display = 'inline';
+    } else {
+        // Ativar a edição
+        nomeElement.contentEditable = true;
+        areaElement.contentEditable = true;
+        linhaElement.contentEditable = true;
+        dataPlantioElement.disabled = false;
+        dataColheitaElement.disabled = false;
+
+        // Adicionar a classe de edição
+        nomeElement.classList.add('editing');
+        areaElement.classList.add('editing');
+        linhaElement.classList.add('editing');
+        dataPlantioElement.classList.add('editing');
+        dataColheitaElement.classList.add('editing');
+
+        // Mostrar o botão de confirmação e esconder o de editar
+        confirmButton.style.display = 'inline';
+        editButton.style.display = 'none';
+        nomeElement.focus();
+    }
+}
+
+function calcularTempoRestante(dataColheita) {
+    const agora = new Date();
+    const diffTime = dataColheita - agora;
+    const diasRestantes = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diasRestantes >= 0) {
+        return `${diasRestantes} dia(s)`;
+    } else {
+        return "Colheita concluída";
+    }
+}
+
+function atualizarTempoRestante(culturaCard) {
+    const dataColheitaElement = culturaCard.querySelector('.data-colheita');
+    dataColheitaElement.addEventListener('change', function () {
+        const tempoRestante = calcularTempoRestante(new Date(dataColheitaElement.value));
+        culturaCard.querySelector('.tempo-restante').innerText = `Tempo restante: ${tempoRestante}`;
+    });
+}
+
+// Função para filtrar as culturas
+function filtrarCulturas() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll('.culturas-card');
+    let hasResults = false;
+
+    cards.forEach(card => {
+        const nome = card.querySelector('.cultura-nome').innerText.toLowerCase();
+        if (nome.includes(filter)) {
+            card.style.display = ''; // Mostra a cultura
+            hasResults = true;
+        } else {
+            card.style.display = 'none'; // Esconde a cultura
+        }
+    });
+
+    // Exibe mensagem se não houver resultados
+    document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.culturas-card');
+    cards.forEach(card => {
+        atualizarTempoRestante(card);
+    });
+
+    // Adiciona o listener para a barra de pesquisa
+    document.getElementById('searchInput').addEventListener('input', filtrarCulturas);
+});
+
+function confirmarExclusao() {
+    return confirm("Tem certeza de que deseja excluir esta cultura?");
+}
+
