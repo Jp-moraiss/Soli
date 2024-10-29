@@ -53,37 +53,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    // Função para excluir um compromisso
     function deleteCommitment(compId) {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+    
         fetch(`/agenda/delete_commitment/${compId}/`, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken  // Adiciona o token CSRF aqui
+                'X-CSRFToken': csrfToken
             }
         })
         .then(response => {
             if (response.ok) {
-                // Remove o compromisso da interface
-                const commitmentItem = document.querySelector(`.delete-button[data-id="${compId}"]`).parentElement;
-                commitmentItem.remove();
-
-                // Verifica se ainda há compromissos no dia
-                if (commitmentsDiv.children.length === 0) {
-                    commitmentsDiv.innerHTML = '<p>Nenhum evento para esse dia.</p>';
-
-                    // Remove a data da lista de datas com compromissos
-                    const selectedDate = selectedDateISO; // A data selecionada no formato 'YYYY-MM-DD'
-                    const index = datasComCompromissos.indexOf(selectedDate);
-                    if (index > -1) {
-                        datasComCompromissos.splice(index, 1);
-                    }
-
-                    // Remove a bolinha verde do calendário
-                    removeEventMarker(selectedDate);
-                }
+                // Atualiza a página automaticamente
+                location.reload(); // Isso vai recarregar a página
             } else {
                 return response.json().then(err => {
                     console.error('Erro ao excluir o compromisso:', err.error);
@@ -95,22 +78,22 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Erro ao fazer a requisição para excluir o compromisso:', error);
         });
     }
-
+    
+    
     // Função para remover o marcador de evento (bolinha verde) do calendário
     function removeEventMarker(dateStr) {
-        // Encontra o elemento do dia correspondente
         const dayElements = document.querySelectorAll('.flatpickr-day');
         dayElements.forEach(dayElem => {
             const dayDateStr = dayElem.dateObj.toISOString().split('T')[0];
             if (dayDateStr === dateStr) {
-                // Remove o marcador de evento se existir
                 const eventMarker = dayElem.querySelector('.event-marker');
                 if (eventMarker) {
-                    eventMarker.remove();
+                    eventMarker.remove(); // Remove o marcador de evento
                 }
             }
         });
     }
+    
 
     // Configura o calendário flatpickr
     const calendar = flatpickr("#datepicker", {

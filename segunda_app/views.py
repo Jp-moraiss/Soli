@@ -102,7 +102,7 @@ def get_commitments_by_date(request):
 
 
 def delete_commitment(request, comp_id):
-    if request.method == 'DELETE':
+    if request.method == 'POST':  # Altere DELETE para POST
         try:
             # Obtém o compromisso a ser excluído
             commitment = Commitment.objects.get(id=comp_id)
