@@ -33,6 +33,22 @@
 
         <section class="reminders">
             <h2>Lembretes</h2>
+            
+            <!-- Lembretes Automáticos de Atividades -->
+            <h3>Atividades Automáticas</h3>
+            <ul>
+                {% for atividade in lembretes_atividades %}
+                    <li class="reminder automatic-reminder">
+                        <input type="checkbox" id="atividade{{ forloop.counter }}" class="reminder-checkbox" onchange="toggleStrike(this)">
+                        <label for="atividade{{ forloop.counter }}">{{ atividade }}</label>
+                    </li>
+                {% empty %}
+                    <li>Nenhuma atividade automática para exibir no momento.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Lembretes Manuais -->
+            <h3>Lembretes Manuais</h3>
             <ul>
                 {% for reminder in reminders %}
                     <li class="reminder">
@@ -48,6 +64,7 @@
                 {% endfor %}
             </ul>
 
+            <!-- Formulário para Adicionar Lembretes Manuais -->
             <form class="form_reminder" method="POST">
                 {% csrf_token %}
                 <input class="reminder" type="text" name="text" placeholder="Novo lembrete..." required>
@@ -59,6 +76,7 @@
             </form>
         </section>
 
+        <!-- Bloco de mensagens de feedback -->
         {% if messages %}
         <div class="messages">
             {% for message in messages %}

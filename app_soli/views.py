@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Reminder, Cultura
+from .models import Reminder, Cultura, Atividade
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils import timezone
+
 
 def home(request):
     if request.method == 'POST':
@@ -20,8 +22,32 @@ def home(request):
                 messages.success(request, 'Lembrete adicionado com sucesso.')
         return redirect('app_soli:home')
 
+    # Lembretes manuais
     reminders = Reminder.objects.all()
-    return render(request, 'home.html', {'reminders': reminders})
+
+    # Lembretes automáticos de atividades
+    atividades = Atividade.objects.all()
+    lembretes_atividades = []
+
+    for atividade in atividades:
+        # Verifica se a data da próxima atividade é menor ou igual à data atual
+        if atividade.data_proxima <= timezone.now().date():
+            lembretes_atividades.append(f"{atividade.nome} para a cultura {atividade.cultura.nome} (Área: {atividade.cultura.area})")
+            # Atualiza a data da próxima atividade com base na frequência
+            if atividade.unidade_frequencia == 'dias':
+                atividade.data_proxima += timedelta(days=atividade.frequencia)
+            elif atividade.unidade_frequencia == 'semanas':
+                atividade.data_proxima += timedelta(weeks=atividade.frequencia)
+            elif atividade.unidade_frequencia == 'meses':
+                atividade.data_proxima += timedelta(days=atividade.frequencia * 30)  # Aproximação para meses
+            atividade.save()
+
+    # Exibe lembretes manuais e automáticos
+    return render(request, 'home.html', {
+        'reminders': reminders,
+        'lembretes_atividades': lembretes_atividades
+    })
+
 
 def add(request):
     if request.method == 'POST':
@@ -38,12 +64,10 @@ def add(request):
         poda_frequencia = request.POST.get('poda_frequencia')
         poda_unidade = request.POST.get('poda_unidade')
 
-        
         if not all([nome, area, linha, data_plantio, data_colheita, duracao, unidade_duracao]):
             messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
             return redirect('app_soli:add')
 
-        
         try:
             data_plantio = datetime.strptime(data_plantio, '%Y-%m-%d')
             data_colheita = datetime.strptime(data_colheita, '%Y-%m-%d')
@@ -55,7 +79,8 @@ def add(request):
             messages.error(request, 'A data de plantio deve ser anterior à data de colheita.')
             return redirect('app_soli:add')
 
-        Cultura.objects.create(
+        # Criação da cultura
+        cultura = Cultura.objects.create(
             nome=nome,
             area=area,
             linha=linha,
@@ -63,17 +88,33 @@ def add(request):
             data_plantio=data_plantio,
             data_colheita=data_colheita,
             duracao=duracao,
-            unidade_duracao=unidade_duracao,
-            irrigacao_frequencia=irrigacao_frequencia,
-            irrigacao_unidade=irrigacao_unidade,
-            poda_frequencia=poda_frequencia,
-            poda_unidade=poda_unidade
+            unidade_duracao=unidade_duracao
         )
 
-        messages.success(request, 'Cultura adicionada com sucesso.')
+        # Criação das atividades automáticas para irrigação e poda
+        if irrigacao_frequencia and irrigacao_unidade:
+            Atividade.objects.create(
+                cultura=cultura,
+                nome="Irrigação",
+                frequencia=int(irrigacao_frequencia),
+                unidade_frequencia=irrigacao_unidade,
+                data_proxima=data_plantio
+            )
+
+        if poda_frequencia and poda_unidade:
+            Atividade.objects.create(
+                cultura=cultura,
+                nome="Poda",
+                frequencia=int(poda_frequencia),
+                unidade_frequencia=poda_unidade,
+                data_proxima=data_plantio
+            )
+
+        messages.success(request, 'Cultura e atividades adicionadas com sucesso.')
         return redirect('app_soli:home')
 
     return render(request, 'add.html')
+
 
 def calcular_progresso(data_plantio, data_colheita):
     if isinstance(data_plantio, (date, datetime)) and isinstance(data_colheita, (date, datetime)):
