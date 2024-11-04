@@ -69,33 +69,21 @@
             <div id="culturas-results">
                 {% if culturas %}
                     {% for cultura in culturas %}
-                    <div class="culturas-card" id="cultura-{{ cultura.id }}">
-                        <h2 class="cultura-nome">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
-                        <p class="cultura-area">Área: {{ cultura.area }}</p>
-                        <p class="cultura-linha">Linhas: {{ cultura.linha }}</p>
-                        <p class="cultura-data-plantio">
-                            Data de Plantio: <input type="date" class="data-plantio" value="{{ cultura.data_plantio|date:'Y-m-d' }}" disabled>
-                        </p>
-                        <p class="cultura-data-colheita">
-                            Data de Colheita: <input type="date" class="data-colheita" value="{{ cultura.data_colheita|date:'Y-m-d' }}" disabled>
-                        </p>
-                        <p class="tempo-restante">Tempo restante: {{ cultura.tempo_restante }}</p>
-                        <p>Progresso:</p>
-                        <div class="progress-bar">
-                            <div class="progress-bar-fill" style="width: {{ cultura.progresso }}%"></div>
-                        </div>
-                        <p class="progress-percentage">{{ cultura.progresso }}%</p>
-    
+                    <div class="areas-card" id="area-{{ cultura.area }}">
+                        <h2 class="area">{{ cultura.area }}</h2>
+                            <h3>Cultura  -  Plantio</h3>
+                            <p class="cultura-nome/data">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </p>
+
+            
                         <!-- Botão para editar cultura -->
                         <button class="editar-btn" onclick="editarCultura({{ cultura.id }});" title="Editar" style="border:none; background:none; cursor:pointer; float:right;">
                             <i class="fas fa-pencil-alt" style="color: blue; width: 20px;"></i>
                         </button>
-    
                         <!-- Botão para confirmar mudanças -->
-                        <button class="confirmar-edicao" onclick="editarCultura({{ cultura.id }});" style="display:none; border:none; background:none; cursor:pointer; float:right;">
+                         <button class="confirmar-edicao" onclick="editarCultura({{ cultura.id }});" style="display:none; border:none; background:none; cursor:pointer; float:right;">
                             <i class="fas fa-check" style="color: green; width: 20px;" title="Confirmar"></i>
                         </button>
-    
+            
                         <!-- Botão para excluir cultura -->
                         <form action="{% url 'app_soli:excluir_cultura' cultura.id %}" method="POST" style="display:inline;">
                             {% csrf_token %}
@@ -106,7 +94,7 @@
                     </div>
                     {% endfor %}
                 {% else %}
-                    <p>Nenhuma linha encontrada.</p>
+                    <p id="no-results">Nenhuma cultura encontrada para a linha "{{ request.GET.linha }}".</p>
                 {% endif %}
             </div>
         </section>
