@@ -22,27 +22,22 @@ def home(request):
                 messages.success(request, 'Lembrete adicionado com sucesso.')
         return redirect('app_soli:home')
 
-    # Lembretes manuais
     reminders = Reminder.objects.all()
-
-    # Lembretes automáticos de atividades
     atividades = Atividade.objects.all()
     lembretes_atividades = []
 
     for atividade in atividades:
-        # Verifica se a data da próxima atividade é menor ou igual à data atual
         if atividade.data_proxima <= timezone.now().date():
-            lembretes_atividades.append(f"{atividade.nome} para a cultura {atividade.cultura.nome} (Área: {atividade.cultura.area})")
-            # Atualiza a data da próxima atividade com base na frequência
+            lembretes_atividades.append(f"{atividade.nome} para a cultura {atividade.cultura.nome} na área {atividade.cultura.area}")  # Exibir área
+            # Atualiza a data da próxima atividade
             if atividade.unidade_frequencia == 'dias':
                 atividade.data_proxima += timedelta(days=atividade.frequencia)
             elif atividade.unidade_frequencia == 'semanas':
                 atividade.data_proxima += timedelta(weeks=atividade.frequencia)
             elif atividade.unidade_frequencia == 'meses':
-                atividade.data_proxima += timedelta(days=atividade.frequencia * 30)  # Aproximação para meses
+                atividade.data_proxima += timedelta(days=atividade.frequencia * 30)
             atividade.save()
 
-    # Exibe lembretes manuais e automáticos
     return render(request, 'home.html', {
         'reminders': reminders,
         'lembretes_atividades': lembretes_atividades
@@ -59,10 +54,9 @@ def add(request):
         data_colheita = request.POST.get('data_colheita')
         duracao = request.POST.get('duracao')
         unidade_duracao = request.POST.get('unidade_duracao')
-        irrigacao_frequencia = request.POST.get('irrigacao_frequencia')
-        irrigacao_unidade = request.POST.get('irrigacao_unidade')
-        poda_frequencia = request.POST.get('poda_frequencia')
-        poda_unidade = request.POST.get('poda_unidade')
+
+        # Obter atividades personalizadas do usuário
+        atividades_personalizadas = request.POST.getlist('atividades')  # Novo campo para atividades
 
         if not all([nome, area, linha, data_plantio, data_colheita, duracao, unidade_duracao]):
             messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
@@ -92,23 +86,49 @@ def add(request):
         )
 
         # Criação das atividades automáticas para irrigação e poda
+        irrigacao_frequencia = request.POST.get('irrigacao_frequencia')
+        irrigacao_unidade = request.POST.get('irrigacao_unidade')
+
         if irrigacao_frequencia and irrigacao_unidade:
-            Atividade.objects.create(
+            atividade_irrigacao = Atividade.objects.create(
                 cultura=cultura,
                 nome="Irrigação",
                 frequencia=int(irrigacao_frequencia),
                 unidade_frequencia=irrigacao_unidade,
                 data_proxima=data_plantio
             )
+            # Atualiza a data da próxima irrigação
+            atividade_irrigacao.data_proxima = atividade_irrigacao.calcular_proxima_data()
+            atividade_irrigacao.save()
+
+        poda_frequencia = request.POST.get('poda_frequencia')
+        poda_unidade = request.POST.get('poda_unidade')
 
         if poda_frequencia and poda_unidade:
-            Atividade.objects.create(
+            atividade_poda = Atividade.objects.create(
                 cultura=cultura,
                 nome="Poda",
                 frequencia=int(poda_frequencia),
                 unidade_frequencia=poda_unidade,
                 data_proxima=data_plantio
             )
+            # Atualiza a data da próxima poda
+            atividade_poda.data_proxima = atividade_poda.calcular_proxima_data()
+            atividade_poda.save()
+
+        # Adicionar atividades personalizadas, se houver
+        for atividade in atividades_personalizadas:
+            if atividade.strip():  # Verifica se a atividade não está vazia
+                nova_atividade = Atividade.objects.create(
+                    cultura=cultura,
+                    nome=atividade,
+                    frequencia=30,  # Frequência padrão; você pode ajustar isso
+                    unidade_frequencia='dias',  # Unidade padrão; ajuste conforme necessário
+                    data_proxima=data_plantio
+                )
+                # Atualiza a data da próxima atividade personalizada
+                nova_atividade.data_proxima = nova_atividade.calcular_proxima_data()
+                nova_atividade.save()
 
         messages.success(request, 'Cultura e atividades adicionadas com sucesso.')
         return redirect('app_soli:home')
