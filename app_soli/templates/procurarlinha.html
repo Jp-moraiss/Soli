@@ -56,41 +56,29 @@
                 <span class="parte-esquerda">Culturas</span>
                 <span class="parte-direita">Linhas</span>
             </a>
-
+        
             <div class="search-box">
                 <form method="get" action="{% url 'app_soli:procurarlinha' %}">
-                    <input type="search" name= "linha" id="searchInput" placeholder="Busque aqui..." class="search-input">
+                    <input type="search" name="linha" id="searchInput" placeholder="Busque aqui..." class="search-input">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </form>
             </div>
-
+        
             <p id="no-results" style="display: none; color: red;">Nenhuma linha foi encontrada.</p>
-
+        
             <div id="culturas-results">
                 {% if culturas %}
-                    {% for cultura in culturas %}
-                    <div class="areas-card" id="area-{{ cultura.area }}">
-                        <h2 class="area">{{ cultura.area }}</h2>
-                            <h3>Cultura  -  Plantio</h3>
-                            <p class="cultura-nome/data">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </p>
-
-            
-                        <!-- Botão para editar cultura -->
-                        <button class="editar-btn" onclick="editarCultura({{ cultura.id }});" title="Editar" style="border:none; background:none; cursor:pointer; float:right;">
-                            <i class="fas fa-pencil-alt" style="color: blue; width: 20px;"></i>
-                        </button>
-                        <!-- Botão para confirmar mudanças -->
-                         <button class="confirmar-edicao" onclick="editarCultura({{ cultura.id }});" style="display:none; border:none; background:none; cursor:pointer; float:right;">
-                            <i class="fas fa-check" style="color: green; width: 20px;" title="Confirmar"></i>
-                        </button>
-            
-                        <!-- Botão para excluir cultura -->
-                        <form action="{% url 'app_soli:excluir_cultura' cultura.id %}" method="POST" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
-                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>
-                            </button>
-                        </form>
+                    {% regroup culturas by area as area_culturas %}
+                    
+                    {% for group in area_culturas %}
+                    <div class="areas-card" id="area-{{ group.grouper }}">
+                        <h2 class="area">{{ group.grouper }}</h2>
+                        <br>
+                        <h3>Cultura - Plantio</h3>
+                        <hr>
+                        {% for cultura in group.list %}
+                            <p class="cultura-nome-data">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </p>
+                        {% endfor %}
                     </div>
                     {% endfor %}
                 {% else %}
@@ -98,6 +86,7 @@
                 {% endif %}
             </div>
         </section>
+        
 
         {% include 'footer.html' %}
     </div>
