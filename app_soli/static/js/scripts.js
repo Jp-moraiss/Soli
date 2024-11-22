@@ -407,3 +407,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 3000);
     }
 });
+
+
+document.querySelectorAll('.password-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+        const passwordInput = button.previousElementSibling;
+        const isPasswordVisible = passwordInput.getAttribute('type') === 'text';
+        passwordInput.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+        button.setAttribute('aria-label', isPasswordVisible ? 'Mostrar senha' : 'Ocultar senha');
+    });
+});
+

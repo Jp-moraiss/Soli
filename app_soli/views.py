@@ -250,11 +250,16 @@ def cadastro_view(request):
             messages.error(request, 'As senhas não coincidem')
             return redirect('app_soli:cadastro')
 
-        User.objects.create_user(username=username, email=email, password=senha)
+        user = User.objects.create_user(username=username, email=email, password=senha)
+        user.is_active = True  # Garante que o usuário está ativo
+        user.save()
+
         messages.success(request, 'Usuário criado com sucesso')
         return redirect('app_soli:login')
 
-    return render(request, 'login.html')
+    return render(request, 'register.html')
+
+
 
 def procurar_linhas_view(request):
     linha_procurada = request.GET.get('linha', '')  # Recebe o valor da linha do campo de busca

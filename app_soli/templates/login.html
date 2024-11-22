@@ -1,48 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Soli</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-</head>
-<body>
-
-  <section class="login-container">
-    <div class="hero-wrapper">
-      <img src="{% static 'img/background.png' %}" alt="" class="hero-image" />
-      <div class="content-wrapper">
-
-        <div class="logo-container">
-          <h1 class="logo-text">soli</h1>
-          <img src="{% static 'img/logo.png' %}" alt="Soli Logo" class="logo-image" />
-        </div>
-  
-        <h2 class="login-heading">Login</h2>
-  
-        <form class="login-form" action="{% url 'app_soli:login' %}" method="post">
-            {% csrf_token %}
-          <label for="username" class="visually-hidden">Usuário</label>
-          <input type="text" id="username" class="form-input" placeholder="Usuário" name="username" required />
-  
-          <div class="password-wrapper">
-            <label for="password" class="visually-hidden">Senha</label>
-            <input type="password" id="password" class="form-input" placeholder="Senha" name="senha" style="border:none;background:none;margin:0;padding:0" required/>
-            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
-              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a267deedb552216897f24cb95d36fc3513189e5a486497329327d8598d3dccad?apiKey=e59fd6b9b3ce490b974d524521900819&" alt="" />
-            </button>
+  </head>
+  <body>
+    
+    <section class="login-container">
+      <div class="hero-wrapper">
+        <img src="{% static 'img/background.png' %}" alt="" class="hero-image" />
+        <div class="content-wrapper">
+          
+          <div class="logo-container">
+            <h1 class="logo-text">soli</h1>
+            <img src="{% static 'img/logo.png' %}" alt="Soli Logo" class="logo-image" />
           </div>
-  
-          <button type="submit" class="submit-button">Entrar</button>
-        </form>
-  
-        <p class="register-text">
-          Não tem conta ainda?
-          <a href="#" class="register-link">Registre-se</a>
-        </p>
-    </div>
-  </section>
-
+          
+          <h2 class="login-heading">Login</h2>
+          
+          <form class="login-form" action="{% url 'app_soli:login' %}" method="post">
+            {% csrf_token %}
+            <label for="username" class="visually-hidden">Usuário</label>
+            <input type="text" id="username" class="form-input" placeholder="Usuário" name="username" required />
+            
+            <div class="password-wrapper">
+              <label for="password" class="visually-hidden">Senha</label>
+              <input type="password" id="password" class="form-input" placeholder="Senha" name="senha" style="border:none;background:none;margin:0;padding:0" required/>
+              <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a267deedb552216897f24cb95d36fc3513189e5a486497329327d8598d3dccad?apiKey=e59fd6b9b3ce490b974d524521900819&" alt="" />
+              </button>
+            </div>
+            
+            <button type="submit" class="submit-button">Entrar</button>
+          </form>
+          
+          <p class="register-text">
+            Não tem conta ainda?
+            <a href="{% url 'app_soli:cadastro' %}" class="register-link">Registre-se</a>
+          </p>
+        </div>
+      </section>
+      
+      <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

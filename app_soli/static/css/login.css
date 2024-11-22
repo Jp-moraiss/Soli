@@ -21,7 +21,6 @@
     background-repeat: no-repeat; /* Evita que a imagem se repita */
     background-position: center; /* Centraliza a imagem */
 
-
   }
 
   .login-container {
@@ -63,20 +62,6 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .status-bar {
-    width: 100%;
-    padding: clamp(1rem, 5vw, 1.5rem) 0;
-  }
-
-  .status-content {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
   .time-display {
     color: var(--text-light);
     font-size: clamp(0.875rem, 2vw, 1.0625rem);
@@ -239,6 +224,20 @@
   @media (min-width: 768px) {
     .content-wrapper {
       padding: 0 2rem 2rem;
+    }
+    .login-form {
+      max-width: 360px;
+    }
+  }
+  
+  @media (min-height: 1024px) {
+    .content-wrapper {
+      padding: 0 2rem 2rem;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 5rem;
     }
     .login-form {
       max-width: 360px;
