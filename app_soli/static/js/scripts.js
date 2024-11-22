@@ -335,3 +335,75 @@ function confirmarExclusao() {
     return confirm("Tem certeza de que deseja excluir esta cultura?");
 }
 
+function adicionarCampoAtividade() {
+    const atividadesContainer = document.querySelector('.atividades');
+
+    // Cria um novo div para a nova atividade
+    const novaAtividade = document.createElement('div');
+    novaAtividade.classList.add('atv');
+
+    novaAtividade.innerHTML = `
+        <p>Nova Atividade:</p>
+        <input type="text" name="nova_atividade_nome[]" placeholder="Nome da atividade" required>
+        <p>A cada</p>
+        <input type="number" name="nova_atividade_frequencia[]" placeholder="..." min="0" required>
+        <select name="nova_atividade_unidade[]">
+            <option value="dias">dias</option>
+            <option value="semanas">semanas</option>
+            <option value="meses">meses</option>
+            <option value="anos">anos</option>
+        </select>
+    `;
+
+    // Adiciona o novo campo de atividade ao container
+    atividadesContainer.appendChild(novaAtividade);
+}
+
+function validateForm(event) {
+    const dataPlantio = document.getElementById('data_plantio');
+    const dataColheita = document.getElementById('data_colheita');
+
+    if (dataPlantio.value) {
+        dataPlantio.value = dataPlantio.valueAsDate.toISOString().split('T')[0];
+    }
+    if (dataColheita.value) {
+        dataColheita.value = dataColheita.valueAsDate.toISOString().split('T')[0];
+    }
+
+    // Coleta dados das atividades
+    const atividades = [];
+    const novaAtividadeNomes = document.getElementsByName('nova_atividade_nome[]');
+    const novaAtividadeFrequencias = document.getElementsByName('nova_atividade_frequencia[]');
+    const novaAtividadeUnidades = document.getElementsByName('nova_atividade_unidade[]');
+
+    for (let i = 0; i < novaAtividadeNomes.length; i++) {
+        atividades.push({
+            nome: novaAtividadeNomes[i].value,
+            frequencia: novaAtividadeFrequencias[i].value,
+            unidade: novaAtividadeUnidades[i].value
+        });
+    }
+
+    // Cria um campo oculto para enviar as atividades em JSON
+    const atividadesInput = document.createElement('input');
+    atividadesInput.type = 'hidden';
+    atividadesInput.name = 'atividades';
+    atividadesInput.value = JSON.stringify(atividades);
+    event.target.appendChild(atividadesInput);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const messages = document.querySelector('.messages');
+
+    if (messages) {
+        // Espera 3 segundos antes de começar a desaparecer
+        setTimeout(() => {
+            messages.style.opacity = '0'; // Gradualmente esconde com transição
+
+            // Remove o elemento após a transição terminar
+            messages.addEventListener('transitionend', () => {
+                messages.style.display = 'none';
+            });
+        }, 3000);
+    }
+});
