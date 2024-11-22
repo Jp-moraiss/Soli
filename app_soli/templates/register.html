@@ -21,18 +21,27 @@
                 <section class="registration-section" aria-labelledby="registration-title">
                     <h2 id="registration-title" class="form-title">Cadastro</h2>
 
+                    <!-- Bloco de mensagens -->
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     <form class="registration-form" action="{% url 'app_soli:cadastro' %}" method="post">
                         {% csrf_token %}
                         <div>
                             <label for="username" class="visually-hidden">Nome de usuário</label>
                             <input type="text" id="username" class="form-input" placeholder="Nome de usuário" name="username" required aria-required="true"/>
                         </div>
-                    
+
                         <div>
                             <label for="email" class="visually-hidden">Email</label>
                             <input type="email" id="email" class="form-input" placeholder="Email" name="email" required aria-required="true"/>
                         </div>
-                    
+
                         <div class="password-input-wrapper">
                             <label for="password" class="visually-hidden">Criar senha</label>
                             <input type="password" id="password" class="password-input" placeholder="Criar senha" name="senha" required aria-required="true"/>
@@ -40,7 +49,7 @@
                                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1bd9ee00cecd4f72854b2f9f30f6e07c3bb255223f082a62771033c132ff1e88?placeholderIfAbsent=true&apiKey=e59fd6b9b3ce490b974d524521900819" alt="" width="24" height="24"/>
                             </button>
                         </div>
-                    
+
                         <div class="password-input-wrapper">
                             <label for="confirm-password" class="visually-hidden">Confirmar senha</label>
                             <input type="password" id="confirm-password" class="password-input" placeholder="Confirmar senha" name="confirm_senha" required aria-required="true"/>
@@ -48,10 +57,9 @@
                                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f23de82f2b91a118709235b867004cb2694aec295df047f525c42fe389e37ded?placeholderIfAbsent=true&apiKey=e59fd6b9b3ce490b974d524521900819" alt="" width="24" height="24"/>
                             </button>
                         </div>
-                    
+
                         <button type="submit" class="submit-button">Criar conta</button>
                     </form>
-                    
 
                     <p class="login-prompt">
                         Já tem uma conta? 
@@ -64,4 +72,3 @@
     <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>
-

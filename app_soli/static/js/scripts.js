@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(() => {
             messages.classList.remove('show');
-        }, 2000);
+        }, 4000);
     }
 });
 
