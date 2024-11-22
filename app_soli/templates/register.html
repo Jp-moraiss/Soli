@@ -21,15 +21,6 @@
                 <section class="registration-section" aria-labelledby="registration-title">
                     <h2 id="registration-title" class="form-title">Cadastro</h2>
 
-                    <!-- Bloco de mensagens -->
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="message {{ message.tags }}">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
                     <form class="registration-form" action="{% url 'app_soli:cadastro' %}" method="post">
                         {% csrf_token %}
                         <div>
@@ -60,6 +51,14 @@
 
                         <button type="submit" class="submit-button">Criar conta</button>
                     </form>
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
 
                     <p class="login-prompt">
                         Já tem uma conta? 

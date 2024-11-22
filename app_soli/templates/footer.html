@@ -1,38 +1,37 @@
 <footer>
     <nav>
         <a href="{% url 'app_soli:home' %}" class="{% if request.path == '/home/' %}active{% endif %}">
-            <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
-                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
-                <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <path d="M1 9.4L13 1L25 9.4V22.6C25 23.2365 24.719 23.847 24.219 24.2971C23.7189 24.7471 23.0406 25 22.3333 25H3.66667C2.95942 25 2.28115 24.7471 1.78105 24.2971C1.28095 23.847 1 23.2365 1 22.6V9.4Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 25V13H17V25" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>             
         </a>
         <a href="" class="{% if request.path == '/' %}active{% endif %}">
-            <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen">
-                <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/>
-                <path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/>
-                <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-            </svg>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.7349 3.53033H3.38553C2.75285 3.53033 2.14608 3.78167 1.69871 4.22904C1.25133 4.67641 1 5.28318 1 5.91586V22.6146C1 23.2472 1.25133 23.854 1.69871 24.3014C2.14608 24.7487 2.75285 25.0001 3.38553 25.0001H20.0842C20.7169 25.0001 21.3237 24.7487 21.7711 24.3014C22.2184 23.854 22.4698 23.2472 22.4698 22.6146V14.2652" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20.6806 1.74109C21.1552 1.26658 21.7987 1 22.4698 1C23.1409 1 23.7844 1.26658 24.2589 1.74109C24.7335 2.2156 25 2.85917 25 3.53023C25 4.20129 24.7335 4.84487 24.2589 5.31938L12.9277 16.6506L8.15662 17.8434L9.34938 13.0723L20.6806 1.74109Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
         </a>
         <a href="{% url 'app_soli:add' %}" class="{% if request.path == '/add/' %}active{% endif %}">
-            <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus">
-                <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
-            </svg>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 1C6.37258 1 1 6.37258 1 13C1 19.6274 6.37258 25 13 25Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 8.20001V17.8" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.20001 13H17.8" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
         </a>
         <a href="{% url 'app_soli:verculturas' %}" class="{% if request.path == '/verculturas/' %}active{% endif %}">
-            <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sprout">
-                <path d="M7 20h10"/>
-                <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
-                <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
-                <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
-            </svg>
+            <svg width="20" height="29" viewBox="0 0 20 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.1345 26.6776H9.77765C6.87568 26.6519 4.25017 25.55 2.31893 23.773L2.32171 23.7755L2.26697 23.7261L2.22152 23.6691C0.835592 21.9685 0 19.8062 0 17.4588C0 16.8694 0.0526495 16.2916 0.153788 15.7296L0.144807 15.7899C0.657674 12.9996 1.72297 10.5134 3.2352 8.33067L3.187 8.4048C5.12499 5.49846 7.3146 2.98372 9.79564 0.758271L9.81501 0.741017L10.6738 0L18.0015 10.3569C19.2538 12.1328 20 14.3173 20 16.667C20 19.3177 19.0505 21.758 17.4565 23.6986L17.4767 23.673C15.9899 25.4704 13.7179 26.6281 11.159 26.6775L11.1505 26.6777L11.1345 26.6776ZM9.79903 24.7775H11.1185C13.0575 24.7377 14.7729 23.8632 15.8866 22.519L15.8968 22.5062C17.2069 20.9101 17.9973 18.8768 17.9973 16.6684C17.9973 14.7097 17.3756 12.8888 16.3091 11.3735L16.3322 11.4083L10.3225 2.92109C8.30921 4.84325 6.51152 6.97284 4.96948 9.27177L4.87373 9.42456C1.47496 14.7043 1.10237 19.0886 3.76663 22.4556C5.33292 23.8745 7.45261 24.7549 9.78893 24.7775H9.79363L9.79903 24.7775ZM11.4444 28.0457H9.4411V10.6913H11.4444V28.0457ZM9.7349 22.9281L4.86045 18.3045L6.27602 16.9617L11.1505 21.5853L9.7349 22.9281ZM11.1506 18.3045L9.7349 16.9617L13.3941 13.4908L14.8097 14.8336L11.1506 18.3045Z" fill="#00230B"/>
+                </svg>
+                
         </a>
         <a href="{% url 'agenda' %}" class="{% if request.path == '/agenda/' %}active{% endif %}">
-            <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days">
-                <path d="M8 2v4"/><path d="M16 2v4"/>
-                <rect width="18" height="18" x="3" y="4" rx="2"/>
-                <path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/>
-                <path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/>
-            </svg>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.3333 3.40002H3.66667C2.19391 3.40002 1 4.47454 1 5.80002V22.6C1 23.9255 2.19391 25 3.66667 25H22.3333C23.8061 25 25 23.9255 25 22.6V5.80002C25 4.47454 23.8061 3.40002 22.3333 3.40002Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18.3333 1V5.8" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.66669 1V5.8" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 10.6H25" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                
         </a>
     </nav>
 </footer>
@@ -93,11 +92,13 @@
     .SVG {
         width: 24px;
         height: 24px;
+        flex-shrink: 0;
         transition: 0.3s ease;
+
     }
 
     .SVG:hover {
-        fill: #ffffff;
-        stroke: #f4cc49;
+        fill: #DE3900;
+        stroke: #DE3900
     }
 </style>

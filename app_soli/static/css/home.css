@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: #F1EFEB;
     display: flex;
     justify-content: center;
     padding: 10px; 
@@ -16,7 +16,7 @@ body {
 .container {
     width: 100%; 
     max-width: 1000px; 
-    background-color: white;
+    background: #F1EFEB;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -31,9 +31,17 @@ header {
     margin-bottom: 20px;
 }
 
+
 .date {
-    font-size: 18px;
-    font-weight: bold;
+    color: var(--Color-2, #00230B);
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: var(--Color-2, #00230B);
+    font-family: "League Spartan";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: bolder;
+    line-height: normal;
+    padding-bottom: 3rem;
 }
 
 .SVG {
@@ -155,6 +163,11 @@ header {
 
 .weather-details .detail {
     text-align: center;
+}
+
+.h3-reminders{
+    padding-top: 3rem;
+    padding-bottom: 1rem;
 }
 
 .reminders {

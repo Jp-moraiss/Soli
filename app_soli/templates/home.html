@@ -13,6 +13,8 @@
     <div class="container">
         {% include 'header.html' %}
 
+        <div class="date" id="currentDate"></div>
+
         <section class="weather" id="dps">
             <div>
                 <div class="hourly-forecast" id="hourly-forecast">
@@ -48,7 +50,7 @@
             </ul>
 
             <!-- Lembretes Manuais -->
-            <h3>Lembretes Manuais</h3>
+            <h3 class="h3-reminders">Lembretes Manuais</h3>
             <ul>
                 {% for reminder in reminders %}
                     <li class="reminder">
@@ -87,6 +89,19 @@
     </div>
 
     <script src="{% static 'js/scripts.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateElement = document.getElementById('currentDate');
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('pt-BR', options);
+    
+            // Capitaliza a primeira letra do dia e do mês
+            const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+    
+            dateElement.textContent = capitalizedDate; // Atualiza o conteúdo da div com a data formatada
+        });
+    </script>
 </body>
 {% include 'footer.html' %}
 </html>
