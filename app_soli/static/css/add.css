@@ -294,7 +294,7 @@ label {
         font-size: 0.875rem;
     }
 
-    .atividades, .hold_atv-p, .atv, .duracao-container {
+    .atividades, .hold_atv-p, .duracao-container {
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
@@ -309,6 +309,8 @@ label {
     }
 
     .atv{
+        display: flex;
+        justify-content: flex;
         align-self: flex-end;
         padding: none;
     }
