@@ -23,24 +23,24 @@
         h1 {
             font-size: 24px;
             color: #333;
-            text-align: center;
+            text-align: left; /* Alinha o título à esquerda */
             margin-bottom: 20px;
         }
-
+    
         .search-box {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Move a barra de pesquisa para a esquerda */
+            gap: 10px; /* Espaço entre o input e o botão */
             margin-bottom: 20px;
         }
-
+    
         .search-box input {
-            width: 80%;
+            width: 300px; /* Ajuste o tamanho da barra de pesquisa */
             padding: 10px;
             border-radius: 20px;
             border: 1px solid #ccc;
-            margin-right: 10px;
         }
-
+    
         .search-box button {
             padding: 10px 20px;
             background-color: #28a745;
@@ -49,7 +49,7 @@
             border-radius: 20px;
             cursor: pointer;
         }
-
+    
         .search-box button:hover {
             background-color: #218838;
         }
