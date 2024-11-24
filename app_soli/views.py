@@ -190,7 +190,10 @@ def calcular_tempo_restante(data_colheita):
     return "Data inválida"
 
 def verculturas(request):
-    culturas = Cultura.objects.all()
+    data_atual = date.today()
+    um_dia_antes = data_atual - timedelta(days=1)
+
+    culturas = Cultura.objects.filter(data_colheita__gte=um_dia_antes)
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
         cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
@@ -198,6 +201,7 @@ def verculturas(request):
         'culturas': culturas
     }
     return render(request, 'verculturas.html', context)
+
 
 def excluir_cultura(request, cultura_id):
     cultura = get_object_or_404(Cultura, id=cultura_id)
@@ -314,10 +318,11 @@ def procurarlinha(request):
     return render(request, 'procurarlinha.html')
 
 def meu_historico(request):
-    # Filtra culturas concluídas
-    culturas = Cultura.objects.filter(data_colheita__isnull=False).order_by('area', 'data_plantio')
+    data_atual = date.today()
+    um_dia_atras = data_atual - timedelta(days=1)
 
-    # Recupera o termo pesquisado (se existir)
+    culturas = Cultura.objects.filter(data_colheita__lte=um_dia_atras).order_by('area', 'data_plantio')
+
     search_query = request.GET.get('nome', '').lower()
     if search_query:
         culturas = culturas.filter(nome__icontains=search_query)
