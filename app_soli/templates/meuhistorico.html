@@ -148,7 +148,7 @@
                         <div class="cultura-card card-cultura" data-nome="{{ cultura.nome|lower }}">
                             <img src="{{ cultura.imagem.url }}" alt="Imagem de {{ cultura.nome }}">
                             <div class="cultura-info">
-                                <h4>{{ cultura.nome }}</h4>
+                                <h4>{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </h4>
                                 <p><strong>Data de Colheita:</strong> {{ cultura.data_colheita|date:"d/m/Y" }}</p>
                                 <p><strong>Progresso: 100</strong> {{ cultura.progresso }}%</p>
                                 <div class="progress-bar">
