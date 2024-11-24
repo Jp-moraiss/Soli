@@ -314,14 +314,12 @@ def procurarlinha(request):
     return render(request, 'procurarlinha.html')
 
 def meu_historico(request):
-    nome = request.GET.get('nome', '')  # Busca pelo nome da cultura
-    culturas = Cultura.objects.filter(progresso=100)  # Somente culturas colhidas
-    
-    if nome:
-        culturas = culturas.filter(nome__icontains=nome)  # Filtra pelo nome, se fornecido
+    # Filtra culturas concluídas
+    culturas = Cultura.objects.filter(data_colheita__isnull=False)
 
-    return render(request, 'historico.html', {'culturas': culturas})
+    # Recupera o termo pesquisado (se existir)
+    search_query = request.GET.get('nome', '').lower()
+    if search_query:
+        culturas = culturas.filter(nome__icontains=search_query)
 
-def meu_historico(request):
-    return render(request, 'meuhistorico.html')
-
+    return render(request, 'meuhistorico.html', {'culturas': culturas})

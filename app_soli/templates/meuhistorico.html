@@ -10,167 +10,186 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        padding: 20px;
-    }
+        .container {
+            padding: 20px;
+        }
 
-    h1 {
-        font-size: 24px;
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .search-box {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-    .search-box input {
-        width: 80%;
-        padding: 10px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-        margin-right: 10px;
-    }
+        .search-box input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
 
-    .search-box button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-    }
+        .search-box button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
 
-    .search-box button:hover {
-        background-color: #218838;
-    }
+        .search-box button:hover {
+            background-color: #218838;
+        }
 
-    .culturas-list {
-        margin-top: 20px;
-    }
+        .culturas-list {
+            margin-top: 20px;
+        }
 
-    .card-cultura {
-        background-color: white;
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
+        .card-cultura {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-    .card-cultura img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
+        .card-cultura img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
-    .card-cultura-content {
-        flex: 1;
-    }
+        .card-cultura-content {
+            flex: 1;
+        }
 
-    .card-cultura-content h2 {
-        font-size: 18px;
-        color: #555;
-        margin: 0;
-    }
+        .card-cultura-content h2 {
+            font-size: 18px;
+            color: #555;
+            margin: 0;
+        }
 
-    .card-cultura-content p {
-        font-size: 14px;
-        color: #666;
-        margin: 5px 0;
-    }
+        .card-cultura-content p {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
 
-    .progress-bar {
-        background-color: #e9ecef;
-        border-radius: 20px;
-        overflow: hidden;
-        height: 10px;
-        margin-top: 10px;
-    }
+        .progress-bar {
+            background-color: #e9ecef;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 10px;
+            margin-top: 10px;
+        }
 
-    .progress {
-        background-color: #28a745;
-        height: 100%;
-        width: 100%;
-    }
+        .progress {
+            background-color: #28a745;
+            height: 100%;
+            width: 100%;
+        }
 
-    .navbar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-    }
-
-    .navbar a {
-        text-decoration: none;
-        color: #555;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .navbar a i {
-        font-size: 20px;
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .navbar a.active {
-        color: #28a745;
-    }
-</style>
+        #no-results {
+            text-align: center;
+            color: red;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         {% include 'header.html' %}
         <h1>Meu Histórico</h1>
-
-        <!-- Barra de Pesquisa -->
-        <div class="search-box">
+         <!-- Barra de Pesquisa -->
+         <div class="search-box">
             <form method="get" action="{% url 'app_soli:meuhistorico' %}">
-                <input type="search" name="nome" placeholder="Pesquise por uma cultura..." value="{{ request.GET.nome }}">
-                <button type="submit">Buscar</button>
+                <input type="search" name="nome" id="searchInput" placeholder="Busque aqui..." class="search-input">
+                <button type="submit" class="btn btn-primary">Buscar</button>
             </form>
         </div>
 
-        <!-- Lista de Culturas no Histórico -->
-        <section class="culturas-list">
+        <p id="no-results" style="display: none; color: red;">Essa cultura ainda não foi concluída.</p>
+
+        <div id="culturas-results">
             {% if culturas %}
-                {% for cultura in culturas %}
-                <div class="card-cultura">
-                    <img src="{{ cultura.imagem.url }}" alt="Imagem de {{ cultura.nome }}">
-                    <div class="card-cultura-content">
-                        <h2>{{ cultura.nome }}</h2>
-                        <p><strong>Linhas:</strong> {{ cultura.linhas }}</p>
-                        <p><strong>Data de Colheita:</strong> {{ cultura.data_colheita|date:"d/m/Y" }}</p>
-                        <p><strong>Tempo até a colheita:</strong> {{ cultura.tempo_ate_colheita }}</p>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 100%;"></div>
+                <!-- Agrupando as culturas por área -->
+                {% regroup culturas by area as area_culturas %}
+                
+                <!-- Iteração pelos grupos de áreas -->
+                {% for group in area_culturas %}
+                <div class="areas-card" id="area-{{ group.grouper }}">
+                    <!-- Título da Área -->
+                    <h2 class="area">{{ group.grouper }}</h2>
+                    <hr>
+        
+                    <!-- Subtítulo -->
+                    <h3>Culturas Concluídas</h3>
+        
+                    <!-- Lista de culturas na área -->
+                    <div class="culturas-list">
+                        {% for cultura in group.list %}
+                        <div class="cultura-card card-cultura" data-nome="{{ cultura.nome|lower }}">
+                            <img src="{{ cultura.imagem.url }}" alt="Imagem de {{ cultura.nome }}">
+                            <div class="cultura-info">
+                                <h4>{{ cultura.nome }}</h4>
+                                <p><strong>Data de Colheita:</strong> {{ cultura.data_colheita|date:"d/m/Y" }}</p>
+                                <p><strong>Progresso:</strong> {{ cultura.progresso }}%</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 100%;"></div>
+                                </div>
+                            </div>
                         </div>
+                        
+                        {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
-                <p id="no-results">Nenhuma cultura encontrada para "{{ request.GET.nome }}".</p>
+                <!-- Mensagem de erro caso não existam culturas -->
+                <p id="no-results">Nenhuma cultura concluída foi encontrada.</p>
             {% endif %}
-        </section>
-    </div>
+        </div>
+        
+
+    <!-- JavaScript para filtragem local -->
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.card-cultura');
+            let hasResults = false;
+        
+            cards.forEach(card => {
+                const nome = card.getAttribute('data-nome');
+                if (nome.includes(searchTerm)) {
+                    card.style.display = 'flex'; // Exibe o card
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none'; // Esconde o card
+                }
+            });
+        
+            // Exibe ou esconde a mensagem "Nenhum Resultado"
+            document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+        });
+        
+    </script>
 
         {% include 'footer.html' %}
     </div>
