@@ -312,3 +312,16 @@ def editar_cultura(request, id):
 
 def procurarlinha(request):
     return render(request, 'procurarlinha.html')
+
+def meu_historico(request):
+    nome = request.GET.get('nome', '')  # Busca pelo nome da cultura
+    culturas = Cultura.objects.filter(progresso=100)  # Somente culturas colhidas
+    
+    if nome:
+        culturas = culturas.filter(nome__icontains=nome)  # Filtra pelo nome, se fornecido
+
+    return render(request, 'historico.html', {'culturas': culturas})
+
+def meu_historico(request):
+    return render(request, 'meuhistorico.html')
+
