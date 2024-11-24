@@ -315,7 +315,7 @@ def procurarlinha(request):
 
 def meu_historico(request):
     # Filtra culturas concluídas
-    culturas = Cultura.objects.filter(data_colheita__isnull=False)
+    culturas = Cultura.objects.filter(data_colheita__isnull=False).order_by('area', 'data_plantio')
 
     # Recupera o termo pesquisado (se existir)
     search_query = request.GET.get('nome', '').lower()

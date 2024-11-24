@@ -242,7 +242,7 @@ label {
 
 /* Estilos responsivos */
 @media (max-width: 48rem) { /* 768px em rem */
-    .container_loc-desc, .container_data, .container_data2 {
+    .container_loc-desc, .container_data {
         flex-direction: column;
         gap: 1rem;
     }
@@ -273,7 +273,7 @@ label {
 }
 
 @media (max-width: 30rem) { /* 480px em rem */
-    .container_loc-desc, .container_data, .container_data2 {
+    .container_loc-desc, .container_data {
         flex-direction: column;
         width: 100%;
         gap: 1rem;
