@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils import timezone
-
+from django.db.models import Count
 
 def home(request):
     if request.method == 'POST':
@@ -271,6 +271,9 @@ def procurar_linhas_view(request):
     # Se `linha_procurada` estiver vazio, carregue todas as culturas. Caso contrário, filtre pela linha procurada.
     culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else Cultura.objects.all()
 
+    # Agrupa as culturas pela área
+    culturas_agrupadas = culturas.values('area').annotate(total=Count('id')).order_by('area')
+
     # Calcula o progresso e o tempo restante para cada cultura
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
@@ -278,10 +281,12 @@ def procurar_linhas_view(request):
 
     context = {
         'culturas': culturas,
+        'culturas_agrupadas': culturas_agrupadas,
         'linha': linha_procurada,
         'query': linha_procurada
     }
     return render(request, 'procurarlinha.html', context)
+
 
     
 @csrf_exempt
