@@ -27,7 +27,7 @@
         <div id="culturas-results">
             {% if culturas %}
                 <!-- Agrupando as culturas por área -->
-                {% regroup culturas by area as area_culturas %}
+                {% regroup culturas by cultura.area as area_culturas %}
                 
                 <!-- Iteração pelos grupos de áreas -->
                 {% for group in area_culturas %}
