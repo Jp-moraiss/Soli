@@ -49,23 +49,37 @@
                 {% endfor %}
             </ul>
 
-            <!-- Lembretes Manuais -->
-            <h3 class="h3-reminders">Lembretes Manuais</h3>
-            <ul>
+            <div class="hold_reminders">
+                <h3 class="h3-reminders">Lembretes Manuais</h3>
+                <button class="edit_button" onclick="toggleEditAll()">
+                    <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit">
+                </button>
+                <button class="save_button" id="save-all-btn" style="display: none;" onclick="saveAllEdits()">Salvar Todos</button>
+            </div>
+            
+            <ul id="reminder-list">
                 {% for reminder in reminders %}
-                    <li class="reminder">
-                        <input type="checkbox" id="reminder{{ reminder.id }}" class="reminder-checkbox" onchange="toggleStrike(this)">
-                        <label for="reminder{{ reminder.id }}">{{ reminder.text }}</label>
-                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;">
+                <li class="reminder" id="reminder-{{ reminder.id }}">
+                    <label for="reminder-checkbox-{{ reminder.id }}">{{ reminder.text }}</label>
+                    <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox" onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
+                    <div class="edit-options" style="display: none;">
+                        <input type="text" id="edit-text-{{ reminder.id }}" value="{{ reminder.text }}">
+                        <button onclick="saveEdit({{ reminder.id }})">Salvar</button>
+                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
                             {% csrf_token %}
                             <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
                                 <i class="fas fa-trash" style="color: red; width: 20px;"></i>
                             </button>
                         </form>
-                    </li>
+                    </div>
+                </li>
                 {% endfor %}
             </ul>
-
+            
+            <!-- Elemento para mensagem de feedback -->
+            <div id="feedback-message" style="display: none; color: green; margin-top: 10px;"></div>
+            
+                  
             <!-- Formulário para Adicionar Lembretes Manuais -->
             <form class="form_reminder" method="POST">
                 {% csrf_token %}
@@ -105,4 +119,5 @@
 </body>
 {% include 'footer.html' %}
 </html>
+
 

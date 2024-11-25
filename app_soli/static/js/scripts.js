@@ -80,9 +80,8 @@ function fetchWeather(latitude, longitude) {
         });
 }
 
-// Funções para manter o estado da checkbox
 function toggleStrike(checkbox) {
-    const label = checkbox.nextElementSibling; // Pega o label ao lado da checkbox
+    const label = checkbox.previousElementSibling; // Pega o label anterior ao checkbox
     if (checkbox.checked) {
         label.style.textDecoration = 'line-through';
     } else {
@@ -92,14 +91,16 @@ function toggleStrike(checkbox) {
     localStorage.setItem(checkbox.id, checkbox.checked);
 }
 
-function loadCheckboxState() {
+function restoreState() {
     const checkboxes = document.querySelectorAll('.reminder-checkbox');
     checkboxes.forEach(checkbox => {
-        const isChecked = localStorage.getItem(checkbox.id) === 'true';
-        checkbox.checked = isChecked;
+        const checked = localStorage.getItem(checkbox.id) === 'true';
+        checkbox.checked = checked;
         toggleStrike(checkbox);
     });
 }
+
+document.addEventListener('DOMContentLoaded', restoreState);
 
 // Função para calcular o progresso
 function calcularProgresso(dataPlantio, dataColheita) {
@@ -417,4 +418,74 @@ document.querySelectorAll('.password-toggle').forEach(button => {
         button.setAttribute('aria-label', isPasswordVisible ? 'Mostrar senha' : 'Ocultar senha');
     });
 });
+
+
+// Função para alternar a visibilidade das opções de edição para todos os lembretes
+function toggleEditAll() {
+    const reminders = document.querySelectorAll('.reminder');
+    reminders.forEach(reminder => {
+        const editOptions = reminder.querySelector('.edit-options');
+        const label = reminder.querySelector('label');
+        const checkbox = reminder.querySelector('input[type="checkbox"]');
+        
+        if (editOptions.style.display === 'none') {
+            editOptions.style.display = 'flex';
+            label.style.display = 'none';
+            checkbox.style.display = 'none';
+        } else {
+            editOptions.style.display = 'none';
+            label.style.display = 'inline-block';
+            checkbox.style.display = 'inline-block';
+        }
+    });
+    
+    const saveButton = document.getElementById('save-all-btn');
+    saveButton.style.display = (saveButton.style.display === 'none') ? 'inline-block' : 'none';
+}
+
+// Função para salvar a edição individual
+function saveEdit(id) {
+    const editText = document.getElementById(`edit-text-${id}`).value;
+    fetch(`/salvar_lembrete/${id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ text: editText })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Recarrega a página para refletir as mudanças
+        } else {
+            alert('Erro ao salvar lembrete.');
+        }
+    });
+}
+
+// Função para salvar todas as edições
+function saveAllEdits() {
+    const reminders = document.querySelectorAll('.reminder');
+    reminders.forEach(reminder => {
+        const id = reminder.id.split('-')[1];
+        saveEdit(id);
+    });
+}
+
+// Função para obter o token CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 

@@ -339,3 +339,14 @@ def meuhistorico(request):
     ]
 
     return render(request, 'meuhistorico.html', {'culturas': culturas_com_imagens})
+
+@csrf_exempt
+def salvar_lembrete(request, lembrete_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        texto = data.get('text')
+        lembrete = get_object_or_404(Reminder, id=lembrete_id)
+        lembrete.text = texto
+        lembrete.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)

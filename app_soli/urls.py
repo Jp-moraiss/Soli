@@ -11,6 +11,7 @@ urlpatterns = [
     path('add/', views.add, name='add'),  # Página para adicionar novas culturas
     path('verculturas/', views.verculturas, name='verculturas'),  # Página para visualizar culturas
     path('excluir/<int:lembrete_id>/', views.excluir_lembrete, name='excluir_lembrete'),  # Excluir lembrete
+    path('salvar_lembrete/<int:lembrete_id>/', views.salvar_lembrete, name='salvar_lembrete'),
     path('excluir_cultura/<int:cultura_id>/', views.excluir_cultura, name='excluir_cultura'),  # Excluir cultura
     path('weather/', views.weather, name='weather'),  # Página para o clima
     path('procurarlinha/', views.procurar_linhas_view, name='procurarlinha'),  # Página para procurar cultura por linha
