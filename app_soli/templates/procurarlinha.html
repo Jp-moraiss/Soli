@@ -67,24 +67,24 @@
             <p id="no-results" style="display: none; color: red;">Nenhuma linha foi encontrada.</p>
         
             <div id="culturas-results">
-                {% if culturas %}
-                    {% regroup culturas by area as area_culturas %}
-                    
-                    {% for group in area_culturas %}
-                    <div class="areas-card" id="area-{{ group.grouper }}">
-                        <h2 class="area">{{ group.grouper }}</h2>
+                {% if culturas_agrupadas %}
+                    {% for cultura in culturas_agrupadas %}
+                    <div class="areas-card" id="area-{{ cultura.area }}">
+                        <h2 class="area">Área: {{ cultura.area }}</h2>
                         <br>
-                        <h3>Cultura - Plantio</h3>
+                        <h3>Total de Plantios: {{ cultura.total }}</h3>
                         <hr>
-                        {% for cultura in group.list %}
-                        <div class="cultura-item">
-                            <img 
-                                src="{% static 'img/' %}{{ cultura.nome|lower }}.png" 
-                                alt="{{ cultura.nome }}" 
-                                class="cultura-imagem"
-                                style="max-width: 150px; height: auto; margin: 10px 0;">
-                            <p class="cultura-nome-data">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </p>
-                        </div>
+                        {% for item in culturas %}
+                            {% if item.area == cultura.area %}
+                            <div class="cultura-item">
+                                <img 
+                                    src="{% static 'img/' %}{{ item.nome|lower }}.png" 
+                                    alt="{{ item.nome }}" 
+                                    class="cultura-imagem"
+                                    style="max-width: 150px; height: auto; margin: 10px 0;">
+                                <p class="cultura-nome-data">{{ item.nome }} - {{ item.data_plantio|date:"d/m/Y" }} </p>
+                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                     {% endfor %}
@@ -94,7 +94,6 @@
             </div>
         </section>
         
-
         {% include 'footer.html' %}
     </div>
 
