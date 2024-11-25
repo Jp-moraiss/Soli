@@ -317,14 +317,25 @@ def editar_cultura(request, id):
 def procurarlinha(request):
     return render(request, 'procurarlinha.html')
 
-def meu_historico(request):
+def meuhistorico(request):
     data_atual = date.today()
     um_dia_atras = data_atual - timedelta(days=1)
 
+    # Filtrar culturas com data de colheita anterior ou igual a um dia atrás
     culturas = Cultura.objects.filter(data_colheita__lte=um_dia_atras).order_by('area', 'data_plantio')
 
+    # Aplicar a busca, caso o parâmetro 'nome' seja fornecido
     search_query = request.GET.get('nome', '').lower()
     if search_query:
         culturas = culturas.filter(nome__icontains=search_query)
 
-    return render(request, 'meuhistorico.html', {'culturas': culturas})
+    # Adicionando imagens dinamicamente ao contexto
+    culturas_com_imagens = [
+        {
+            'cultura': cultura,
+            'imagem_url': cultura.get_imagem_url(),
+        }
+        for cultura in culturas
+    ]
+
+    return render(request, 'meuhistorico.html', {'culturas': culturas_com_imagens})

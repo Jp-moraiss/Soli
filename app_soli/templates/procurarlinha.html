@@ -77,7 +77,14 @@
                         <h3>Cultura - Plantio</h3>
                         <hr>
                         {% for cultura in group.list %}
+                        <div class="cultura-item">
+                            <img 
+                                src="{% static 'img/' %}{{ cultura.nome|lower }}.png" 
+                                alt="{{ cultura.nome }}" 
+                                class="cultura-imagem"
+                                style="max-width: 150px; height: auto; margin: 10px 0;">
                             <p class="cultura-nome-data">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </p>
+                        </div>
                         {% endfor %}
                     </div>
                     {% endfor %}

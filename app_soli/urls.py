@@ -15,5 +15,5 @@ urlpatterns = [
     path('weather/', views.weather, name='weather'),  # Página para o clima
     path('procurarlinha/', views.procurar_linhas_view, name='procurarlinha'),  # Página para procurar cultura por linha
     path('cultura/editar/<int:id>/', editar_cultura, name='editar_cultura'),
-    path('meuhistorico/', views.meu_historico, name='meuhistorico'),  # Página meu histórico
+    path('meuhistorico/', views.meuhistorico, name='meuhistorico'),  # Página meu histórico
 ]

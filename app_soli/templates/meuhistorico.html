@@ -35,18 +35,18 @@
                     <!-- Título da Área -->
                     <h2 class="area">{{ group.grouper }}</h2>
                     <hr>
-        
+
                     <!-- Subtítulo -->
                     <h3>Culturas Concluídas</h3>
-        
+
                     <!-- Lista de culturas na área -->
                     <div class="culturas-list">
-                        {% for cultura in group.list %}
-                        <div class="cultura-card card-cultura" data-nome="{{ cultura.nome|lower }}">
-                            <img src="{{ cultura.imagem.url }}" alt="Imagem de {{ cultura.nome }}">
+                        {% for item in group.list %}
+                        <div class="cultura-card card-cultura" data-nome="{{ item.cultura.nome|lower }}">
+                            <img src="{{ item.imagem_url }}" alt="Imagem de {{ item.cultura.nome }}">
                             <div class="cultura-info">
-                                <h4>{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }} </h4>
-                                <p><strong>Data de Colheita:</strong> {{ cultura.data_colheita|date:"d/m/Y" }}</p>
+                                <h4>{{ item.cultura.nome }} - {{ item.cultura.data_plantio|date:"d/m/Y" }}</h4>
+                                <p><strong>Data de Colheita:</strong> {{ item.cultura.data_colheita|date:"d/m/Y" }}</p>
                                 <p><strong>Progresso: 100%</strong></p>
                                 <div class="progress-bar">
                                     <div class="progress" style="width: 100%;"></div>
@@ -82,6 +82,14 @@
             
                 // Exibe ou esconde a mensagem "Nenhum Resultado"
                 document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+            });
+
+            // Esconde imagens não encontradas
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = () => {
+                    console.error(`Imagem não encontrada: ${img.src}`);
+                    img.style.display = 'none'; // Esconde a imagem caso não seja encontrada
+                };
             });
         </script>
 

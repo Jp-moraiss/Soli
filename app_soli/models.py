@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import timedelta, date
+from django.templatetags.static import static
 
 class Reminder(models.Model):
     text = models.CharField(max_length=255)
@@ -17,6 +18,10 @@ class Cultura(models.Model):
     data_colheita = models.DateField()
     duracao = models.IntegerField()
     unidade_duracao = models.CharField(max_length=10)
+
+    def get_imagem_url(self):
+        nome_imagem = self.nome.lower().replace(' ', '_')
+        return static(f'img/{nome_imagem}.png')
     
     def __str__(self):
         return self.nome

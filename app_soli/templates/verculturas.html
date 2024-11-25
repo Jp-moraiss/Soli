@@ -35,6 +35,11 @@
                 {% for cultura in culturas %}
                 <div class="culturas-card" id="cultura-{{ cultura.id }}">
                     <h2 class="cultura-nome">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
+                    <img 
+                    src="{% static 'img/' %}{{ cultura.nome|lower }}.png" 
+                    alt="{{ cultura.nome }}" 
+                    class="cultura-imagem"
+                    style="max-width: 150px; height: auto; margin: 10px 0;">
                     <p class="cultura-area">Área: {{ cultura.area }}</p>
                     <p class="cultura-linha">Linhas: {{ cultura.linha }}</p>
                     <p class="cultura-data-plantio">
