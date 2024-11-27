@@ -17,4 +17,5 @@ urlpatterns = [
     path('procurarlinha/', views.procurar_linhas_view, name='procurarlinha'),  # Página para procurar cultura por linha
     path('cultura/editar/<int:id>/', editar_cultura, name='editar_cultura'),
     path('meuhistorico/', views.meuhistorico, name='meuhistorico'),  # Página meu histórico
+    path('cleanup_db/', views.cleanup_db, name='cleanup_db'), # Para limpar o banco de dados (testes)
 ]

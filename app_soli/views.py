@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils import timezone
 from django.db.models import Count
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
 
 
 def home(request):
@@ -351,3 +353,18 @@ def salvar_lembrete(request, lembrete_id):
         lembrete.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
+
+def cleanup_db(request):
+    if not settings.DEBUG:
+        raise PermissionDenied("O cleanup_db só pode ser executado em desenvolvimento ou testes.")
+
+
+    try:
+        Reminder.objects.all().delete()
+        Atividade.objects.all().delete()
+        Cultura.objects.all().delete()
+
+
+        return JsonResponse({'status': 'success', 'message': 'Database cleaned'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
