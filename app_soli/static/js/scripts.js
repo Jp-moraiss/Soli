@@ -29,9 +29,9 @@ function fetchWeather(latitude, longitude) {
             const forecast = data.forecast.forecastday[0].hour;
 
             // Atualiza as informações do clima atual
-            document.getElementById('location').textContent = `Localização: ${data.location.name}`;
-            document.getElementById('humidity').textContent = `Umidade: ${current.humidity}%`;
-            document.getElementById('precipitation').textContent = `Condição: ${current.condition.text}`;
+            document.getElementById('location').textContent = `LOCALIZAÇÃO: ${data.location.name}`;
+            document.getElementById('humidity').textContent = `UMIDADE: ${current.humidity}%`;
+            document.getElementById('precipitation').textContent = `CONDIÇÃO: ${current.condition.text}`;
 
             // Atualiza as previsões das próximas 5 horas
             const forecastContainer = document.getElementById('hourly-forecast');
