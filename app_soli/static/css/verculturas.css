@@ -5,6 +5,8 @@
     font-family: Arial, sans-serif;
 }
 
+
+
 body {
     background-color: #F9F9F9;
     display: flex;
@@ -40,9 +42,11 @@ body {
 
 .tab-button {
     padding: 10px 20px;
-    border-radius: 25px; /* Bordas arredondadas */
+    border-radius: 25px;
+    /* Bordas arredondadas */
     border: none;
-    background-color: #D9D9D9; /* Cor de fundo da aba inativa */
+    background-color: #D9D9D9;
+    /* Cor de fundo da aba inativa */
     color: #333;
     font-weight: bold;
     cursor: pointer;
@@ -53,9 +57,12 @@ body {
 }
 
 .tab-button.active {
-    background-color: #A9A9A9; /* Cor da aba ativa */
-    color: white; /* Cor do texto da aba ativa */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar a aba ativa */
+    background-color: #A9A9A9;
+    /* Cor da aba ativa */
+    color: white;
+    /* Cor do texto da aba ativa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra para destacar a aba ativa */
 }
 
 .tab-button:hover {
@@ -98,6 +105,26 @@ body {
     text-align: center;
 }
 
+.hold_culturas-dados {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cultura-imagem {
+    max-width: 120px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.culturas-dados {
+    margin-right: 20px;
+}
+
+.culturas-dados p {
+    margin: 5px 0;
+}
+
 /* Campo de busca */
 .search-box {
     display: flex;
@@ -134,7 +161,8 @@ body {
     width: 100%;
     margin-top: 2rem;
     font-size: larger;
-    color: #e57373; /* Cor de destaque para mensagens de "Nenhuma cultura foi encontrada" */
+    color: #e57373;
+    /* Cor de destaque para mensagens de "Nenhuma cultura foi encontrada" */
 }
 
 /* Ícones SVG */
@@ -195,6 +223,7 @@ footer nav a {
     padding: 5px;
     background-color: #f0f8ff;
 }
+
 .botao {
     display: flex;
     width: 200px;
@@ -206,21 +235,27 @@ footer nav a {
     font-weight: bold;
     margin-bottom: 20px;
 }
-.parte-esquerda, .parte-direita {
+
+.parte-esquerda,
+.parte-direita {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .ativo .parte-esquerda {
     background-color: #666;
 }
+
 .ativo .parte-direita {
     background-color: transparent;
 }
+
 .botao:hover {
     background-color: #bbb;
 }
+
 #no-results {
     display: none;
     color: red;

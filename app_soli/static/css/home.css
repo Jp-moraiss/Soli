@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'League Spartan', system-ui, sans-serif;
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: #F1EFEB;
     display: flex;
     justify-content: center;
     padding: 10px; 
@@ -16,7 +16,7 @@ body {
 .container {
     width: 100%; 
     max-width: 1000px; 
-    background-color: white;
+    background: #F1EFEB;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -31,9 +31,17 @@ header {
     margin-bottom: 20px;
 }
 
+
 .date {
-    font-size: 18px;
-    font-weight: bold;
+    color: var(--Color-2, #00230B);
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: var(--Color-2, #00230B);
+    font-family: 'League Spartan', system-ui, sans-serif;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: bolder;
+    line-height: normal;
+    padding-bottom: 3rem;
 }
 
 .SVG {
@@ -103,7 +111,7 @@ header {
 
 .hourly-forecast {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-bottom: 15px;
     gap: 1rem;
     background-color: none;
@@ -111,6 +119,8 @@ header {
     background-color: #e6e6e6;
     margin-left: 1rem;
     margin-right: 1rem;
+    font-family: 'League Spartan', system-ui, sans-serif;
+    font-weight: bolder;
 }
 
 .hour {
@@ -126,6 +136,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'League Spartan', system-ui, sans-serif;
 }
 
 .lucide-cloud-sun {
@@ -157,6 +168,11 @@ header {
     text-align: center;
 }
 
+.h3-reminders{
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+}
+
 .reminders {
     margin-bottom: 20px;
     display: flex;
@@ -178,6 +194,28 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+.hold_reminders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Remove bordas e fundo do botão */
+.edit_button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Ajusta o tamanho do SVG dentro do botão */
+.edit_button img {
+    width: 20px; /* Ajuste conforme necessário */
+    height: 20px; /* Ajuste conforme necessário */
+}
+
 
 ul {
     width: 100%;
@@ -231,7 +269,7 @@ ul {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease-in-out;
     margin-bottom: 4rem;
 }
@@ -287,15 +325,66 @@ nav a img {
     height: 24px;
 }
 
+/* Estiliza o botão de edição */
+.edit_button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.edit_button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estiliza o botão de salvar todos */
+.save_button {
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.save_button:hover {
+    background-color: #45a049;
+}
+
+/* Estiliza as opções de edição */
+.edit-options {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.edit-options input[type="text"] {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-options button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-options button:hover {
+    background-color: #45a049;
+}
+
+
 /* Responsividade */
 @media (max-width: 768px) { /* Estilos para tablets */
     .container {
         padding: 15px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
     }
 
     .date {
@@ -326,11 +415,6 @@ nav a img {
 @media (max-width: 480px) { /* Estilos para smartphones */
     .container {
         padding: 10px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
     }
 
     .date {

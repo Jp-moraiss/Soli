@@ -1,196 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login e Cadastro</title>
+    <title>Login Soli</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-container {
-            background-color: #fff;
-            display: flex;
-            max-width: 480px;
-            width: 100%;
-            flex-direction: column;
-            overflow: hidden;
-            align-items: center;
-            font-family: Inter, sans-serif;
-            color: #979797;
-            font-weight: 400;
-            margin: 0 auto;
-            padding: 129px 50px;
-        }
-        
-        .logo {
-            aspect-ratio: 1.19;
-            object-fit: contain;
-            object-position: center;
-            width: 127px;
-            max-width: 100%;
-        }
-        
-        .login-title {
-            color: #fff;
-            font-size: 36px;
-            margin-top: 26px;
-        }
-        
-        .login-subtitle {
-            color: #000;
-            font-size: 20px;
-            margin-top: 4rem;
-        }
-        
-        .input-field {
-            border-radius: 10px;
-            background-color: #c9c9c9;
-            align-self: stretch;
-            margin-top: 16px;
-            font-size: 15px;
-            white-space: nowrap;
-            padding: 11px 20px;
-        }
-        
-        .password-container {
-            border-radius: 10px;
-            background-color: #c9c9c9;
-            align-self: stretch;
-            display: flex;
-            margin-top: 10px;
-            gap: 20px;
-            font-size: 15px;
-            color: #888;
-            white-space: nowrap;
-            justify-content: space-between;
-            padding: 8px 18px;
-        }
-        
-        .password-label {
-            margin: auto 0;
-        }
-        
-        .password-icon {
-            aspect-ratio: 1;
-            object-fit: contain;
-            object-position: center;
-            width: 24px;
-        }
-
-        .login-form{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .login-button {
-            color: #000;
-            border-radius: 10px;
-            background-color: #c9c9c9;
-            margin-top: 11px;
-            max-width: 100%;
-            font-size: 16px;
-            white-space: nowrap;
-            padding: 11px 48px;
-            transition: .3s;
-        }
-        
-        .login-button:hover {
-            background-color: #000;
-            color:#c9c9c9
-        }
-
-        .create-account-button {
-            border-radius: 10px;
-            background-color: #c9c9c9;
-            align-self: stretch;
-            margin-top: 159px;
-            font-size: 16px;
-            padding: 11px 70px;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .create-account-button:hover{
-            background-color: #000;
-            color:#c9c9c9
-        }
-        
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
 </head>
 <body>
     <section class="login-container">
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/8cd23443cd9429ceee8a9b3f06f5b5b128065c5c92e8bce208756ca0f75dfbf4?placeholderIfAbsent=true&apiKey=e59fd6b9b3ce490b974d524521900819" class="logo" alt="Login logo" />
-        <h2 class="login-subtitle">LOGIN</h2>
+        <div class="hero-wrapper">
+            <img src="{% static 'img/background.png' %}" alt="" class="hero-image" />
+            <div class="content-wrapper">
+                
+                <div class="logo-container">
+                    <h1 class="logo-text">soli</h1>
+                    <img src="{% static 'img/logo.png' %}" alt="Soli Logo" class="logo-image" />
+                </div>
+                
+                <h2 class="login-heading">Login</h2>
 
-        <!-- Formulário de Login -->
-        <form id="login-form" action="{% url 'app_soli:login' %}" method="post">
-            {% csrf_token %}
-            <label for="username" class="visually-hidden">Usuário</label>
-            <input type="text" id="username" class="input-field" placeholder="Usuário" name="username" required />
-            <input type="password" id="password" class="input-field" placeholder="Senha" name="senha" required />
-            <button type="submit" class="login-button">Entrar</button>
-        </form>
-        
+                <form class="login-form" action="{% url 'app_soli:login' %}" method="post">
+                    {% csrf_token %}
+                    <label for="username" class="visually-hidden">Usuário</label>
+                    <input type="text" id="username" class="form-input" placeholder="Usuário" name="username" required />
+                    
+                    <div class="password-wrapper">
+                        <label for="password" class="visually-hidden">Senha</label>
+                        <input type="password" id="password" class="form-input" placeholder="Senha" name="senha" style="border:none;background:none;margin:0;padding:0" required/>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Entrar</button>
+                </form>
+                
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-        <!-- Formulário de Cadastro -->
-        <form id="register-form" action="{% url 'app_soli:cadastro' %}" method="post" style="display: none;">
-            {% csrf_token %}
-            <h2>Cadastro</h2>
-            <input type="text" placeholder="Usuário" name="username" required class="input-field" />
-            <input type="email" placeholder="Email" name="email" required class="input-field" />
-            <input type="password" placeholder="Senha" name="senha" required class="input-field" />
-            <input type="password" placeholder="Confirmar Senha" name="confirm_senha" required class="input-field" />
-            <button type="submit" class="login-button">Cadastrar</button>
-        </form>
-
-        <br>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-        <button class="create-account-button" id="toggle-link">Não tem uma conta? Cadastre-se</button>
+                <p class="register-text">
+                    Não tem conta ainda?
+                    <a href="{% url 'app_soli:cadastro' %}" class="register-link">Registre-se</a>
+                </p>
+            </div>
+        </div>
     </section>
-
-    <script>
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const toggleLink = document.getElementById('toggle-link');
-
-        toggleLink.addEventListener('click', () => {
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                toggleLink.textContent = 'Não tem uma conta? Cadastre-se';
-            } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                toggleLink.textContent = 'Já tem uma conta? Faça login';
-            }
-        });
-    </script>
+    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu histórico</title>
+    <link rel="stylesheet" href="{% static 'css/historico.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        {% include 'header.html' %}
+        <h1>Meu Histórico</h1>
+
+        <!-- Barra de Pesquisa -->
+        <div class="search-box">
+            <form method="get" action="{% url 'app_soli:meuhistorico' %}">
+                <input type="search" name="nome" id="searchInput" placeholder="Busque aqui..." class="search-input">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+
+        <p id="no-results" style="display: none; color: red;">Essa cultura ainda não foi concluída.</p>
+
+        <div id="culturas-results">
+            {% if culturas %}
+                <!-- Agrupando as culturas por área -->
+                {% regroup culturas by cultura.area as area_culturas %}
+                
+                <!-- Iteração pelos grupos de áreas -->
+                {% for group in area_culturas %}
+                <div class="areas-card" id="area-{{ group.grouper }}">
+                    <!-- Título da Área -->
+                    <h2 class="area">{{ group.grouper }}</h2>
+                    <hr>
+
+                    <!-- Subtítulo -->
+                    <h3>Culturas Concluídas</h3>
+
+                    <!-- Lista de culturas na área -->
+                    <div class="culturas-list">
+                        {% for item in group.list %}
+                        <div class="cultura-card card-cultura" data-nome="{{ item.cultura.nome|lower }}">
+                            <img src="{{ item.imagem_url }}" alt="Imagem de {{ item.cultura.nome }}">
+                            <div class="cultura-info">
+                                <h4>{{ item.cultura.nome }} - {{ item.cultura.data_plantio|date:"d/m/Y" }}</h4>
+                                <p><strong>Data de Colheita:</strong> {{ item.cultura.data_colheita|date:"d/m/Y" }}</p>
+                                <p><strong>Progresso: 100%</strong></p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Mensagem de erro caso não existam culturas -->
+                <p id="no-results">Nenhuma cultura concluída foi encontrada.</p>
+            {% endif %}
+        </div>
+
+        <!-- JavaScript para filtragem local -->
+        <script>
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.card-cultura');
+                let hasResults = false;
+            
+                cards.forEach(card => {
+                    const nome = card.getAttribute('data-nome');
+                    if (nome.includes(searchTerm)) {
+                        card.style.display = 'flex'; // Exibe o card
+                        hasResults = true;
+                    } else {
+                        card.style.display = 'none'; // Esconde o card
+                    }
+                });
+            
+                // Exibe ou esconde a mensagem "Nenhum Resultado"
+                document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+            });
+
+            // Esconde imagens não encontradas
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = () => {
+                    console.error(`Imagem não encontrada: ${img.src}`);
+                    img.style.display = 'none'; // Esconde a imagem caso não seja encontrada
+                };
+            });
+        </script>
+
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

@@ -1,27 +1,20 @@
+{% load static %}
 <header>
-    <div class="date" id="currentDate"></div> <!-- Adicione um ID para facilitar a seleção -->
+    <div class="soli">
+        <img src="{% static 'img/logo2.png' %}" alt="Soli logo" class="logo-image"/>
+        <h1 class="logo-title">soli</h1>
+    </div>
     <div class="menu">
-        <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
-            <line x1="4" x2="20" y1="12" y2="12"/>
-            <line x1="4" x2="20" y1="6" y2="6"/>
-            <line x1="4" x2="20" y1="18" y2="18"/>
-        </svg>
+        <a href="{% url 'app_soli:meuhistorico' %}" class="{% if request.path == '/meuhistorico/' %}active{% endif %}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.98 24.1802V22.1869C24.98 21.1295 24.528 20.1155 23.7235 19.3679C22.9189 18.6202 21.8278 18.2002 20.69 18.2002H12.11C10.9722 18.2002 9.88099 18.6202 9.07646 19.3679C8.27193 20.1155 7.81995 21.1295 7.81995 22.1869V24.1802" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16.4 14.2133C18.7693 14.2133 20.69 12.4284 20.69 10.2267C20.69 8.02489 18.7693 6.23999 16.4 6.23999C14.0307 6.23999 12.11 8.02489 12.11 10.2267C12.11 12.4284 14.0307 14.2133 16.4 14.2133Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16.4" cy="15.6" r="14.6" stroke="#00230B" stroke-width="2"/>
+            </svg>  
+        </a>  
+            
     </div>
 </header>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const dateElement = document.getElementById('currentDate');
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        const today = new Date();
-        const formattedDate = today.toLocaleDateString('pt-BR', options);
-
-        // Capitaliza a primeira letra do dia e do mês
-        const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-
-        dateElement.textContent = capitalizedDate; // Atualiza o conteúdo da div com a data formatada
-    });
-</script>
 
 
 <style>
@@ -30,8 +23,29 @@
         justify-content: space-between; 
         align-items: center;
         padding: 1rem;
-        background-color: #f8f9fa;
+        background: #F1EFEB;
         border-bottom: 1px solid #e0e0e0;
+        font-family: 'League Spartan', system-ui, sans-serif;
+    }
+
+    .soli{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+    .logo-image{
+        width: 33px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
+    .logo-title {
+        color: #003711;
+        font-family: 'League Spartan', system-ui, sans-serif;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: bolder;
+        line-height: normal;
     }
 
     .date {

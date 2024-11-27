@@ -29,9 +29,9 @@ function fetchWeather(latitude, longitude) {
             const forecast = data.forecast.forecastday[0].hour;
 
             // Atualiza as informações do clima atual
-            document.getElementById('location').textContent = `Localização: ${data.location.name}`;
-            document.getElementById('humidity').textContent = `Umidade: ${current.humidity}%`;
-            document.getElementById('precipitation').textContent = `Condição: ${current.condition.text}`;
+            document.getElementById('location').textContent = `LOCALIZAÇÃO: ${data.location.name}`;
+            document.getElementById('humidity').textContent = `UMIDADE: ${current.humidity}%`;
+            document.getElementById('precipitation').textContent = `CONDIÇÃO: ${current.condition.text}`;
 
             // Atualiza as previsões das próximas 5 horas
             const forecastContainer = document.getElementById('hourly-forecast');
@@ -80,9 +80,8 @@ function fetchWeather(latitude, longitude) {
         });
 }
 
-// Funções para manter o estado da checkbox
 function toggleStrike(checkbox) {
-    const label = checkbox.nextElementSibling; // Pega o label ao lado da checkbox
+    const label = checkbox.previousElementSibling; // Pega o label anterior ao checkbox
     if (checkbox.checked) {
         label.style.textDecoration = 'line-through';
     } else {
@@ -92,14 +91,16 @@ function toggleStrike(checkbox) {
     localStorage.setItem(checkbox.id, checkbox.checked);
 }
 
-function loadCheckboxState() {
+function restoreState() {
     const checkboxes = document.querySelectorAll('.reminder-checkbox');
     checkboxes.forEach(checkbox => {
-        const isChecked = localStorage.getItem(checkbox.id) === 'true';
-        checkbox.checked = isChecked;
+        const checked = localStorage.getItem(checkbox.id) === 'true';
+        checkbox.checked = checked;
         toggleStrike(checkbox);
     });
 }
+
+document.addEventListener('DOMContentLoaded', restoreState);
 
 // Função para calcular o progresso
 function calcularProgresso(dataPlantio, dataColheita) {
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(() => {
             messages.classList.remove('show');
-        }, 2000);
+        }, 4000);
     }
 });
 
@@ -333,5 +334,158 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function confirmarExclusao() {
     return confirm("Tem certeza de que deseja excluir esta cultura?");
+}
+
+function adicionarCampoAtividade() {
+    const atividadesContainer = document.querySelector('.atividades');
+
+    // Cria um novo div para a nova atividade
+    const novaAtividade = document.createElement('div');
+    novaAtividade.classList.add('atv');
+
+    novaAtividade.innerHTML = `
+        <p>Nova Atividade:</p>
+        <input type="text" name="nova_atividade_nome[]" placeholder="Nome da atividade" required>
+        <p>A cada</p>
+        <input type="number" name="nova_atividade_frequencia[]" placeholder="..." min="0" required>
+        <select name="nova_atividade_unidade[]">
+            <option value="dias">dias</option>
+            <option value="semanas">semanas</option>
+            <option value="meses">meses</option>
+            <option value="anos">anos</option>
+        </select>
+    `;
+
+    // Adiciona o novo campo de atividade ao container
+    atividadesContainer.appendChild(novaAtividade);
+}
+
+function validateForm(event) {
+    const dataPlantio = document.getElementById('data_plantio');
+    const dataColheita = document.getElementById('data_colheita');
+
+    if (dataPlantio.value) {
+        dataPlantio.value = dataPlantio.valueAsDate.toISOString().split('T')[0];
+    }
+    if (dataColheita.value) {
+        dataColheita.value = dataColheita.valueAsDate.toISOString().split('T')[0];
+    }
+
+    // Coleta dados das atividades
+    const atividades = [];
+    const novaAtividadeNomes = document.getElementsByName('nova_atividade_nome[]');
+    const novaAtividadeFrequencias = document.getElementsByName('nova_atividade_frequencia[]');
+    const novaAtividadeUnidades = document.getElementsByName('nova_atividade_unidade[]');
+
+    for (let i = 0; i < novaAtividadeNomes.length; i++) {
+        atividades.push({
+            nome: novaAtividadeNomes[i].value,
+            frequencia: novaAtividadeFrequencias[i].value,
+            unidade: novaAtividadeUnidades[i].value
+        });
+    }
+
+    // Cria um campo oculto para enviar as atividades em JSON
+    const atividadesInput = document.createElement('input');
+    atividadesInput.type = 'hidden';
+    atividadesInput.name = 'atividades';
+    atividadesInput.value = JSON.stringify(atividades);
+    event.target.appendChild(atividadesInput);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const messages = document.querySelector('.messages');
+
+    if (messages) {
+        // Espera 3 segundos antes de começar a desaparecer
+        setTimeout(() => {
+            messages.style.opacity = '0'; // Gradualmente esconde com transição
+
+            // Remove o elemento após a transição terminar
+            messages.addEventListener('transitionend', () => {
+                messages.style.display = 'none';
+            });
+        }, 3000);
+    }
+});
+
+
+document.querySelectorAll('.password-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+        const passwordInput = button.previousElementSibling;
+        const isPasswordVisible = passwordInput.getAttribute('type') === 'text';
+        passwordInput.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+        button.setAttribute('aria-label', isPasswordVisible ? 'Mostrar senha' : 'Ocultar senha');
+    });
+});
+
+
+// Função para alternar a visibilidade das opções de edição para todos os lembretes
+function toggleEditAll() {
+    const reminders = document.querySelectorAll('.reminder');
+    reminders.forEach(reminder => {
+        const editOptions = reminder.querySelector('.edit-options');
+        const label = reminder.querySelector('label');
+        const checkbox = reminder.querySelector('input[type="checkbox"]');
+        
+        if (editOptions.style.display === 'none') {
+            editOptions.style.display = 'flex';
+            label.style.display = 'none';
+            checkbox.style.display = 'none';
+        } else {
+            editOptions.style.display = 'none';
+            label.style.display = 'inline-block';
+            checkbox.style.display = 'inline-block';
+        }
+    });
+    
+    const saveButton = document.getElementById('save-all-btn');
+    saveButton.style.display = (saveButton.style.display === 'none') ? 'inline-block' : 'none';
+}
+
+// Função para salvar a edição individual
+function saveEdit(id) {
+    const editText = document.getElementById(`edit-text-${id}`).value;
+    fetch(`/salvar_lembrete/${id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ text: editText })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Recarrega a página para refletir as mudanças
+        } else {
+            alert('Erro ao salvar lembrete.');
+        }
+    });
+}
+
+// Função para salvar todas as edições
+function saveAllEdits() {
+    const reminders = document.querySelectorAll('.reminder');
+    reminders.forEach(reminder => {
+        const id = reminder.id.split('-')[1];
+        saveEdit(id);
+    });
+}
+
+// Função para obter o token CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
