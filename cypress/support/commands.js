@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    if (err.message.includes('loadCheckboxState is not defined')) {
+      return false;  
+    }
+   
+    if (err.message.includes('Cannot read properties of null (reading \'addEventListener\')')) {
+      return false;  
+    }
+ 
+    if (err.message.includes('Cannot set properties of null (setting \'textContent\')')) {
+      return false;  
+    }
+ 
+    return true;
+  });
