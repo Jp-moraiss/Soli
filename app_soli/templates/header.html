@@ -1,67 +1,174 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soli App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #F1EFEB;
+            border-bottom: 1px solid #e0e0e0;
+            font-family: 'League Spartan', system-ui, sans-serif;
+        }
+
+        .soli {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 33px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .logo-title {
+            color: #003711;
+            font-family: 'League Spartan', system-ui, sans-serif;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: bolder;
+            line-height: normal;
+        }
+
+        .menu {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .profile-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 1000;
+            width: 300px; /* Ajuste a largura conforme necessário */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .profile-header h2 {
+            font-size: 1.2rem;
+            margin: 0;
+            color: #003711;
+        }
+
+        .close-icon {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #003711;
+        }
+
+        .profile-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .profile-options {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinha os links à esquerda */
+            gap: 0.5rem;
+        }
+
+        .profile-options a {
+            color: #003711; /* Cor verde */
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Alinha os links mais para o meio */
+            width: 100%; /* Faz os links ocuparem a largura total */
+        }
+
+        .profile-options a:hover {
+            text-decoration: none;
+            color: #00230B; /* Tom mais escuro de verde */
+        }
+
+        .profile-options svg {
+            margin-right: auto; /* Faz os ícones ficarem à esquerda */
+        }
+    </style>
+</head>
+<body>
 <header>
     <div class="soli">
         <img src="{% static 'img/logo2.png' %}" alt="Soli logo" class="logo-image"/>
         <h1 class="logo-title">soli</h1>
     </div>
     <div class="menu">
-        <a href="{% url 'app_soli:meuhistorico' %}" class="{% if request.path == '/meuhistorico/' %}active{% endif %}">
+        <div class="user-icon" onclick="toggleProfileMenu()">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M24.98 24.1802V22.1869C24.98 21.1295 24.528 20.1155 23.7235 19.3679C22.9189 18.6202 21.8278 18.2002 20.69 18.2002H12.11C10.9722 18.2002 9.88099 18.6202 9.07646 19.3679C8.27193 20.1155 7.81995 21.1295 7.81995 22.1869V24.1802" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M16.4 14.2133C18.7693 14.2133 20.69 12.4284 20.69 10.2267C20.69 8.02489 18.7693 6.23999 16.4 6.23999C14.0307 6.23999 12.11 8.02489 12.11 10.2267C12.11 12.4284 14.0307 14.2133 16.4 14.2133Z" stroke="#00230B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="16.4" cy="15.6" r="14.6" stroke="#00230B" stroke-width="2"/>
-            </svg>  
-        </a>  
-            
+            </svg>
+        </div>
+        {% if user.is_authenticated %}
+        <div id="profile-menu" class="profile-menu hidden">
+            <div class="profile-header">
+                <h2>Seu Perfil</h2>
+                <span class="close-icon" onclick="toggleProfileMenu()">x</span>
+            </div>
+            <div class="profile-details">
+                <p class="profile-name">{{ user.username }}</p>
+                <p class="profile-email">{{ user.email }}</p>
+            </div>
+            <div class="profile-options">
+                <a href="{% url 'app_soli:meuhistorico' %}">
+                    Meu histórico
+                </a>
+                <a href="{% url 'app_soli:login' %}">
+                    Logout
+                </a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </header>
 
-
-<style>
-    header {
-        display: flex;
-        justify-content: space-between; 
-        align-items: center;
-        padding: 1rem;
-        background: #F1EFEB;
-        border-bottom: 1px solid #e0e0e0;
-        font-family: 'League Spartan', system-ui, sans-serif;
+<script>
+    function toggleProfileMenu() {
+        var menu = document.getElementById('profile-menu');
+        menu.classList.toggle('hidden');
     }
-
-    .soli{
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-    }
-    .logo-image{
-        width: 33px;
-        height: 40px;
-        flex-shrink: 0;
-    }
-
-    .logo-title {
-        color: #003711;
-        font-family: 'League Spartan', system-ui, sans-serif;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: bolder;
-        line-height: normal;
-    }
-
-    .date {
-        font-size: 1.2rem;
-        color: #333;
-        text-align: left; 
-    }
-
-    .menu {
-        cursor: pointer;
-        display: flex;
-        align-items: center; /
-    }
-
-    .SVG {
-        width: 24px;
-        height: 24px;
-    }
-</style>
+</script>
+</body>
+</html>
