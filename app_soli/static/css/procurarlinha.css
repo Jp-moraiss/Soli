@@ -2,24 +2,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'League Spartan', system-ui, sans-serif;
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: #F1EFEB;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 10px; 
+    margin-bottom: 10rem;
 }
 
 .container {
-    width: 100%;
-    max-width: 1000px;
-    background-color: white;
+    width: 100%; 
+    max-width: 1000px; 
+    background: #F1EFEB;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
+    overflow-y: scroll;
 }
+
 
 .cultura-grupo {
     background-color: #f1f1f1;
