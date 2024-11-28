@@ -353,17 +353,6 @@ def meuhistorico(request):
 
     return render(request, 'meuhistorico.html', {'culturas': culturas_com_imagens})
 
-@csrf_exempt
-def salvar_lembrete(request, lembrete_id):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        texto = data.get('text')
-        lembrete = get_object_or_404(Reminder, id=lembrete_id)
-        lembrete.text = texto
-        lembrete.save()
-        return JsonResponse({'success': True})
-    return JsonResponse({'success': False}, status=400)
-
 def cleanup_db(request):
     if not settings.DEBUG:
         raise PermissionDenied("O cleanup_db só pode ser executado em desenvolvimento ou testes.")
@@ -399,11 +388,23 @@ def fetch_note_for_date(request, date):
     notas_list = [{'nota': nota.nota, 'foto': nota.foto.url if nota.foto else None} for nota in notas]
     return JsonResponse({'notas': notas_list})
 
+def excluir_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    atividade.delete()
+    return redirect('app_soli:home')
+
+    from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 @csrf_exempt
 def salvar_atividade(request, id):
     if request.method == 'POST':
         data = json.loads(request.body)
-        new_text = data.get('text')
+        new_text = data.get('text').strip()
+        if new_text == '':
+            return JsonResponse({'success': False, 'error': 'O nome da atividade não pode estar vazio.'})
+
         atividade = Atividade.objects.get(id=id)
         atividade.nome = new_text
         atividade.save()
@@ -411,8 +412,19 @@ def salvar_atividade(request, id):
     
     return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
 
-def excluir_atividade(request, id):
-    atividade = get_object_or_404(Atividade, id=id)
-    atividade.delete()
-    return redirect('app_soli:home')
+@csrf_exempt
+def salvar_lembrete(request, id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_text = data.get('text').strip()
+        if new_text == '':
+            return JsonResponse({'success': False, 'error': 'O nome do lembrete não pode estar vazio.'})
+        
+        reminder = Reminder.objects.get(id=id)
+        reminder.text = new_text
+        reminder.save()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
 

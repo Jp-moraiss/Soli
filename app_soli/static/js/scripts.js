@@ -449,7 +449,13 @@ function toggleEditManuais() {
 }
 
 function saveEditAtividade(id) {
-    const editText = document.getElementById(`edit-text-atividade-${id}`).value;
+    const editText = document.getElementById(`edit-text-atividade-${id}`).value.trim();
+    
+    if (editText === '') {
+        alert('O nome da atividade não pode estar vazio.');
+        return;
+    }
+
     fetch(`/salvar_atividade/${id}/`, {
         method: 'POST',
         headers: {
@@ -469,7 +475,13 @@ function saveEditAtividade(id) {
 }
 
 function saveEditReminder(id) {
-    const editText = document.getElementById(`edit-text-reminder-${id}`).value;
+    const editText = document.getElementById(`edit-text-reminder-${id}`).value.trim();
+    
+    if (editText === '') {
+        alert('O nome do lembrete não pode estar vazio.');
+        return;
+    }
+
     fetch(`/salvar_lembrete/${id}/`, {
         method: 'POST',
         headers: {
@@ -507,3 +519,4 @@ function getCookie(name) {
 function confirmarExclusao() {
     return confirm('Tem certeza de que deseja excluir este item?');
 }
+
