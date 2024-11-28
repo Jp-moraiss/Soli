@@ -33,6 +33,7 @@ describe("teste 'calendário'", () => {
         cy.get('[href="/agenda/"]').click();
         cy.get('[type="submit"]').click();
         cy.get('#description').type("colher plantação");
+        cy.wait(2000);
         cy.get('button').click();
         cy.get('[aria-label="Novembro 27, 2024"]')
         cy.get('.today').click()
@@ -46,8 +47,11 @@ describe("teste 'calendário'", () => {
         cy.wait(2000);
         cy.get('[href="/agenda/"]').click();
         cy.get('.today').click();
-        cy.get('.edit-button').click();
+        cy.wait(2000);
+        cy.get(':nth-child(1) > .div_botoes > .edit-button').click();
+        cy.wait(2000);
         cy.get('#description').type(" tomate");
+        cy.wait(2000);
         cy.get('button').click();
         cy.get('.today').click();
         cy.wait(2000);
@@ -60,7 +64,10 @@ describe("teste 'calendário'", () => {
         cy.wait(2000);
         cy.get('[href="/agenda/"]').click();
         cy.get('.today').click();
-        cy.get('.delete-button').click();
+        cy.wait(2000);
+        cy.get(':nth-child(1) > .div_botoes > .delete-button').click();
+        cy.wait(2000);
+        cy.get('.today').click();
         cy.wait(2000);
     });
 
