@@ -2,13 +2,15 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Previsão e Lembretes</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         {% include 'header.html' %}
@@ -23,11 +25,30 @@
             </div>
 
             <div class="current-weather">
-                <div class="dados_weather"> 
+                <div class="dados_weather">
                     <ul>
-                        <li> <img src="{% static 'SVGs/localpin.svg' %}" alt="pino de localização"><p id="location">Localização: --</p></li>
-                        <li> <img src="{% static 'SVGs/droplet.svg' %}" alt="gota d'água"> <p id="humidity">Umidade: --%</p> </li>
-                        <li> <img src="{% static 'SVGs/umbrella.svg' %}" alt="guarda-chuva"> <p id="precipitation">Condição: --</p></li>
+                        <li>
+                            <div class="hold_dados">
+                                <img src="{% static 'SVGs/localpin.svg' %}" alt="pino de localização">
+                                <p>LOCALIZAÇÃO:</p>
+                            </div>
+                            <div class="location" id="location">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="hold_dados">
+                                <img src="{% static 'SVGs/droplet.svg' %}" alt="gota d'água">
+                                <p>UMIDADE:</p>
+                            </div>
+                            <div class="humidity" id="humidity"></div>
+                        </li>
+                        <li>
+                            <div class="hold_dados">
+                                <img src="{% static 'SVGs/umbrella.svg' %}" alt="guarda-chuva">
+                                <p>CONDIÇÃO:</p>
+                            </div>
+                            <div class="precipitation" id="precipitation"></div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -35,19 +56,22 @@
 
         <section class="reminders">
             <h2>Lembretes</h2>
-            
+
             <!-- Lembretes Automáticos de Atividades -->
             <h3>Atividades Automáticas</h3>
             <ul>
                 {% for atividade in lembretes_atividades %}
-                    <li class="reminder automatic-reminder">
-                        <label for="atividade{{ forloop.counter }}">
-                            {{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{ atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )
-                        </label>
-                        <input type="checkbox" id="atividade{{ forloop.counter }}" class="reminder-checkbox" onchange="toggleStrike(this)">
-                    </li>
+                <li class="reminder automatic-reminder">
+                    <label for="atividade{{ forloop.counter }}">
+                        {{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{
+                        atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha
+                        }} )
+                    </label>
+                    <input type="checkbox" id="atividade{{ forloop.counter }}" class="reminder-checkbox"
+                        onchange="toggleStrike(this)">
+                </li>
                 {% empty %}
-                    <li>Nenhuma atividade automática para exibir no momento.</li>
+                <li>Nenhuma atividade automática para exibir no momento.</li>
                 {% endfor %}
             </ul>
 
@@ -57,16 +81,18 @@
                     <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit">
                 </button>
             </div>
-            
+
             <ul id="reminder-list">
                 {% for reminder in reminders %}
                 <li class="reminder" id="reminder-{{ reminder.id }}">
                     <label for="reminder-checkbox-{{ reminder.id }}">{{ reminder.text }}</label>
-                    <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox" onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
+                    <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox"
+                        onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
                     <div class="edit-options" style="display: none;">
                         <input type="text" id="edit-text-{{ reminder.id }}" value="{{ reminder.text }}">
                         <button onclick="saveEdit({{ reminder.id }})">Salvar</button>
-                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
+                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST"
+                            style="display:inline;" onsubmit="return confirmarExclusao();">
                             {% csrf_token %}
                             <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
                                 <i class="fas fa-trash" style="color: red; width: 20px;"></i>
@@ -76,17 +102,20 @@
                 </li>
                 {% endfor %}
             </ul>
-            
+
             <!-- Elemento para mensagem de feedback -->
             <div id="feedback-message" style="display: none; color: green; margin-top: 10px;"></div>
-                  
+
             <!-- Formulário para Adicionar Lembretes Manuais -->
             <form class="form_reminder" method="POST">
                 {% csrf_token %}
                 <input class="reminder" type="text" name="text" placeholder="Novo lembrete..." required>
                 <button type="submit" class="botao_adicionar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="reminder-plus">
-                        <path d="M5 12h14"/><path d="M12 5v14"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="reminder-plus">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
                     </svg>
                 </button>
             </form>
@@ -96,7 +125,7 @@
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
-                <div class="message {{ message.tags }}">{{ message }}</div>
+            <div class="message {{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
         {% endif %}
@@ -109,10 +138,10 @@
             const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
             const today = new Date();
             const formattedDate = today.toLocaleDateString('pt-BR', options);
-    
+
             // Capitaliza a primeira letra do dia e do mês
             const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-    
+
             dateElement.textContent = capitalizedDate; // Atualiza o conteúdo da div com a data formatada
         });
 
@@ -152,18 +181,18 @@
                 },
                 body: JSON.stringify({ text: editText }),
             })
-            .then(response => {
-                if (response.ok) {
-                    // Atualiza o texto no banco de dados
-                    document.getElementById(`reminder-${id}`).querySelector('.edit-options').style.display = 'none';
-                } else {
-                    alert('Falha ao salvar o lembrete. Tente novamente.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Erro ao salvar o lembrete. Tente novamente.');
-            });
+                .then(response => {
+                    if (response.ok) {
+                        // Atualiza o texto no banco de dados
+                        document.getElementById(`reminder-${id}`).querySelector('.edit-options').style.display = 'none';
+                    } else {
+                        alert('Falha ao salvar o lembrete. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao salvar o lembrete. Tente novamente.');
+                });
         }
 
         function confirmarExclusao() {
@@ -172,4 +201,5 @@
     </script>
 </body>
 {% include 'footer.html' %}
+
 </html>
