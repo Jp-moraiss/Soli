@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 </head>
+
 <body>
     <div class="container">
         {% include 'header.html' %}
@@ -19,11 +21,13 @@
         <!-- Main content will go here -->
         <div class="content">
             <h1>Diário</h1>
-            <form id="diario-form" method="post" action="{% url 'app_soli:salvar_diario' %}" enctype="multipart/form-data">
+            <form id="diario-form" method="post" action="{% url 'app_soli:salvar_diario' %}"
+                enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text" id="datepicker" class="datepicker" name="data" placeholder="Selecione uma data">
                 <div class="textarea-container">
-                    <textarea class="diario-textarea" name="diario_nota" placeholder="Escreva suas notas ou insira seus arquivos aqui..."></textarea>
+                    <textarea class="diario-textarea" name="diario_nota"
+                        placeholder="Escreva suas notas ou insira seus arquivos aqui..."></textarea>
                     <label for="file-input" class="file-input-label">
                         <i class="fas fa-camera"></i>
                     </label>
@@ -31,7 +35,8 @@
                     <span id="file-name" style="margin-left: 10px; color: #888;"></span>
                 </div>
                 <button type="submit">Salvar Nota</button>
-                <p id="error-message" style="color: red; display: none;">Por favor, selecione uma data antes de salvar a nota.</p>
+                <p id="error-message" style="color: red; display: none;">Por favor, selecione uma data antes de salvar a
+                    nota.</p>
                 <p id="success-message" style="color: green; display: none;">Nota salva com sucesso!</p>
             </form>
             <div id="notas-salvas" class="notas-salvas">
@@ -54,7 +59,7 @@
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const textarea = document.querySelector('.diario-textarea');
             const form = document.getElementById('diario-form');
             const datepicker = document.getElementById('datepicker');
@@ -63,7 +68,7 @@
             const errorMessage = document.getElementById('error-message');
             const successMessage = document.getElementById('success-message');
 
-            textarea.addEventListener('input', function() {
+            textarea.addEventListener('input', function () {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
             });
@@ -71,14 +76,14 @@
             // Initialize flatpickr
             flatpickr("#datepicker", {
                 dateFormat: "Y-m-d",
-                onChange: function(selectedDates, dateStr, instance) {
+                onChange: function (selectedDates, dateStr, instance) {
                     // Fetch and display the notes for the selected date
                     fetchNoteForDate(dateStr);
                 }
             });
 
             // File input change event
-            fileInput.addEventListener('change', function() {
+            fileInput.addEventListener('change', function () {
                 if (fileInput.files.length > 0) {
                     fileName.textContent = fileInput.files[0].name;
                 } else {
@@ -87,7 +92,7 @@
             });
 
             // Form submission event
-            form.addEventListener('submit', function(event) {
+            form.addEventListener('submit', function (event) {
                 if (!datepicker.value) {
                     event.preventDefault();  // Prevent form submission
                     errorMessage.style.display = 'block';  // Show error message
@@ -95,21 +100,20 @@
                 } else {
                     // Hide error message
                     errorMessage.style.display = 'none';
+                    successMessage.style.display = 'block';  // Show success message
+                    setTimeout(function () {
+                        successMessage.style.display = 'none';  // Hide success message after 5 seconds
+                    }, 5000); // Adjust the time as needed
                 }
             });
-
-            // Check if the form submission was successful
-            form.onsubmit = function() {
-                successMessage.style.display = 'block';  // Show success message
-            };
 
             // Modal functionality
             const modal = document.getElementById('nota-modal');
             const closeModal = document.querySelector('.close');
-            closeModal.onclick = function() {
+            closeModal.onclick = function () {
                 modal.style.display = 'none';
             }
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = 'none';
                 }
@@ -127,7 +131,7 @@
                             const div = document.createElement('div');
                             div.className = 'nota';
                             div.dataset.notaId = nota.id;
-                            div.onclick = function() {
+                            div.onclick = function () {
                                 openNoteModal(nota.id, nota.nota, nota.foto);
                             };
                             const p = document.createElement('p');
@@ -161,6 +165,8 @@
             }
             modal.style.display = 'block';
         }
+
     </script>
 </body>
+
 </html>
