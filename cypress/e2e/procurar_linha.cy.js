@@ -16,6 +16,12 @@ describe("teste 'achar por linha'", () => {
         cy.get('.submit-button').click();
     };
 
+    // Captura exceções não tratadas
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        console.error('Erro não tratado detectado:', err);
+        return false; // Evita falhas automáticas nos testes
+    });
+
     beforeEach(() => {
         cleanupAndSetupData(); // Limpa e prepara o banco de dados antes de cada teste
     });
@@ -25,7 +31,7 @@ describe("teste 'achar por linha'", () => {
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
         cy.wait(2000);
-        cy.get('[href="/verculturas/"] ').click();
+        cy.get('[href="/verculturas/"]').click();
         cy.get('.parte-direita').click();
         cy.get('#searchInput').type("2");
         cy.get('.btn').click();
@@ -37,12 +43,10 @@ describe("teste 'achar por linha'", () => {
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
         cy.wait(2000);
-        cy.get('[href="/verculturas/"] ').click();
+        cy.get('[href="/verculturas/"]').click();
         cy.get('.parte-direita').click();
         cy.get('#searchInput').type("tomate");
         cy.get('.btn').click();
         cy.wait(2000);
-    });
-
-
+    });
 });

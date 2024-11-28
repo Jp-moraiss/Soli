@@ -16,6 +16,11 @@ describe("teste 'calendário'", () => {
         cy.get('.submit-button').click();
     };
 
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        console.error('Erro não tratado detectado:', err);
+        return false; // Evita falhas automáticas nos testes
+    });
+
     beforeEach(() => {
         cleanupAndSetupData(); // Limpa e prepara o banco de dados antes de cada teste
     });

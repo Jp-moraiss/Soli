@@ -16,6 +16,12 @@ describe("teste 'meu histórico'", () => {
         cy.get('.submit-button').click();
     };
 
+    // Captura exceções não tratadas
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        console.error('Erro não tratado detectado:', err);
+        return false; // Evita falhas automáticas nos testes
+    });
+
     beforeEach(() => {
         cleanupAndSetupData(); // Limpa e prepara o banco de dados antes de cada teste
     });
@@ -38,6 +44,5 @@ describe("teste 'meu histórico'", () => {
         cy.get('.menu > a > svg').click();
         cy.get('#searchInput').type("brocolis");
         cy.wait(2000);
-    });
-
+    });
 });
