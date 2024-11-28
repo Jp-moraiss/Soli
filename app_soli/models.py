@@ -46,3 +46,11 @@ class Atividade(models.Model):
         elif self.unidade_frequencia == 'anos':
             return self.data_proxima.replace(year=self.data_proxima.year + self.frequencia)
 
+class DiarioNota(models.Model):
+    data = models.DateField()
+    nota = models.TextField()
+    foto = models.ImageField(upload_to='diario_fotos/', blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.data}: {self.nota}"
