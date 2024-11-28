@@ -11,6 +11,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <script src="{% static 'js/scripts.js' %}"></script>
+
+    <style>
+        /* Esconde as setas do select quando desabilitado */
+        select:disabled {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-color: #f7f6f6;
+            color: #000000;
+            border: none;
+            pointer-events: none;
+        }
+
+        /* Customização para quando o select é habilitado */
+        select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,8 +63,22 @@
                     <h2 class="cultura-nome">{{ cultura.nome }} - {{ cultura.data_plantio|date:"d/m/Y" }}</h2>
                     <div class="hold_culturas-dados">
                         <div class="culturas-dados">
-                            <p class="cultura-area">Área: {{ cultura.area }}</p>
-                            <p class="cultura-linha">Linha: {{ cultura.linha }}</p>
+                            <p>
+                                Área: 
+                                <select class="cultura-area" disabled>
+                                    {% for area in "ABCDE" %}
+                                    <option value="{{ area }}" {% if cultura.area == area %}selected{% endif %}>{{ area }}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+                            <p>
+                                Linha: 
+                                <select class="cultura-linha" disabled>
+                                    {% for linha in "12345" %}
+                                    <option value="{{ linha }}" {% if cultura.linha == linha %}selected{% endif %}>{{ linha }}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>                            
                             <p class="cultura-data-plantio">
                                 Data de Plantio: <input type="date" class="data-plantio" value="{{ cultura.data_plantio|date:'Y-m-d' }}" disabled>
                             </p>
@@ -87,3 +121,4 @@
     </div>
 </body>
 </html>
+
