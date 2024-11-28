@@ -89,16 +89,16 @@
     <a href=https://www.figma.com/proto/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=745-1023&node-type=canvas&m=dev&scaling=scale-down&content-scaling=fixed&page-id=203%3A5106&starting-point-node-id=632%3A630&show-proto-sidebar=1> Protótipo de Alta Fidelidade </a>
   </li>
    <li>
-    <a href=>Screencast - Protótipo</a>
+    <a href=>Screencast - Protótipo</a> FAZER
   </li>
   <li>
-    <a href=>Screencast - Azure</a>
+    <a href=>Screencast - Azure</a> FAZER
   </li>
   <li>
-    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a>
+    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a> 
   </li>
   <li>
-    <a href=>Apresentação SR1</a>
+    <a href=>Apresentação SR1</a> FAZER
   </li>
 </ul>
 
