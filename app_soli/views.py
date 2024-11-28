@@ -30,21 +30,27 @@ def home(request):
     lembretes_atividades = []
 
     for atividade in atividades:
+        lembretes_atividades.append(atividade)  # Adiciona a atividade ao invés de uma string
+        # Atualiza a data da próxima atividade
         if atividade.data_proxima <= timezone.now().date():
-            lembretes_atividades.append(atividade)  # Adiciona a atividade ao invés de uma string
-            # Atualiza a data da próxima atividade
             if atividade.unidade_frequencia == 'dias':
                 atividade.data_proxima += timedelta(days=atividade.frequencia)
             elif atividade.unidade_frequencia == 'semanas':
                 atividade.data_proxima += timedelta(weeks=atividade.frequencia)
             elif atividade.unidade_frequencia == 'meses':
-                atividade.data_proxima += timedelta(days=atividade.frequencia * 30)
+                next_month = atividade.data_proxima.month + atividade.frequencia
+                year = atividade.data_proxima.year + next_month // 12
+                month = next_month % 12 or 12
+                atividade.data_proxima = atividade.data_proxima.replace(year=year, month=month)
+            elif atividade.unidade_frequencia == 'anos':
+                atividade.data_proxima = atividade.data_proxima.replace(year=atividade.data_proxima.year + atividade.frequencia)
             atividade.save()
 
     return render(request, 'home.html', {
         'reminders': reminders,
         'lembretes_atividades': lembretes_atividades
     })
+
 
 
 
