@@ -1,19 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'League Spartan', system-ui, sans-serif;
+}
+
 body {
+    background-color: #F1EFEB;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f9f9f9;
+    padding: 10px; 
+    margin-bottom: 10rem;
 }
 
 .container {
-    width: 100%;
-    max-width: 800px;
+    width: 100%; 
+    max-width: 1000px; 
+    background: #F1EFEB;
+    border-radius: 15px;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
+    overflow-y: scroll;
 }
 
 .content {
