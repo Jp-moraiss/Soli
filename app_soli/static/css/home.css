@@ -68,6 +68,7 @@ header {
     gap: 2rem;
     flex-wrap: wrap;
     width: 100%;
+    font-weight: 500;
 }
 
 .current-weather img {
@@ -99,15 +100,19 @@ header {
     flex-direction: row;
     background-color: #cecece;
     padding: 0.8rem;
+    padding-left: 1rem;
+    padding-right: 1.5rem;
     gap: 0.8rem;
     border-radius: 4rem;
     align-items: center;
+    justify-content: space-between;
 }
 
 .dados_weather li img {
     width: 1.5rem;
     height: 1.5rem;
 }
+
 
 .hourly-forecast {
     display: flex;
@@ -121,6 +126,13 @@ header {
     margin-right: 1rem;
     font-family: 'League Spartan', system-ui, sans-serif;
     font-weight: bolder;
+}
+
+.hold_dados{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .hour {

@@ -19,7 +19,7 @@ function error() {
 }
 
 function fetchWeather(latitude, longitude) {
-    const apiKey = 'ac658cc9736043449d253857241310'; // Sua chave da WeatherAPI
+    const apiKey = 'ac658cc9736043449d253857241310';
     const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&hours=5`;
 
     fetch(apiUrl)
@@ -28,14 +28,12 @@ function fetchWeather(latitude, longitude) {
             const current = data.current;
             const forecast = data.forecast.forecastday[0].hour;
 
-            // Atualiza as informações do clima atual
-            document.getElementById('location').textContent = `LOCALIZAÇÃO: ${data.location.name}`;
-            document.getElementById('humidity').textContent = `UMIDADE: ${current.humidity}%`;
-            document.getElementById('precipitation').textContent = `CONDIÇÃO: ${current.condition.text}`;
+            document.getElementById('location').innerHTML = `<p>${data.location.name.toUpperCase()}</p>`;
+            document.getElementById('humidity').innerHTML = `<p>${current.humidity.toString().toUpperCase()}%</p>`;
+            document.getElementById('precipitation').innerHTML = `<p>${current.condition.text.toUpperCase()}</p>`;
 
-            // Atualiza as previsões das próximas 5 horas
             const forecastContainer = document.getElementById('hourly-forecast');
-            forecastContainer.innerHTML = ''; // Limpa previsões anteriores
+            forecastContainer.innerHTML = ''; 
 
             const now = new Date();
             let hourCount = 0;
@@ -51,7 +49,7 @@ function fetchWeather(latitude, longitude) {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock">
                                     <circle cx="12" cy="12" r="10"/>
                                     <polyline points="12 6 12 12 16 14"/>
-                                </svg> ${forecastTime.getHours()}:00
+                                </svg> <span class="forecast-time">${forecastTime.getHours()}:00</span>
                             </li>
                             <li class="li_hour">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-sun">
@@ -66,19 +64,41 @@ function fetchWeather(latitude, longitude) {
                             <li class="li_hour">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-thermometer">
                                     <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>
-                                </svg> ${hourData.temp_c}°C
+                                </svg> <span class="forecast-temp">${hourData.temp_c}°C</span>
                             </li>
                         </ul>`;
                     forecastContainer.appendChild(hourElement);
                     hourCount++;
                 }
             });
+
+            // Manipular o primeiro elemento e alterar a cor das SVGs, hora e temperatura
+            const firstHourlyElement = document.querySelector('.hourly-forecast > .hour');
+            if (firstHourlyElement) {
+                const svgs = firstHourlyElement.querySelectorAll('svg');
+                svgs.forEach(svg => {
+                    svg.style.stroke = '#DE3900';
+                });
+
+                const forecastTimes = firstHourlyElement.querySelectorAll('.forecast-time');
+                forecastTimes.forEach(time => {
+                    time.style.color = '#DE3900';
+                });
+
+                const forecastTemps = firstHourlyElement.querySelectorAll('.forecast-temp');
+                forecastTemps.forEach(temp => {
+                    temp.style.color = '#DE3900';
+                });
+            }
         })
         .catch(error => {
             console.error('Erro ao obter dados do clima:', error);
             document.getElementById('location').textContent = 'Erro ao obter dados do clima';
         });
 }
+
+
+
 
 function toggleStrike(checkbox) {
     const label = checkbox.previousElementSibling; // Pega o label anterior ao checkbox

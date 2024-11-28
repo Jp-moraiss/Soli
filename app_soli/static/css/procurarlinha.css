@@ -2,42 +2,95 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'League Spartan', system-ui, sans-serif;
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: #F1EFEB;
     display: flex;
     justify-content: center;
     padding: 10px; 
+    margin-bottom: 10rem;
 }
 
 .container {
     width: 100%; 
     max-width: 1000px; 
-    background-color: white;
+    background: #F1EFEB;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
+    overflow-y: scroll;
 }
 
 
-.areas-card{
-    background-color: #dddcdc; 
-    border-radius: 10px; 
-    padding: 15px; 
-    margin-bottom: 3rem; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding-bottom: 3rem;
+.cultura-grupo {
+    background-color: #f1f1f1;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+    border-radius: 10px;
+    background: #D7D2CC;
+    color: #00230B;
+    font-family: 'League Spartan', system-ui, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
+.cultura-grupo h2 {
+    margin-left: 1rem;
+}
 
 .culturas-card {
+    background-color: #ffffff;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 0.5rem;
+}
+
+.areas-card {
     background-color: #f1f1f1;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 3rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-bottom: 3rem;
+}
+
+.culturas-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cultura-imagem {
+    width: 140px;
+    height: 110px;
+    object-fit: cover;
+}
+
+.data_colheita {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .culturas-card h2 {
@@ -89,18 +142,20 @@ body {
     width: 100%;
     margin-top: 2rem;
     font-size: larger;
-    color: #e57373; /* Cor de destaque para mensagens de "Nenhuma cultura foi encontrada" */
+    color: #e57373;
+    /* Cor de destaque para mensagens de "Nenhuma cultura foi encontrada" */
 }
 
 .buscar_box {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25rem;
+    width: 100%;
+    max-width: 400px;
     border-radius: 5px;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
     background-color: #D9D9D9;
-    padding: 10px; /* Espessura ajustada para o campo de busca */
+    padding: 10px;
 }
 
 .search-input {
@@ -176,4 +231,102 @@ footer nav a {
 
 .search-box .btn:hover {
     background-color: #43a047;
+}
+
+.editing {
+    border: 2px solid blue;
+    padding: 5px;
+    background-color: #f0f8ff;
+}
+
+.botao {
+    display: flex;
+    width: 200px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.parte-esquerda, .parte-direita {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ativo .parte-esquerda {
+    background-color: #666;
+}
+
+.ativo .parte-direita {
+    background-color: transparent;
+}
+
+.botao:hover {
+    background-color: #bbb;
+}
+
+#no-results {
+    display: none;
+    color: red;
+}
+
+.cultura-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .culturas-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .buscar_box {
+        width: 100%;
+    }
+
+    .search-input {
+        height: 2.5rem;
+    }
+
+    .cultura-imagem {
+        width: 120px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    .culturas-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .search-input {
+        height: 2rem;
+        font-size: 0.875rem;
+    }
+
+    .cultura-imagem {
+        width: 100px;
+        height: 75px;
+    }
+
+    .progress-bar {
+        height: 8px;
+    }
+
+    .search-box .btn {
+        padding: 8px 12px;
+    }
 }
