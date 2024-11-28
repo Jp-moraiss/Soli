@@ -98,7 +98,7 @@
     <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a> 
   </li>
   <li>
-    <a href=>Apresentação SR1</a> FAZER
+    <a href=>Apresentação SR2</a> FAZER
   </li>
 </ul>
 
