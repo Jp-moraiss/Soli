@@ -12,7 +12,7 @@
             <p>Home</p>
         </div>
         <div class="abas">
-            <a href="" class="{% if request.path == '/' %}active{% endif %}">
+            <a href="{% url 'app_soli:diario'  %}" class="{% if request.path == '/diario/' %}active{% endif %}">
                 <svg class="SVG" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
                     <path d="M11.7349 3.53033H3.38553C2.75285 3.53033 2.14608 3.78167 1.69871 4.22904C1.25133 4.67641 1 5.28318 1 5.91586V22.6146C1 23.2472 1.25133 23.854 1.69871 24.3014C2.14608 24.7487 2.75285 25.0001 3.38553 25.0001H20.0842C20.7169 25.0001 21.3237 24.7487 21.7711 24.3014C22.2184 23.854 22.4698 23.2472 22.4698 22.6146V14.2652" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M20.6806 1.74109C21.1552 1.26658 21.7987 1 22.4698 1C23.1409 1 23.7844 1.26658 24.2589 1.74109C24.7335 2.2156 25 2.85917 25 3.53023C25 4.20129 24.7335 4.84487 24.2589 5.31938L12.9277 16.6506L8.15662 17.8434L9.34938 13.0723L20.6806 1.74109Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

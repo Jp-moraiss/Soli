@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Reminder, Cultura, Atividade
+from .models import Reminder, Cultura, Atividade, DiarioNota
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
@@ -378,3 +378,23 @@ def cleanup_db(request):
         return JsonResponse({'status': 'success', 'message': 'Database cleaned'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+def diario_view(request):
+    return render(request, 'diario.html')
+
+@csrf_exempt
+@csrf_exempt
+def salvar_diario(request):
+    if request.method == 'POST':
+        data = request.POST.get('data')
+        diario_nota = request.POST.get('diario_nota')
+        foto = request.FILES.get('foto')
+        # Criar uma nova entrada para cada nota
+        DiarioNota.objects.create(data=data, nota=diario_nota, foto=foto)
+        return redirect('app_soli:diario')
+    return render(request, 'diario.html')
+
+def fetch_note_for_date(request, date):
+    notas = DiarioNota.objects.filter(data=date).order_by('timestamp')
+    notas_list = [{'nota': nota.nota, 'foto': nota.foto.url if nota.foto else None} for nota in notas]
+    return JsonResponse({'notas': notas_list})
