@@ -19,7 +19,7 @@
         <!-- Main content will go here -->
         <div class="content">
             <h1>Diário</h1>
-            <form method="post" action="{% url 'app_soli:salvar_diario' %}" enctype="multipart/form-data">
+            <form id="diario-form" method="post" action="{% url 'app_soli:salvar_diario' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text" id="datepicker" class="datepicker" name="data" placeholder="Selecione uma data">
                 <div class="textarea-container">
@@ -28,8 +28,11 @@
                         <i class="fas fa-camera"></i>
                     </label>
                     <input type="file" id="file-input" name="foto" accept="image/*" class="file-input">
+                    <span id="file-name" style="margin-left: 10px; color: #888;"></span>
                 </div>
                 <button type="submit">Salvar Nota</button>
+                <p id="error-message" style="color: red; display: none;">Por favor, preencha todos os campos antes de salvar a nota.</p>
+                <p id="success-message" style="color: green; display: none;">Nota salva com sucesso!</p>
             </form>
             <div id="notas-salvas" class="notas-salvas">
                 <h2>Notas salvas neste dia: </h2>
@@ -53,7 +56,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const textarea = document.querySelector('.diario-textarea');
-            
+            const form = document.getElementById('diario-form');
+            const datepicker = document.getElementById('datepicker');
+            const fileInput = document.getElementById('file-input');
+            const fileName = document.getElementById('file-name');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+
             textarea.addEventListener('input', function() {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
@@ -65,6 +74,31 @@
                 onChange: function(selectedDates, dateStr, instance) {
                     // Fetch and display the notes for the selected date
                     fetchNoteForDate(dateStr);
+                }
+            });
+
+            // File input change event
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    fileName.textContent = fileInput.files[0].name;
+                } else {
+                    fileName.textContent = '';
+                }
+            });
+
+            // Form submission event
+            form.addEventListener('submit', function(event) {
+                if (!datepicker.value || !textarea.value.trim()) {
+                    event.preventDefault();  // Prevent form submission
+                    errorMessage.style.display = 'block';  // Show error message
+                    successMessage.style.display = 'none';  // Hide success message
+                } else {
+                    // Hide error message
+                    errorMessage.style.display = 'none';
+                    successMessage.style.display = 'block';  // Show success message
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';  // Hide success message after 5 seconds
+                    }, 5000);  // Adjust the time as needed
                 }
             });
 
