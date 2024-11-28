@@ -19,7 +19,7 @@
         <!-- Main content will go here -->
         <div class="content">
             <h1>Diário</h1>
-            <form method="post" action="{% url 'app_soli:salvar_diario' %}" enctype="multipart/form-data">
+            <form id="diario-form" method="post" action="{% url 'app_soli:salvar_diario' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text" id="datepicker" class="datepicker" name="data" placeholder="Selecione uma data">
                 <div class="textarea-container">
@@ -30,6 +30,8 @@
                     <input type="file" id="file-input" name="foto" accept="image/*" class="file-input">
                 </div>
                 <button type="submit">Salvar Nota</button>
+                <p id="error-message" style="color: red; display: none;">Por favor, selecione uma data antes de salvar a nota.</p>
+                <p id="success-message" style="color: green; display: none;">Nota salva com sucesso!</p>
             </form>
             <div id="notas-salvas" class="notas-salvas">
                 <h2>Notas salvas neste dia: </h2>
@@ -53,7 +55,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const textarea = document.querySelector('.diario-textarea');
-            
+            const form = document.getElementById('diario-form');
+            const datepicker = document.getElementById('datepicker');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+
             textarea.addEventListener('input', function() {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
@@ -67,6 +73,23 @@
                     fetchNoteForDate(dateStr);
                 }
             });
+
+            // Form submission event
+            form.addEventListener('submit', function(event) {
+                if (!datepicker.value) {
+                    event.preventDefault();  // Prevent form submission
+                    errorMessage.style.display = 'block';  // Show error message
+                    successMessage.style.display = 'none';  // Hide success message
+                } else {
+                    // Hide error message
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+            // Check if the form submission was successful
+            form.onsubmit = function() {
+                successMessage.style.display = 'block';  // Show success message
+            };
 
             // Modal functionality
             const modal = document.getElementById('nota-modal');
