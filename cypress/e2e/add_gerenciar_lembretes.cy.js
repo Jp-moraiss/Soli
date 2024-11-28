@@ -48,7 +48,9 @@ describe("teste 'lembretes'", () => {
        cy.get('.form_reminder > .reminder').type("irrigar alface");
        cy.get('.reminder-plus').click();
        cy.get('.edit_button > img').first().click();
+       cy.wait(1000);
        cy.get('input[id^="edit-text-"]').type(" e brocolis"); 
+       cy.wait(500);
        cy.get('button[onclick^="saveEdit"]').click();
        cy.wait(2000);
 });
@@ -61,7 +63,8 @@ describe("teste 'lembretes'", () => {
        cy.get('.form_reminder > .reminder').type("irrigar alface");
        cy.get('.reminder-plus').click();
        cy.get('.edit_button > img').first().click();
-       cy.get('button[onclick^="saveEdit"]').click();
+       cy.wait(1000);
+       cy.get('.fas').click();
        cy.wait(2000);
 });
 
@@ -72,6 +75,7 @@ describe("teste 'lembretes'", () => {
        cy.wait(2000);
        cy.get('.form_reminder > .reminder').type("irrigar alface");
        cy.get('.reminder-plus').click();
+       cy.wait(1000);
         cy.get('[id^="reminder-checkbox-"]').first().click(); 
        cy.wait(2000);
 });
