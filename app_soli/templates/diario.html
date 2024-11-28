@@ -28,6 +28,7 @@
                         <i class="fas fa-camera"></i>
                     </label>
                     <input type="file" id="file-input" name="foto" accept="image/*" class="file-input">
+                    <span id="file-name" style="margin-left: 10px; color: #888;"></span>
                 </div>
                 <button type="submit">Salvar Nota</button>
                 <p id="error-message" style="color: red; display: none;">Por favor, selecione uma data antes de salvar a nota.</p>
@@ -57,6 +58,8 @@
             const textarea = document.querySelector('.diario-textarea');
             const form = document.getElementById('diario-form');
             const datepicker = document.getElementById('datepicker');
+            const fileInput = document.getElementById('file-input');
+            const fileName = document.getElementById('file-name');
             const errorMessage = document.getElementById('error-message');
             const successMessage = document.getElementById('success-message');
 
@@ -71,6 +74,15 @@
                 onChange: function(selectedDates, dateStr, instance) {
                     // Fetch and display the notes for the selected date
                     fetchNoteForDate(dateStr);
+                }
+            });
+
+            // File input change event
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    fileName.textContent = fileInput.files[0].name;
+                } else {
+                    fileName.textContent = '';
                 }
             });
 
