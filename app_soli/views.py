@@ -263,23 +263,27 @@ def cadastro_view(request):
 
 
 
+from collections import defaultdict
+from django.db.models import Count
+from datetime import date
+
 def procurar_linhas_view(request):
     linha_procurada = request.GET.get('linha', '')  # Recebe o valor da linha do campo de busca
     
     # Se `linha_procurada` estiver vazio, carregue todas as culturas. Caso contrário, filtre pela linha procurada.
-    culturas = Cultura.objects.filter(linha__icontains=linha_procurada) if linha_procurada else Cultura.objects.all()
+    culturas = Cultura.objects.filter(linha__icontains=linha_procurada, data_colheita__gte=date.today()) if linha_procurada else Cultura.objects.filter(data_colheita__gte=date.today())
 
-    # Agrupa as culturas pela área
-    culturas_agrupadas = culturas.values('area').annotate(total=Count('id')).order_by('area')
-
-    # Calcula o progresso e o tempo restante para cada cultura
+    # Agrupar as culturas por área e linha
+    culturas_agrupadas = defaultdict(list)
     for cultura in culturas:
         cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
         cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
+        key = f"{cultura.area}-{cultura.linha}"
+        culturas_agrupadas[key].append(cultura)
 
     context = {
         'culturas': culturas,
-        'culturas_agrupadas': culturas_agrupadas,
+        'culturas_agrupadas': dict(culturas_agrupadas),
         'linha': linha_procurada,
         'query': linha_procurada
     }
