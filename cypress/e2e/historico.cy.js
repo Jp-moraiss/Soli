@@ -26,23 +26,25 @@ describe("teste 'meu histórico'", () => {
         cleanupAndSetupData(); // Limpa e prepara o banco de dados antes de cada teste
     });
 
-    it('cenario1 - busca encontrada', () => {
+    it('cenario1 - buscar', () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
         cy.wait(2000);
-        cy.get('.menu > a > svg').click();
+        cy.get('.user-icon > svg').click();
+        cy.get('[href="/meuhistorico/"]').click();
         cy.get('#searchInput').type("tomate");
         cy.wait(2000);
     });
 
-    it('cenario2 - busca não encontrada', () => {
+    it('cenario2 - dar logout', () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
         cy.wait(2000);
-        cy.get('.menu > a > svg').click();
-        cy.get('#searchInput').type("brocolis");
+        cy.get('.user-icon > svg').click();
+        cy.wait(2000);
+        cy.get('[href="/"]').click();
         cy.wait(2000);
     });
 });
