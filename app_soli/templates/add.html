@@ -91,9 +91,9 @@
             <form method="post" onsubmit="validateForm(event)">
                 {% csrf_token %}
                 <div class="container_cult">
-                    <label for="">Cultura:</label>
+                    <label for="cultura">Cultura:</label>
                     <select name="cultura" class="input_cultura" required>
-                        <option value="select">Selecione a cultura...</option>
+                        <option value="">Selecione a cultura...</option>
                         <option value="tomate">Tomate</option>
                         <option value="brocolis">Brócolis</option>
                         <option value="alface">Alface</option>
@@ -107,7 +107,7 @@
                         <label for="localizacao">Localização</label>
                         <div class="div_localizacao">
                             <select name="area" class="input_localizacao" required>
-                                <option value="select">Área</option>
+                                <option value="">Área</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -115,7 +115,7 @@
                                 <option value="E">E</option>
                             </select>
                             <select name="linha" class="input_localizacao" required>
-                                <option value="select">Linha</option>
+                                <option value="">Linha</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -126,7 +126,7 @@
                     
                     <span class="span">
                         <label for="descricao">Descrição</label>
-                        <input type="text" name="descricao" placeholder="Digite aqui..." >
+                        <input type="text" name="descricao" placeholder="Digite aqui...">
                     </span>
                 </div>
                 
@@ -140,7 +140,7 @@
                     
                     <span class="span">
                         <label for="data_colheita">Data de Colheita</label>
-                        <input type="date" id="data_colheita" name="data_colheita" readonly>
+                        <input type="date" id="data_colheita" name="data_colheita" required>
                     </span>
                 </div>
                 
