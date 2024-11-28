@@ -87,7 +87,7 @@
                     <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox"
                         onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
                     <div class="edit-options" style="display: none;">
-                        <input type="text" id="edit-text-{{ reminder.id }}" value="{{ reminder.text }}">
+                        <input type="text" id="edit-text-{{ reminder.id }}" value="{{ reminder.text }}" required>
                         <button onclick="saveEdit({{ reminder.id }})">Salvar</button>
                         <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST"
                             style="display:inline;" onsubmit="return confirmarExclusao();">
@@ -160,18 +160,18 @@
         }
 
         function saveEdit(id) {
-            const editText = document.getElementById(edit-text-${id}).value;
+            const editText = document.getElementById(`edit-text-${id}`).value;
             if (editText.trim() === '') {
                 alert('O nome do lembrete não pode estar vazio.');
                 return false;
             }
 
             // Atualiza o label visualmente
-            const label = document.querySelector(label[for="reminder-checkbox-${id}"]);
+            const label = document.querySelector(`label[for="reminder-checkbox-${id}"]`);
             label.textContent = editText;
 
             // Faz uma requisição para atualizar no backend
-            fetch(/salvar_lembrete/${id}/, {
+            fetch(`/salvar_lembrete/${id}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -182,7 +182,7 @@
                 .then(response => {
                     if (response.ok) {
                         // Atualiza o texto no banco de dados
-                        document.getElementById(reminder-${id}).querySelector('.edit-options').style.display = 'none';
+                        document.getElementById(`reminder-${id}`).querySelector('.edit-options').style.display = 'none';
                     } else {
                         alert('Falha ao salvar o lembrete. Tente novamente.');
                     }
@@ -199,5 +199,4 @@
     </script>
 </body>
 {% include 'footer.html'%}
-
 </html>
