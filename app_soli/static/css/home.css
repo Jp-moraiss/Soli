@@ -283,6 +283,13 @@ ul {
     width: 100%;
 }
 
+.lembretes-automaticos{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .reminders li{
     width: 100%;
 }

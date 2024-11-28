@@ -398,3 +398,21 @@ def fetch_note_for_date(request, date):
     notas = DiarioNota.objects.filter(data=date).order_by('timestamp')
     notas_list = [{'nota': nota.nota, 'foto': nota.foto.url if nota.foto else None} for nota in notas]
     return JsonResponse({'notas': notas_list})
+
+@csrf_exempt
+def salvar_atividade(request, id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_text = data.get('text')
+        atividade = Atividade.objects.get(id=id)
+        atividade.nome = new_text
+        atividade.save()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+def excluir_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    atividade.delete()
+    return redirect('app_soli:home')
+

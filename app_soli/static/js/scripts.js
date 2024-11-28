@@ -410,12 +410,9 @@ document.querySelectorAll('.password-toggle').forEach(button => {
         button.setAttribute('aria-label', isPasswordVisible ? 'Mostrar senha' : 'Ocultar senha');
     });
 });
-
-
-// Função para alternar a visibilidade das opções de edição para todos os lembretes
-function toggleEditAll() {
-    const reminders = document.querySelectorAll('.reminder');
-    reminders.forEach(reminder => {
+function toggleEditAutomaticos() {
+    const automaticReminders = document.querySelectorAll('.automatic-reminder');
+    automaticReminders.forEach(reminder => {
         const editOptions = reminder.querySelector('.edit-options');
         const label = reminder.querySelector('label');
         const checkbox = reminder.querySelector('input[type="checkbox"]');
@@ -430,14 +427,49 @@ function toggleEditAll() {
             checkbox.style.display = 'inline-block';
         }
     });
-    
-    const saveButton = document.getElementById('save-all-btn');
-    saveButton.style.display = (saveButton.style.display === 'none') ? 'inline-block' : 'none';
 }
 
-// Função para salvar a edição individual
-function saveEdit(id) {
-    const editText = document.getElementById(`edit-text-${id}`).value;
+function toggleEditManuais() {
+    const manualReminders = document.querySelectorAll('#reminder-list .reminder');
+    manualReminders.forEach(reminder => {
+        const editOptions = reminder.querySelector('.edit-options');
+        const label = reminder.querySelector('label');
+        const checkbox = reminder.querySelector('input[type="checkbox"]');
+        
+        if (editOptions.style.display === 'none') {
+            editOptions.style.display = 'flex';
+            label.style.display = 'none';
+            checkbox.style.display = 'none';
+        } else {
+            editOptions.style.display = 'none';
+            label.style.display = 'inline-block';
+            checkbox.style.display = 'inline-block';
+        }
+    });
+}
+
+function saveEditAtividade(id) {
+    const editText = document.getElementById(`edit-text-atividade-${id}`).value;
+    fetch(`/salvar_atividade/${id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ text: editText })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Recarrega a página para refletir as mudanças
+        } else {
+            alert('Erro ao salvar atividade.');
+        }
+    });
+}
+
+function saveEditReminder(id) {
+    const editText = document.getElementById(`edit-text-reminder-${id}`).value;
     fetch(`/salvar_lembrete/${id}/`, {
         method: 'POST',
         headers: {
@@ -453,15 +485,6 @@ function saveEdit(id) {
         } else {
             alert('Erro ao salvar lembrete.');
         }
-    });
-}
-
-// Função para salvar todas as edições
-function saveAllEdits() {
-    const reminders = document.querySelectorAll('.reminder');
-    reminders.forEach(reminder => {
-        const id = reminder.id.split('-')[1];
-        saveEdit(id);
     });
 }
 
@@ -481,3 +504,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function confirmarExclusao() {
+    return confirm('Tem certeza de que deseja excluir este item?');
+}
