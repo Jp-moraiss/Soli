@@ -7,21 +7,6 @@ describe("teste 'meu histórico'", () => {
         });
     };
 
-    const registerUser = () => {
-        cy.get('.register-link').click();
-        cy.get('#username').type('cesar.school');
-        cy.get('#email').type("bas@cesar.school");
-        cy.get('#password').type("1234");
-        cy.get('#confirm-password').type("1234");
-        cy.get('.submit-button').click();
-    };
-
-    // Captura exceções não tratadas
-    Cypress.on('uncaught:exception', (err, runnable) => {
-        console.error('Erro não tratado detectado:', err);
-        return false; // Evita falhas automáticas nos testes
-    });
-
     beforeEach(() => {
         cleanupAndSetupData(); // Limpa e prepara o banco de dados antes de cada teste
     });
@@ -30,19 +15,17 @@ describe("teste 'meu histórico'", () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
-        cy.wait(2000);
-        cy.get('.menu > a > svg').click();
+        cy.get('.menu > a > svg').should('be.visible').click();
         cy.get('#searchInput').type("tomate");
-        cy.wait(2000);
+        cy.get('.result-item').should('contain', 'tomate'); // Aguarda o resultado
     });
 
     it('cenario2 - busca não encontrada', () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
-        cy.wait(2000);
-        cy.get('.menu > a > svg').click();
+        cy.get('.menu > a > svg').should('be.visible').click();
         cy.get('#searchInput').type("brocolis");
-        cy.wait(2000);
+        cy.get('.no-results').should('be.visible'); // Aguarda o resultado
     });
 });
