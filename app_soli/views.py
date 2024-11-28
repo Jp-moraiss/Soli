@@ -10,6 +10,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.utils import timezone
 from django.db.models import Count
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
+
 
 def home(request):
     if request.method == 'POST':
@@ -28,7 +31,7 @@ def home(request):
 
     for atividade in atividades:
         if atividade.data_proxima <= timezone.now().date():
-            lembretes_atividades.append(f"{atividade.nome} para a cultura {atividade.cultura.nome} na área {atividade.cultura.area}")  # Exibir área
+            lembretes_atividades.append(atividade)  # Adiciona a atividade ao invés de uma string
             # Atualiza a data da próxima atividade
             if atividade.unidade_frequencia == 'dias':
                 atividade.data_proxima += timedelta(days=atividade.frequencia)
@@ -44,6 +47,7 @@ def home(request):
     })
 
 
+
 def add(request):
     if request.method == 'POST':
         nome = request.POST.get('cultura')
@@ -56,7 +60,9 @@ def add(request):
         unidade_duracao = request.POST.get('unidade_duracao')
 
         # Obter atividades personalizadas do usuário
-        atividades_personalizadas = request.POST.getlist('atividades')  # Novo campo para atividades
+        atividades_personalizadas_nome = request.POST.getlist('nova_atividade_nome[]')
+        atividades_personalizadas_frequencia = request.POST.getlist('nova_atividade_frequencia[]')
+        atividades_personalizadas_unidade = request.POST.getlist('nova_atividade_unidade[]')
 
         if not all([nome, area, linha, data_plantio, data_colheita, duracao, unidade_duracao]):
             messages.error(request, 'Por favor, preencha todos os campos obrigatórios.')
@@ -90,50 +96,42 @@ def add(request):
         irrigacao_unidade = request.POST.get('irrigacao_unidade')
 
         if irrigacao_frequencia and irrigacao_unidade:
-            atividade_irrigacao = Atividade.objects.create(
+            Atividade.objects.create(
                 cultura=cultura,
                 nome="Irrigação",
                 frequencia=int(irrigacao_frequencia),
                 unidade_frequencia=irrigacao_unidade,
                 data_proxima=data_plantio
             )
-            # Atualiza a data da próxima irrigação
-            atividade_irrigacao.data_proxima = atividade_irrigacao.calcular_proxima_data()
-            atividade_irrigacao.save()
 
         poda_frequencia = request.POST.get('poda_frequencia')
         poda_unidade = request.POST.get('poda_unidade')
 
         if poda_frequencia and poda_unidade:
-            atividade_poda = Atividade.objects.create(
+            Atividade.objects.create(
                 cultura=cultura,
                 nome="Poda",
                 frequencia=int(poda_frequencia),
                 unidade_frequencia=poda_unidade,
                 data_proxima=data_plantio
             )
-            # Atualiza a data da próxima poda
-            atividade_poda.data_proxima = atividade_poda.calcular_proxima_data()
-            atividade_poda.save()
 
         # Adicionar atividades personalizadas, se houver
-        for atividade in atividades_personalizadas:
-            if atividade.strip():  # Verifica se a atividade não está vazia
-                nova_atividade = Atividade.objects.create(
+        for nome, frequencia, unidade in zip(atividades_personalizadas_nome, atividades_personalizadas_frequencia, atividades_personalizadas_unidade):
+            if nome.strip():  # Verifica se a atividade não está vazia
+                Atividade.objects.create(
                     cultura=cultura,
-                    nome=atividade,
-                    frequencia=30,  # Frequência padrão; você pode ajustar isso
-                    unidade_frequencia='dias',  # Unidade padrão; ajuste conforme necessário
+                    nome=nome,
+                    frequencia=int(frequencia),
+                    unidade_frequencia=unidade,
                     data_proxima=data_plantio
                 )
-                # Atualiza a data da próxima atividade personalizada
-                nova_atividade.data_proxima = nova_atividade.calcular_proxima_data()
-                nova_atividade.save()
 
         messages.success(request, 'Cultura e atividades adicionadas com sucesso.')
         return redirect('app_soli:home')
 
     return render(request, 'add.html')
+
 
 
 def calcular_progresso(data_plantio, data_colheita):
@@ -355,3 +353,18 @@ def salvar_lembrete(request, lembrete_id):
         lembrete.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
+
+def cleanup_db(request):
+    if not settings.DEBUG:
+        raise PermissionDenied("O cleanup_db só pode ser executado em desenvolvimento ou testes.")
+
+
+    try:
+        Reminder.objects.all().delete()
+        Atividade.objects.all().delete()
+        Cultura.objects.all().delete()
+
+
+        return JsonResponse({'status': 'success', 'message': 'Database cleaned'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)

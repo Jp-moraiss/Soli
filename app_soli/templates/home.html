@@ -41,8 +41,10 @@
             <ul>
                 {% for atividade in lembretes_atividades %}
                     <li class="reminder automatic-reminder">
+                        <label for="atividade{{ forloop.counter }}">
+                            {{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{ atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )
+                        </label>
                         <input type="checkbox" id="atividade{{ forloop.counter }}" class="reminder-checkbox" onchange="toggleStrike(this)">
-                        <label for="atividade{{ forloop.counter }}">{{ atividade }}</label>
                     </li>
                 {% empty %}
                     <li>Nenhuma atividade automática para exibir no momento.</li>
@@ -54,7 +56,6 @@
                 <button class="edit_button" onclick="toggleEditAll()">
                     <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit">
                 </button>
-                <button class="save_button" id="save-all-btn" style="display: none;" onclick="saveAllEdits()">Salvar Todos</button>
             </div>
             
             <ul id="reminder-list">
@@ -78,7 +79,6 @@
             
             <!-- Elemento para mensagem de feedback -->
             <div id="feedback-message" style="display: none; color: green; margin-top: 10px;"></div>
-            
                   
             <!-- Formulário para Adicionar Lembretes Manuais -->
             <form class="form_reminder" method="POST">
@@ -115,9 +115,61 @@
     
             dateElement.textContent = capitalizedDate; // Atualiza o conteúdo da div com a data formatada
         });
+
+        function toggleStrike(checkbox) {
+            const label = checkbox.previousElementSibling;
+            if (checkbox.checked) {
+                label.style.textDecoration = 'line-through';
+            } else {
+                label.style.textDecoration = 'none';
+            }
+        }
+
+        function toggleEditAll() {
+            const editButtons = document.querySelectorAll('.edit-options');
+            editButtons.forEach(button => {
+                button.style.display = button.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        function saveEdit(id) {
+            const editText = document.getElementById(`edit-text-${id}`).value;
+            if (editText.trim() === '') {
+                alert('O nome do lembrete não pode estar vazio.');
+                return false;
+            }
+
+            // Atualiza o label visualmente
+            const label = document.querySelector(`label[for="reminder-checkbox-${id}"]`);
+            label.textContent = editText;
+
+            // Faz uma requisição para atualizar no backend
+            fetch(`/salvar_lembrete/${id}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({ text: editText }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Atualiza o texto no banco de dados
+                    document.getElementById(`reminder-${id}`).querySelector('.edit-options').style.display = 'none';
+                } else {
+                    alert('Falha ao salvar o lembrete. Tente novamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao salvar o lembrete. Tente novamente.');
+            });
+        }
+
+        function confirmarExclusao() {
+            return confirm('Tem certeza de que deseja excluir este item?');
+        }
     </script>
 </body>
 {% include 'footer.html' %}
 </html>
-
-
