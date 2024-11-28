@@ -2,41 +2,40 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'League Spartan', system-ui, sans-serif;
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: #F1EFEB;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding: 10px; 
     margin-bottom: 10rem;
 }
 
 .container {
-    height: 90vh !important;
     width: 100%; 
     max-width: 1000px; 
-    background-color: white;
+    background: #F1EFEB;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh !important;
     overflow-y: scroll;
-    margin-bottom: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-section {
-    width: 35%;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    width: 75%;
+    height: 100%;
 }
 
 h1 {
@@ -75,11 +74,19 @@ textarea {
     resize: none;
 }
 
+.section1{
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
     display: block;
     padding: 10px;
     margin: auto;
-    width: 30%;
     background-color: #333;
     color: white;
     border: none;
