@@ -19,10 +19,14 @@
 
         <section class="culturas-list">
             <h1>Procurar por Culturas</h1>
-            <a href="{% url 'app_soli:procurarlinha' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
-                <span class="parte-esquerda">Culturas</span>
-                <span class="parte-direita">Linhas</span>
-            </a>
+            <div class="botao" style="padding: 1rem;">
+                <a href="{% url 'app_soli:verculturas' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
+                    <span class="parte-esquerda">Culturas</span>
+                </a>
+                <a href="{% url 'app_soli:procurarlinha' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
+                    <span class="parte-direita">Linhas</span>
+                </a>
+            </div>
 
             <div class="search-box">
                 <div class="buscar_box">
@@ -49,7 +53,7 @@
                             </p>
                             <p class="tempo-restante">Tempo restante: {{ cultura.tempo_restante }}</p>
                         </div>
-                        <img src="{% static 'img/' %}{{ cultura.nome|lower }}.png" alt="{{ cultura.nome }}" class="cultura-imagem" style="max-width: 180px; height: auto; margin: 10px 0;">
+                        <img src="{% static 'img/' %}{{ cultura.nome|lower }}.png" alt="{{ cultura.nome }}" class="cultura-imagem" style="height: auto; margin: 10px 0;">
                     </div>
                     <p>Progresso:</p>
                     <div class="progress-bar">

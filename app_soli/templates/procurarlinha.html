@@ -17,10 +17,14 @@
 
         <section class="culturas-list">
             <h1>Procurar por Linhas</h1>
-            <a href="{% url 'app_soli:verculturas' %}" class="botao {% if request.path == '/procurarlinha/' %}ativo{% endif %}">
-                <span class="parte-esquerda">Culturas</span>
-                <span class="parte-direita">Linhas</span>
-            </a>
+            <div class="botao" style="padding: 1rem;">
+                <a href="{% url 'app_soli:verculturas' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
+                    <span class="parte-esquerda">Culturas</span>
+                </a>
+                <a href="{% url 'app_soli:procurarlinha' %}" class="botao {% if request.path == '/verculturas/' %}ativo{% endif %}">
+                    <span class="parte-direita">Linhas</span>
+                </a>
+            </div>
         
             <div class="search-box">
                 <form method="get" action="{% url 'app_soli:procurarlinha' %}">
