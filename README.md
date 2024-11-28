@@ -75,7 +75,33 @@
 </ul>
 
   ## SR2
-  🔧🔨
+  <ul>
+  <li>
+    <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
+  </li>
+  <li>
+    <a href=https://solii.azurewebsites.net/> Projeto no Azure </a>
+  </li>
+    <li>
+    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
+  </li>
+    <li>
+    <a href=https://www.figma.com/proto/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=745-1023&node-type=canvas&m=dev&scaling=scale-down&content-scaling=fixed&page-id=203%3A5106&starting-point-node-id=632%3A630&show-proto-sidebar=1> Protótipo de Alta Fidelidade </a>
+  </li>
+   <li>
+    <a href=>Screencast - Protótipo</a>
+  </li>
+  <li>
+    <a href=>Screencast - Azure</a>
+  </li>
+  <li>
+    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a>
+  </li>
+  <li>
+    <a href=>Apresentação SR1</a>
+  </li>
+</ul>
+
    
   </details>
 
