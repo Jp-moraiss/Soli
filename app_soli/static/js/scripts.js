@@ -215,37 +215,37 @@ function calcularDuracao() {
 }
 
 function editarCultura(id) {
-    const culturaCard = document.querySelector(`#cultura-${id}`);
-    const nomeElement = culturaCard.querySelector('.cultura-nome');
-    const areaElement = culturaCard.querySelector('.cultura-area');
-    const linhaElement = culturaCard.querySelector('.cultura-linha');
-    const dataPlantioElement = culturaCard.querySelector('.data-plantio');
-    const dataColheitaElement = culturaCard.querySelector('.data-colheita');
-    const confirmButton = culturaCard.querySelector('.confirmar-edicao');
-    const editButton = culturaCard.querySelector('.editar-btn');
+    const card = document.querySelector(`#cultura-${id}`);
+    const areaSelect = card.querySelector('.cultura-area');
+    const linhaSelect = card.querySelector('.cultura-linha');
+    const dataPlantioInput = card.querySelector('.data-plantio');
+    const dataColheitaInput = card.querySelector('.data-colheita');
+    const editButton = card.querySelector('.editar-btn');
+    const confirmButton = card.querySelector('.confirmar-edicao');
 
-    if (nomeElement.isContentEditable) {
-        // Salvar as alterações
-        nomeElement.contentEditable = false;
-        areaElement.contentEditable = false;
-        linhaElement.contentEditable = false;
-        dataPlantioElement.disabled = true;
-        dataColheitaElement.disabled = true;
+    if (areaSelect.disabled) {
+        // Habilitar edição
+        areaSelect.disabled = false;
+        linhaSelect.disabled = false;
+        dataPlantioInput.disabled = false;
+        dataColheitaInput.disabled = false;
 
-        // Remover a classe de edição
-        nomeElement.classList.remove('editing');
-        areaElement.classList.remove('editing');
-        linhaElement.classList.remove('editing');
-        dataPlantioElement.classList.remove('editing');
-        dataColheitaElement.classList.remove('editing');
+        // Alterar visibilidade dos botões
+        editButton.style.display = 'none';
+        confirmButton.style.display = 'inline';
+    } else {
+        // Desabilitar edição e salvar as alterações
+        areaSelect.disabled = true;
+        linhaSelect.disabled = true;
+        dataPlantioInput.disabled = true;
+        dataColheitaInput.disabled = true;
 
         // Coletar os dados
         const dados = {
-            nome: nomeElement.innerText.split(' - ')[0],
-            area: areaElement.innerText.split(': ')[1],
-            linha: linhaElement.innerText.split(': ')[1],
-            data_plantio: dataPlantioElement.value,
-            data_colheita: dataColheitaElement.value
+            area: areaSelect.value,
+            linha: linhaSelect.value,
+            data_plantio: dataPlantioInput.value,
+            data_colheita: dataColheitaInput.value,
         };
 
         // Enviar os dados via AJAX
@@ -253,53 +253,25 @@ function editarCultura(id) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
+                'X-CSRFToken': '{{ csrf_token }}',
             },
-            body: JSON.stringify(dados)
+            body: JSON.stringify(dados),
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 alert('Cultura atualizada com sucesso!');
-
-                // Atualizar os elementos no DOM com as novas informações
-                nomeElement.innerText = `${dados.nome} - ${dados.data_plantio.split('-').reverse().join('/')}`;
-                areaElement.innerText = `Área: ${dados.area}`;
-                linhaElement.innerText = `Linhas: ${dados.linha}`;
-                dataPlantioElement.value = dados.data_plantio;
-                dataColheitaElement.value = dados.data_colheita;
-
-                const tempoRestante = calcularTempoRestante(new Date(dados.data_colheita));
-                culturaCard.querySelector('.tempo-restante').innerText = `Tempo restante: ${tempoRestante}`;
             } else {
-                alert('Falha ao atualizar a cultura.');
+                alert('Erro ao atualizar cultura.');
             }
         });
 
-        // Esconder o botão de confirmação e mostrar o de editar
-        confirmButton.style.display = 'none';
+        // Alterar visibilidade dos botões
         editButton.style.display = 'inline';
-    } else {
-        // Ativar a edição
-        nomeElement.contentEditable = true;
-        areaElement.contentEditable = true;
-        linhaElement.contentEditable = true;
-        dataPlantioElement.disabled = false;
-        dataColheitaElement.disabled = false;
-
-        // Adicionar a classe de edição
-        nomeElement.classList.add('editing');
-        areaElement.classList.add('editing');
-        linhaElement.classList.add('editing');
-        dataPlantioElement.classList.add('editing');
-        dataColheitaElement.classList.add('editing');
-
-        // Mostrar o botão de confirmação e esconder o de editar
-        confirmButton.style.display = 'inline';
-        editButton.style.display = 'none';
-        nomeElement.focus();
+        confirmButton.style.display = 'none';
     }
 }
+
 
 function calcularTempoRestante(dataColheita) {
     const agora = new Date();
