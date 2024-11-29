@@ -5,9 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar</title>
+    <title>SOLI | ADICIONAR</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"> 
     <script src="{% static 'js/scripts.js' %}"></script>
     <script>
         // Função para formatar datas
@@ -97,6 +98,12 @@
                         <option value="tomate">Tomate</option>
                         <option value="brocolis">Brócolis</option>
                         <option value="alface">Alface</option>
+                        <option value="cenoura">Cenoura</option>
+                        <option value="berinjela">Berinjela</option>
+                        <option value="milho">Milho</option>
+                        <option value="acerola">Acerola</option>
+                        <option value="limao">Limão</option>
+                        <option value="rucula">Rúcula</option>
                     </select>
                 </div>
     
@@ -147,7 +154,7 @@
                 <div class="container_data2">
                     <p>Duração:</p>
                     <div class="div_data_num">
-                        <input type="number" id="duracao" name="duracao" placeholder="..." class="input_number" onchange="calcularDataColheita()" min="0" required>
+                        <input type="number" id="duracao" name="duracao" placeholder="..." class="input_number" onchange="calcularDataColheita()" min="1" required>
                         <select name="unidade_duracao" id="unidade_duracao" class="select_atv" onchange="calcularDataColheita()">
                             <option value="dias">dias</option>
                             <option value="semanas">semanas</option>
@@ -166,7 +173,7 @@
                         <p>Irrigação:</p>
                         <div class="atv">
                             <p>A cada</p>
-                            <input type="number" name="irrigacao_frequencia" placeholder="..." class="input_number" min="0">
+                            <input type="number" name="irrigacao_frequencia" placeholder="..." class="input_number" min="1">
                             <select name="irrigacao_unidade" class="select_atv">
                                 <option value="dias">dias</option>
                                 <option value="semanas">semanas</option>
@@ -180,7 +187,7 @@
                         <p>Poda:</p>
                         <div class="atv">
                             <p>A cada</p>
-                            <input type="number" name="poda_frequencia" placeholder="..." class="input_number" min="0">
+                            <input type="number" name="poda_frequencia" placeholder="..." class="input_number" min="1">
                             <select name="poda_unidade" class="select_atv">
                                 <option value="dias">dias</option>
                                 <option value="semanas">semanas</option>

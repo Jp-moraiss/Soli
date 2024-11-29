@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
-from .views import editar_cultura, diario_view, salvar_diario, fetch_note_for_date
+from .views import editar_cultura, diario_view, salvar_diario, fetch_note_for_date, home, salvar_atividade, excluir_atividade, salvar_lembrete
+
+
+
 
 app_name = 'app_soli'
 
@@ -21,5 +24,7 @@ urlpatterns = [
     path('diario/', diario_view, name='diario'),
     path('salvar_diario/', salvar_diario, name='salvar_diario'),
     path('fetch_note_for_date/<str:date>/', fetch_note_for_date, name='fetch_note_for_date'),  # Add fetch_note_for_date path
-
+    path('salvar_atividade/<int:id>/', salvar_atividade, name='salvar_atividade'),
+    path('excluir_atividade/<int:id>/', excluir_atividade, name='excluir_atividade'),
+    path('salvar_atividade/<int:id>/', salvar_atividade, name='salvar_atividade'),
 ]

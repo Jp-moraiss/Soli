@@ -48,6 +48,20 @@
         .user-icon {
             width: 32px;
             height: 32px;
+            transition: transform 0.3s; /* Adiciona a transição */
+        }
+
+        .user-icon:hover {
+            transform: scale(1.2); /* Aumenta o ícone em 20% ao passar o mouse */
+        }
+
+        .user-icon svg {
+            transition: stroke 0.3s; /* Transição suave para stroke */
+        }
+
+        .user-icon:hover svg path,
+        .user-icon:hover svg circle {
+            stroke: #DE3900; /* Muda a cor do stroke ao passar o mouse */
         }
 
         .profile-menu {
@@ -115,11 +129,17 @@
             align-items: center;
             justify-content: center; /* Alinha os links mais para o meio */
             width: 100%; /* Faz os links ocuparem a largura total */
+            transition: 0.3s;
         }
 
-        .profile-options a:hover {
+        .historico:hover {
             text-decoration: none;
-            color: #00230B; /* Tom mais escuro de verde */
+            color: #6bc36b; 
+        }
+
+        .logout:hover {
+            text-decoration: none;
+            color: #DE3900;
         }
 
         .profile-options svg {
@@ -152,10 +172,10 @@
                 <p class="profile-email">{{ user.email }}</p>
             </div>
             <div class="profile-options">
-                <a href="{% url 'app_soli:meuhistorico' %}">
+                <a class="historico" href="{% url 'app_soli:meuhistorico' %}">
                     Meu histórico
                 </a>
-                <a href="{% url 'app_soli:login' %}">
+                <a class="logout" href="{% url 'app_soli:login' %}">
                     Logout
                 </a>
             </div>

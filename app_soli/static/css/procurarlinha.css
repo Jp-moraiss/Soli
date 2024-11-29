@@ -241,33 +241,54 @@ footer nav a {
 
 .botao {
     display: flex;
-    width: 200px;
-    height: 40px;
-    background-color: #ccc;
+    gap: 0.5rem;
+    width: fit-content;
+    height: fit-content;
     border-radius: 20px;
     text-decoration: none;
     color: black;
     font-weight: bold;
-    margin-bottom: 20px;
 }
 
-.parte-esquerda, .parte-direita {
+.botao a{
+    background: none;
+}
+
+.parte-esquerda,
+.parte-direita {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem 2rem;
+}
+
+.parte-esquerda{
+    background-color: #bbb;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.parte-esquerda:hover{
+    background-color: #ccc;
+}
+
+.parte-direita{
+    background-color: #818181;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.parte-direita:hover{
+    background-color: #6f6f6f; 
 }
 
 .ativo .parte-esquerda {
-    background-color: #666;
-}
-
-.ativo .parte-direita {
     background-color: transparent;
 }
 
-.botao:hover {
-    background-color: #bbb;
+.ativo .parte-direita {
+    background-color: #667
 }
 
 #no-results {

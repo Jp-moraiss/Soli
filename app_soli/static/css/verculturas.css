@@ -228,14 +228,17 @@ footer nav a {
 
 .botao {
     display: flex;
-    width: 200px;
-    height: 40px;
-    background-color: #ccc;
+    gap: 0.5rem;
+    width: fit-content;
+    height: fit-content;
     border-radius: 20px;
     text-decoration: none;
     color: black;
     font-weight: bold;
-    margin-bottom: 20px;
+}
+
+.botao a{
+    background: none;
 }
 
 .parte-esquerda,
@@ -244,18 +247,27 @@ footer nav a {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem 2rem;
 }
 
-.ativo .parte-esquerda {
-    background-color: #666;
+.parte-esquerda{
+    background-color: #818181;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
 }
 
-.ativo .parte-direita {
-    background-color: transparent;
+.parte-esquerda:hover{
+    background-color: #ccc;
 }
 
-.botao:hover {
+.parte-direita{
     background-color: #bbb;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.parte-direita:hover{
+    background-color: #ccc;  
 }
 
 #no-results {

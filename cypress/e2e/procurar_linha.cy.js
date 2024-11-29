@@ -31,14 +31,31 @@ describe("teste 'achar por linha'", () => {
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
         cy.wait(2000);
+        cy.get('[href="/add/"]').click();
+        cy.get('.input_cultura').select('Tomate');
+        cy.get('[name="area"]').select('C');
+        cy.get('[name="linha"]').select('3');
+        cy.get('.container_loc-desc > .span > input').type('Sementes de Daniel');
+        cy.get('#data_plantio').type('2024-11-23');
+        cy.get('#duracao').type('4');
+        cy.get('#unidade_duracao').select('meses');
+        cy.get(':nth-child(2) > .atv > .input_number').type('10');
+        cy.get(':nth-child(2) > .atv > .select_atv').select('dias');
+        cy.get(':nth-child(3) > .atv > .input_number').type('1');
+        cy.get(':nth-child(3) > .atv > .select_atv').select('semanas');
+        cy.get('.registrar_cultura').click();
+        cy.wait(2000);
         cy.get('[href="/verculturas/"]').click();
+        cy.wait(2000);
         cy.get('.parte-direita').click();
-        cy.get('#searchInput').type("2");
+        cy.wait(2000);
+        cy.get('#searchInput').type("3");
+        cy.wait(2000);
         cy.get('.btn').click();
         cy.wait(2000);
     });
 
-    it('cenario2 - busca não encontrada', () => {
+    it('cenario2 - nome não encontrado', () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();

@@ -300,32 +300,21 @@ def procurar_linhas_view(request):
 @csrf_exempt
 def editar_cultura(request, id):
     if request.method == 'POST':
-        data = json.loads(request.body)
-
         try:
-            # Tenta obter a cultura pelo ID
+            dados = json.loads(request.body)
             cultura = Cultura.objects.get(id=id)
-
-            # Atualiza os campos da cultura com os novos dados
-            cultura.nome = data['nome']
-            cultura.area = data['area']
-            cultura.linha = data['linha']
-            cultura.data_plantio = data['data_plantio']
-            cultura.data_colheita = data['data_colheita']
-
-            # Calcula o progresso e o tempo restante
-            cultura.progresso = calcular_progresso(cultura.data_plantio, cultura.data_colheita)
-            cultura.tempo_restante = calcular_tempo_restante(cultura.data_colheita)
-
-            # Salva as alterações no banco de dados
+            cultura.area = dados.get('area', cultura.area)
+            cultura.linha = dados.get('linha', cultura.linha)
+            cultura.data_plantio = dados.get('data_plantio', cultura.data_plantio)
+            cultura.data_colheita = dados.get('data_colheita', cultura.data_colheita)
             cultura.save()
-
-            return JsonResponse({'success': True, 'progresso': cultura.progresso})
-
+            return JsonResponse({'success': True})
         except Cultura.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Cultura não encontrada.'})
+            return JsonResponse({'success': False, 'error': 'Cultura não encontrada'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Método inválido'})
 
-    return JsonResponse({'success': False, 'error': 'Método não permitido.'})
 
 def procurarlinha(request):
     return render(request, 'procurarlinha.html')
@@ -352,17 +341,6 @@ def meuhistorico(request):
     ]
 
     return render(request, 'meuhistorico.html', {'culturas': culturas_com_imagens})
-
-@csrf_exempt
-def salvar_lembrete(request, lembrete_id):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        texto = data.get('text')
-        lembrete = get_object_or_404(Reminder, id=lembrete_id)
-        lembrete.text = texto
-        lembrete.save()
-        return JsonResponse({'success': True})
-    return JsonResponse({'success': False}, status=400)
 
 def cleanup_db(request):
     if not settings.DEBUG:
@@ -398,3 +376,44 @@ def fetch_note_for_date(request, date):
     notas = DiarioNota.objects.filter(data=date).order_by('timestamp')
     notas_list = [{'nota': nota.nota, 'foto': nota.foto.url if nota.foto else None} for nota in notas]
     return JsonResponse({'notas': notas_list})
+
+def excluir_atividade(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    atividade.delete()
+    return redirect('app_soli:home')
+
+    from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def salvar_atividade(request, id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_text = data.get('text').strip()
+        if new_text == '':
+            return JsonResponse({'success': False, 'error': 'O nome da atividade não pode estar vazio.'})
+
+        atividade = Atividade.objects.get(id=id)
+        atividade.nome = new_text
+        atividade.save()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+@csrf_exempt
+def salvar_lembrete(request, id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_text = data.get('text').strip()
+        if new_text == '':
+            return JsonResponse({'success': False, 'error': 'O nome do lembrete não pode estar vazio.'})
+        
+        reminder = Reminder.objects.get(id=id)
+        reminder.text = new_text
+        reminder.save()
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+

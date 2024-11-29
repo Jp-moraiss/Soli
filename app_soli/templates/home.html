@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previsão e Lembretes</title>
+    <title>SOLI | HOME</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -55,42 +56,52 @@
         </section>
 
         <section class="reminders">
-            <h2>Lembretes</h2>
-
-            <!-- Lembretes Automáticos de Atividades -->
-            <h3>Atividades Automáticas</h3>
+            <div class="lembretes-automaticos">
+                <h3>Lembretes Automáticos</h3>
+                <button class="edit_button" onclick="toggleEditAutomaticos()">
+                    <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit Automáticos">
+                </button>
+            </div>
             <ul>
                 {% for atividade in lembretes_atividades %}
-                <li class="reminder automatic-reminder">
-                    <label for="atividade{{ forloop.counter }}">
+                <li class="reminder automatic-reminder" id="atividade-{{ atividade.id }}">
+                    <label for="atividade-checkbox-{{ forloop.counter }}">
                         {{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )
                     </label>
-                    <input type="checkbox" id="atividade{{ forloop.counter }}" class="reminder-checkbox"
-                        onchange="toggleStrike(this)">
+                    <input type="checkbox" id="atividade-checkbox-{{ forloop.counter }}" class="reminder-checkbox" onchange="toggleStrike(this)">
+                    <div class="edit-options" style="display: none;">
+                        <input type="text" id="edit-text-atividade-{{ atividade.id }}" value="{{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )" required>
+                        <button onclick="saveEditAtividade({{ atividade.id }})">Salvar</button>
+                        <form action="{% url 'app_soli:excluir_atividade' atividade.id %}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
+                            {% csrf_token %}
+                            <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
+                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>
+                            </button>
+                        </form>
+                    </div>
                 </li>
                 {% empty %}
                 <li>Nenhuma atividade automática para exibir no momento.</li>
                 {% endfor %}
             </ul>
-
+            
+            
             <div class="hold_reminders">
                 <h3 class="h3-reminders">Lembretes Manuais</h3>
-                <button class="edit_button" onclick="toggleEditAll()">
-                    <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit">
+                <button class="edit_button" onclick="toggleEditManuais()">
+                    <img src="{% static 'SVGs/pencil.svg' %}" alt="Edit Manuais">
                 </button>
             </div>
-
+            
             <ul id="reminder-list">
                 {% for reminder in reminders %}
                 <li class="reminder" id="reminder-{{ reminder.id }}">
                     <label for="reminder-checkbox-{{ reminder.id }}">{{ reminder.text }}</label>
-                    <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox"
-                        onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
+                    <input type="checkbox" id="reminder-checkbox-{{ reminder.id }}" class="reminder-checkbox" onchange="toggleStrike(this)" {{ reminder.checked|yesno:"checked," }}>
                     <div class="edit-options" style="display: none;">
-                        <input type="text" id="edit-text-{{ reminder.id }}" value="{{ reminder.text }}" required>
-                        <button onclick="saveEdit({{ reminder.id }})">Salvar</button>
-                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST"
-                            style="display:inline;" onsubmit="return confirmarExclusao();">
+                        <input type="text" id="edit-text-reminder-{{ reminder.id }}" value="{{ reminder.text }}" required>
+                        <button onclick="saveEditReminder({{ reminder.id }})">Salvar</button>
+                        <form action="{% url 'app_soli:excluir_lembrete' reminder.id %}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
                             {% csrf_token %}
                             <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
                                 <i class="fas fa-trash" style="color: red; width: 20px;"></i>
@@ -99,7 +110,7 @@
                     </div>
                 </li>
                 {% endfor %}
-            </ul>
+            </ul>            
 
             <!-- Elemento para mensagem de feedback -->
             <div id="feedback-message" style="display: none; color: green; margin-top: 10px;"></div>

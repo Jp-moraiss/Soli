@@ -2,11 +2,13 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'segunda_app/css/add_commitment_page_styles.css' %}">
+<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 {% endblock %}
-{% include 'header.html' %}
+<title>SOLI | CALENDÁRIO</title>
 {% block sections %}
 <div class="container">
-<section>
+    {% include 'header.html' %}
+<section class="section1">
     <h1>Anotações - {{ selected_date }}</h1>
     <form action="{{ form_action }}" method="post">
         {% csrf_token %}
