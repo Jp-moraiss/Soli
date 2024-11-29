@@ -30,7 +30,8 @@ describe("teste 'achar por linha'", () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
-        cy.wait(2000);
+        cy.wait(1000);
+    
         cy.get('[href="/add/"]').click();
         cy.get('.input_cultura').select('Tomate');
         cy.get('[name="area"]').select('C');
@@ -44,21 +45,28 @@ describe("teste 'achar por linha'", () => {
         cy.get(':nth-child(3) > .atv > .input_number').type('1');
         cy.get(':nth-child(3) > .atv > .select_atv').select('semanas');
         cy.get('.registrar_cultura').click();
-        cy.wait(2000);
-        cy.get('[href="/verculturas/"]').click();  
-        cy.get('.editar-btn > .fas').first().click(); 
-        cy.wait(2000);
-        cy.get('.cultura-area').contains('Área: C').clear().type('Área: B');
-        cy.wait(2000);       
-        cy.get('.confirmar-edicao > .fas').first().click();
-        cy.wait(2000);
+        cy.wait(1000);
+    
+        cy.get('[href="/verculturas/"]').click();
+        cy.wait(1000);
+    
+        cy.get('.editar-btn').first().click();
+        cy.wait(1000);
+    
+        cy.get('.cultura-area').first().select('B');
+        cy.get('.confirmar-edicao').first().click();
+    
+        cy.wait(1000);
+        cy.get('.cultura-area').first().should('have.value', 'B');
     });
+    
 
     it('cenario2 - alterar as linhas', () => {
         cy.get('#username').type('cesar.school');
         cy.get('.password-wrapper').type('1234');
         cy.get('.submit-button').click();
-        cy.wait(2000);
+        cy.wait(1000);
+    
         cy.get('[href="/add/"]').click();
         cy.get('.input_cultura').select('Tomate');
         cy.get('[name="area"]').select('C');
@@ -72,15 +80,21 @@ describe("teste 'achar por linha'", () => {
         cy.get(':nth-child(3) > .atv > .input_number').type('1');
         cy.get(':nth-child(3) > .atv > .select_atv').select('semanas');
         cy.get('.registrar_cultura').click();
-        cy.wait(2000);
-        cy.get('[href="/verculturas/"]').click();  
-        cy.get('.editar-btn > .fas').first().click(); 
-        cy.wait(2000);
-        cy.get('.cultura-linha').contains('Linhas: 3').clear().type('Linhas: 2');
-        cy.wait(2000);       
-        cy.get('.confirmar-edicao > .fas').first().click();
-        cy.wait(2000);
+        cy.wait(1000);
+    
+        cy.get('[href="/verculturas/"]').click();
+        cy.wait(1000);
+    
+        cy.get('.editar-btn').first().click();
+        cy.wait(1000);
+    
+        cy.get('.cultura-linha').first().select('2');
+        cy.get('.confirmar-edicao').first().click();
+    
+        cy.wait(1000);
+        cy.get('.cultura-linha').first().should('have.value', '2');
     });
+    
 
     it('cenario3 - alterar data de plantio', () => {
         cy.get('#username').type('cesar.school');
