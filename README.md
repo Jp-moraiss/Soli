@@ -95,7 +95,7 @@
     <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a> 
   </li>
   <li>
-    <a href=>Apresentação SR2</a> FAZER
+    <a href=https://www.figma.com/slides/nFwFRpwq93yFYyWHBZEIVW/Untitled?node-id=133-199&t=VLb6SmFymtQqQUJz-1>Apresentação SR2</a> 
   </li>
 </ul>
 
