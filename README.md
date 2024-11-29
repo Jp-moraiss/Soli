@@ -75,10 +75,12 @@
 - [![Screencast CI/CD](https://img.shields.io/badge/Screencast_CI/CD-green?style=for-the-badge)](https://youtu.be/leGAHdq2Zjk)
 - [![Screencast Testes E2E](https://img.shields.io/badge/Screencast_Testes_E2E-darkorange?style=for-the-badge)](https://www.youtube.com/watch?v=TRPo9ezChnU)
 
-
-
-   
-  </details>
+<details>
+  <summary>Relato de Programação em Par</summary>
+  
+  <p>Durante o desenvolvimento do projeto, utilizamos a programação em par ocasionalmente, realizando chamadas pelo Discord, algumas vezes com mais de 2 integrantes. Essas sessões de programação em par foram úteis para resolver problemas complexos, aumentar a produtividade e motivação e garantir que ambos os desenvolvedores estivessem na mesma página sobre a implementação de funcionalidades críticas.</p>
+  <p>No entanto, optamos por não usar essa abordagem com frequência. Isso porque algumas vezes os horários de disponibilidade não batiam e outras vees porque o trabalho sozinho era mais simples. Sendo assim, a escolha do grupo foi priorizar o trabalho individual, permitindo que cada membro pudesse se concentrar em suas tarefas específicas de forma mais autônoma. Esse equilíbrio nos proporcionou flexibilidade, ao mesmo tempo em que aproveitávamos as vantagens da colaboração em momentos-chave do projeto. Em resumo, a programação em par foi um recurso valioso, mas não predominante, ajustado conforme a necessidade do time.</p>
+</details>
 
   <details>
     <summary> Equipe </summary>
