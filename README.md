@@ -86,10 +86,9 @@
 <summary>Print das issues</summary>
 <img width="960" alt = "soli" 
 src = "https://github.com/user-attachments/assets/aba29769-1863-4f2d-afae-4fcdedd00f80">
+  
 <img width="960" alt = "soli" 
-src = "![Screenshot_20241129_074451_Chrome](https://github.com/user-attachments/assets/632007c7-7d0f-43af-a733-0b8b02e221c9)
-
-">
+src = "https://github.com/user-attachments/assets/d1c4ad33-611d-4498-929b-5b294a537786">
 
 
 
