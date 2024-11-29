@@ -82,6 +82,17 @@
   <p>No entanto, optamos por não usar essa abordagem com frequência. Isso porque algumas vezes os horários de disponibilidade não batiam e outras vees porque o trabalho sozinho era mais simples. Sendo assim, a escolha do grupo foi priorizar o trabalho individual, permitindo que cada membro pudesse se concentrar em suas tarefas específicas de forma mais autônoma. Esse equilíbrio nos proporcionou flexibilidade, ao mesmo tempo em que aproveitávamos as vantagens da colaboração em momentos-chave do projeto. Em resumo, a programação em par foi um recurso valioso, mas não predominante, ajustado conforme a necessidade do time.</p>
 </details>
 
+<details>
+<summary>Print das issues</summary>
+<img width="960" alt = "soli" 
+src = "https://github.com/user-attachments/assets/aba29769-1863-4f2d-afae-4fcdedd00f80">
+<img width="960" alt = "soli" 
+src = "![Screenshot_20241129_074451_Chrome](https://github.com/user-attachments/assets/632007c7-7d0f-43af-a733-0b8b02e221c9)
+
+">
+
+
+
   <details>
     <summary> Equipe </summary>
     <br>
