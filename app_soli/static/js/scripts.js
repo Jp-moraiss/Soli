@@ -413,18 +413,12 @@ document.querySelectorAll('.password-toggle').forEach(button => {
 function toggleEditAutomaticos() {
     const automaticReminders = document.querySelectorAll('.automatic-reminder');
     automaticReminders.forEach(reminder => {
-        const editOptions = reminder.querySelector('.edit-options');
-        const label = reminder.querySelector('label');
-        const checkbox = reminder.querySelector('input[type="checkbox"]');
+        const deleteForm = reminder.querySelector('form');
         
-        if (editOptions.style.display === 'none') {
-            editOptions.style.display = 'flex';
-            label.style.display = 'none';
-            checkbox.style.display = 'none';
+        if (deleteForm.style.display === 'none') {
+            deleteForm.style.display = 'block';
         } else {
-            editOptions.style.display = 'none';
-            label.style.display = 'inline-block';
-            checkbox.style.display = 'inline-block';
+            deleteForm.style.display = 'none';
         }
     });
 }
@@ -500,7 +494,6 @@ function saveEditReminder(id) {
     });
 }
 
-// Função para obter o token CSRF
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -519,4 +512,26 @@ function getCookie(name) {
 function confirmarExclusao() {
     return confirm('Tem certeza de que deseja excluir este item?');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dateElement = document.getElementById('currentDate');
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('pt-BR', options);
+
+    // Capitaliza a primeira letra do dia e do mês
+    const capitalizedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
+    dateElement.textContent = capitalizedDate; // Atualiza o conteúdo da div com a data formatada
+});
+
+function toggleStrike(checkbox) {
+    const label = checkbox.previousElementSibling;
+    if (checkbox.checked) {
+        label.style.textDecoration = 'line-through';
+    } else {
+        label.style.textDecoration = 'none';
+    }
+}
+
 

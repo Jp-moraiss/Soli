@@ -69,21 +69,18 @@
                         {{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )
                     </label>
                     <input type="checkbox" id="atividade-checkbox-{{ forloop.counter }}" class="reminder-checkbox" onchange="toggleStrike(this)">
-                    <div class="edit-options" style="display: none;">
-                        <input type="text" id="edit-text-atividade-{{ atividade.id }}" value="{{ atividade.nome }} - A cada {{ atividade.frequencia }} {{ atividade.unidade_frequencia }} ({{atividade.cultura.nome }} na área {{ atividade.cultura.area }} linha {{ atividade.cultura.linha }} )" required>
-                        <button onclick="saveEditAtividade({{ atividade.id }})">Salvar</button>
-                        <form action="{% url 'app_soli:excluir_atividade' atividade.id %}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao();">
-                            {% csrf_token %}
-                            <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
-                                <i class="fas fa-trash" style="color: red; width: 20px;"></i>
-                            </button>
-                        </form>
-                    </div>
+                    <form action="{% url 'app_soli:excluir_atividade' atividade.id %}" method="POST" style="display: none;" onsubmit="return confirmarExclusao();">
+                        {% csrf_token %}
+                        <button type="submit" title="Excluir" style="border:none; background:none; cursor:pointer;">
+                            <i class="fas fa-trash" style="color: red; width: 20px;"></i>
+                        </button>
+                    </form>
                 </li>
                 {% empty %}
                 <li>Nenhuma atividade automática para exibir no momento.</li>
                 {% endfor %}
             </ul>
+            
             
             
             <div class="hold_reminders">
