@@ -43,61 +43,39 @@
     <summary> Entregas </summary>
     <br>
 
-  ## SR1
-  <ul>
-  <li>
-    <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
-  </li>
-  <li>
-    <a href=https://solii.azurewebsites.net/> Projeto no Azure </a>
-  </li>
-    <li>
-    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
-  </li>
-    <li>
-    <a href= https://www.figma.com/design/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=203-5106&node-type=canvas&t=cBu9eLt6sPMpZXCm-0> Protótipo de Baixa Fidelidade </a>
-  </li>
-  <li>
-    <a href=https://www.canva.com/design/DAGR5xQ9w7E/_GkGlgfhM4aPaMRp7L5tnQ/view?utm_content=DAGR5xQ9w7E&utm_campaign=designshare&utm_medium=link&utm_source=editor#1> Protótipo de Média Fidelidade </a>
-  </li>
-   <li>
-    <a href=https://drive.google.com/file/d/1Q3HtKww-fAeXLw0FFdEnYBAXwOex5T_3/view?usp=drive_link>Screencast - Protótipo</a>
-  </li>
-  <li>
-    <a href=https://drive.google.com/file/d/1J1CEi5omruilJOVKzwjWywF9sk7C5hcp/view?usp=drive_link>Screencast - Azure</a>
-  </li>
-  <li>
-    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a>
-  </li>
-  <li>
-    <a href=https://www.canva.com/design/DAGT2JFl8lI/2zvHTO7VBRy-iiGYfFIi3A/edit>Apresentação SR1</a>
-  </li>
-</ul>
+# SR1
 
-  ## SR2
-  <ul>
-  <li>
-    <a href=https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2> Projeto no Jira </a>
-  </li>
-  <li>
-    <a href=https://solii.azurewebsites.net/> Projeto no Azure </a>
-  </li>
-    <li>
-    <a href=https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit> Histórias de Usuário & Casos de Validação </a>
-  </li>
-    <li>
-    <a href=https://www.figma.com/proto/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=745-1023&node-type=canvas&m=dev&scaling=scale-down&content-scaling=fixed&page-id=203%3A5106&starting-point-node-id=632%3A630&show-proto-sidebar=1> Protótipo de Alta Fidelidade </a>
-  </li>
-   <li>
-    <a href=https://drive.google.com/drive/folders/1WNxEkzC31fS-TRQKb1DeOHa5euzQOO4e>Drive com os screencasts</a> 
-  </li>
-  <li>
-    <a href=https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit>Planejamento de Atividades do Sistema</a> 
-  </li>
-  <li>
-    <a href=https://www.figma.com/slides/nFwFRpwq93yFYyWHBZEIVW/Untitled?node-id=133-199&t=VLb6SmFymtQqQUJz-1>Apresentação SR2</a> 
-  </li>
-</ul>
+## Links Importantes
+
+- [![Projeto no Jira](https://img.shields.io/badge/Projeto_no_Jira-darkred?style=for-the-badge)](https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2)
+- [![Projeto no Azure](https://img.shields.io/badge/Projeto_no_Azure-green?style=for-the-badge)](https://solii.azurewebsites.net/)
+- [![Histórias de Usuário & Casos de Validação](https://img.shields.io/badge/Histórias_de_Usuário_&_Casos_de_Validação-darkorange?style=for-the-badge)](https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit)
+- [![Protótipo de Baixa Fidelidade](https://img.shields.io/badge/Protótipo_de_Baixa_Fidelidade-darkred?style=for-the-badge)](https://www.figma.com/design/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=203-5106&node-type=canvas&t=cBu9eLt6sPMpZXCm-0)
+- [![Protótipo de Média Fidelidade](https://img.shields.io/badge/Protótipo_de_Média_Fidelidade-green?style=for-the-badge)](https://www.canva.com/design/DAGR5xQ9w7E/_GkGlgfhM4aPaMRp7L5tnQ/view?utm_content=DAGR5xQ9w7E&utm_campaign=designshare&utm_medium=link&utm_source=editor#1)
+- [![Screencast - Protótipo](https://img.shields.io/badge/Screencast_Protótipo-darkorange?style=for-the-badge)](https://drive.google.com/file/d/1Q3HtKww-fAeXLw0FFdEnYBAXwOex5T_3/view?usp=drive_link)
+- [![Screencast - Azure](https://img.shields.io/badge/Screencast_Azure-darkred?style=for-the-badge)](https://drive.google.com/file/d/1J1CEi5omruilJOVKzwjWywF9sk7C5hcp/view?usp=drive_link)
+- [![Planejamento de Atividades do Sistema](https://img.shields.io/badge/Planejamento_de_Atividades_do_Sistema-green?style=for-the-badge)](https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit)
+- [![Apresentação SR1](https://img.shields.io/badge/Apresentação_SR1-darkorange?style=for-the-badge)](https://www.canva.com/design/DAGT2JFl8lI/2zvHTO7VBRy-iiGYfFIi3A/edit)
+
+
+# SR2
+
+## Links Importantes
+
+- [![Projeto no Jira](https://img.shields.io/badge/Projeto_no_Jira-darkred?style=for-the-badge)](https://lavisilva.atlassian.net/jira/software/projects/GRUPO14/boards/2)
+- [![Projeto no Azure](https://img.shields.io/badge/Projeto_no_Azure-green?style=for-the-badge)](https://solii.azurewebsites.net/)
+- [![Histórias de Usuário & Casos de Validação](https://img.shields.io/badge/Histórias_de_Usuário_&_Casos_de_Validação-darkorange?style=for-the-badge)](https://docs.google.com/document/d/1Nlfym9ceT_gdukjQM9eDqAuaPmE5F-kmyH7DdIoZtjk/edit)
+- [![Protótipo de Alta Fidelidade](https://img.shields.io/badge/Protótipo_de_Alta_Fidelidade-darkred?style=for-the-badge)](https://www.figma.com/proto/d1f6Stw0ryJXOjsPtcDlo7/Wireframes-Kit-%5BFree%5D-(Community)?node-id=745-1023&node-type=canvas&m=dev&scaling=scale-down&content-scaling=fixed&page-id=203%3A5106&starting-point-node-id=632%3A630&show-proto-sidebar=1)
+- [![Drive com os Screencasts](https://img.shields.io/badge/Drive_com_os_Screencasts-green?style=for-the-badge)](https://drive.google.com/drive/folders/1WNxEkzC31fS-TRQKb1DeOHa5euzQOO4e)
+- [![Planejamento de Atividades do Sistema](https://img.shields.io/badge/Planejamento_de_Atividades_do_Sistema-darkorange?style=for-the-badge)](https://docs.google.com/document/d/1BFCtaFfXhoWzzpZ2c3dUWWdhqzVSi1nI5xYj5QMgJI4/edit)
+- [![Apresentação SR2](https://img.shields.io/badge/Apresentação_SR2-darkred?style=for-the-badge)](https://www.figma.com/slides/nFwFRpwq93yFYyWHBZEIVW/Untitled?node-id=133-199&t=VLb6SmFymtQqQUJz-1)
+- [![Screencast Figma](https://img.shields.io/badge/Screencast_Figma-green?style=for-the-badge)](https://youtube.com/shorts/ZHwg5hVpICQ?feature=share)
+- [![Screencast Deploy Desktop](https://img.shields.io/badge/Screencast_Deploy_Desktop-darkorange?style=for-the-badge)](https://youtu.be/O4-VSurKzjQ)
+- [![Screencast Deploy Mobile](https://img.shields.io/badge/Screencast_Deploy_Mobile-darkred?style=for-the-badge)](https://youtu.be/xz1oM05wGcQ)
+- [![Screencast CI/CD](https://img.shields.io/badge/Screencast_CI/CD-green?style=for-the-badge)](https://youtu.be/leGAHdq2Zjk)
+- [![Screencast Testes E2E](https://img.shields.io/badge/Screencast_Testes_E2E-darkorange?style=for-the-badge)](https://www.youtube.com/watch?v=TRPo9ezChnU)
+
+
 
    
   </details>
