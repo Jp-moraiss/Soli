@@ -402,18 +402,17 @@ def salvar_atividade(request, id):
     return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
 
 @csrf_exempt
-def salvar_lembrete(request, id):
+def salvar_lembrete(request, lembrete_id):
     if request.method == 'POST':
         data = json.loads(request.body)
         new_text = data.get('text').strip()
         if new_text == '':
             return JsonResponse({'success': False, 'error': 'O nome do lembrete não pode estar vazio.'})
-        
-        reminder = Reminder.objects.get(id=id)
-        reminder.text = new_text
-        reminder.save()
+        texto = data.get('text')
+        lembrete = get_object_or_404(Reminder, id=lembrete_id)
+        lembrete.text = texto
+        lembrete.save()
         return JsonResponse({'success': True})
-    
-    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+    return JsonResponse({'success': False}, status=400)
 
 
