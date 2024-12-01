@@ -39,6 +39,13 @@
 - Agenda e lembretes
   
 ## Documentação 
+ <details>
+    <summary> Usuário Padrão (para avaliação) </summary>
+## Login: <br>
+   `userpadrao` <br><br>
+## Senha: <br>
+   `1234` <br>
+ </details>
   <details>
     <summary> Entregas </summary>
     <br>
