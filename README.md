@@ -40,10 +40,14 @@
   
 ## Documentação 
  <details>
-    <summary> Usuário Padrão (para avaliação) </summary>
-## Login: <br>
-   `userpadrao` <br><br>
-## Senha: <br>
+    <summary> Usuário Padrão Para Avaliação </summary>
+   
+## Login
+   
+   `userpadrao` <br>
+   
+## Senha
+   
    `1234` <br>
  </details>
   <details>
